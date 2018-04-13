@@ -15,6 +15,7 @@
 		0780949C2076F5ED00ADFBF3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0780949B2076F5ED00ADFBF3 /* main.m */; };
 		078094A62076F5ED00ADFBF3 /* WayMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094A52076F5ED00ADFBF3 /* WayMapTests.m */; };
 		078094B12076F5ED00ADFBF3 /* WayMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094B02076F5ED00ADFBF3 /* WayMapUITests.m */; };
+		078094C020805B9F00ADFBF3 /* TipsFirstTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094BF20805B9F00ADFBF3 /* TipsFirstTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		078094AC2076F5ED00ADFBF3 /* WayMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WayMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		078094B02076F5ED00ADFBF3 /* WayMapUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WayMapUITests.m; sourceTree = "<group>"; };
 		078094B22076F5ED00ADFBF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		078094BE20805B9F00ADFBF3 /* TipsFirstTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TipsFirstTableViewController.h; sourceTree = "<group>"; };
+		078094BF20805B9F00ADFBF3 /* TipsFirstTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TipsFirstTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,8 @@
 				0780948F2076F5EC00ADFBF3 /* ViewController.h */,
 				078094902076F5EC00ADFBF3 /* ViewController.m */,
 				078094922076F5EC00ADFBF3 /* Main.storyboard */,
+				078094BE20805B9F00ADFBF3 /* TipsFirstTableViewController.h */,
+				078094BF20805B9F00ADFBF3 /* TipsFirstTableViewController.m */,
 				078094952076F5ED00ADFBF3 /* Assets.xcassets */,
 				078094972076F5ED00ADFBF3 /* LaunchScreen.storyboard */,
 				0780949A2076F5ED00ADFBF3 /* Info.plist */,
@@ -265,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				078094C020805B9F00ADFBF3 /* TipsFirstTableViewController.m in Sources */,
 				078094912076F5EC00ADFBF3 /* ViewController.m in Sources */,
 				0780949C2076F5ED00ADFBF3 /* main.m in Sources */,
 				0780948E2076F5EC00ADFBF3 /* AppDelegate.m in Sources */,

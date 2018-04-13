@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Tips First Table View Controller-->
         <scene sceneID="Zoh-vy-WMv">
             <objects>
-                <tableViewController id="tBR-lh-FVI" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TipsFirstTableViewController" id="tBR-lh-FVI" customClass="TipsFirstTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="QUF-ak-1yR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
