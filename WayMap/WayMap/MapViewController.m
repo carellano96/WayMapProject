@@ -23,10 +23,7 @@
     [self mapView:MapView didSelectUserLocation:MapView.userLocation];
     // Do any additional setup after loading the view.
     //Fun new stuff
-    NSLog(@"New stuff added toooooo!");
-    NSLog(@"New stuff added threeeee!");
 
-    NSLog(@"Alot New stuff added toooooo!");
 
 }
 
