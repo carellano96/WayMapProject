@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
-
+<UITabBarControllerDelegate>
+@property (strong, nonatomic) NSMutableArray* categories;
 
 @end
 
