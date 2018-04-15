@@ -22,6 +22,7 @@
     MapView.showsUserLocation=YES;
     [self mapView:MapView didSelectUserLocation:MapView.userLocation];
     // Do any additional setup after loading the view.
+    //Fun new stuff
 }
 
 - (void)mapView:(MGLMapView *)mapView didSelectUserLocation:(MGLUserLocation*)location {
