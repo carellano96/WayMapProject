@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07706A6820828B5900C0A054 /* TipsSecondTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07706A6720828B5900C0A054 /* TipsSecondTableViewController.m */; };
+		07706A722082E8CC00C0A054 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07706A712082E8CB00C0A054 /* Mapbox.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		07706A732082E8CC00C0A054 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07706A712082E8CB00C0A054 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		07706A792082F01000C0A054 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07706A782082F01000C0A054 /* MapViewController.m */; };
 		0780948E2076F5EC00ADFBF3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0780948D2076F5EC00ADFBF3 /* AppDelegate.m */; };
-		078094912076F5EC00ADFBF3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094902076F5EC00ADFBF3 /* ViewController.m */; };
 		078094942076F5EC00ADFBF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 078094922076F5EC00ADFBF3 /* Main.storyboard */; };
 		078094962076F5ED00ADFBF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 078094952076F5ED00ADFBF3 /* Assets.xcassets */; };
 		078094992076F5ED00ADFBF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 078094972076F5ED00ADFBF3 /* LaunchScreen.storyboard */; };
 		0780949C2076F5ED00ADFBF3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0780949B2076F5ED00ADFBF3 /* main.m */; };
 		078094A62076F5ED00ADFBF3 /* WayMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094A52076F5ED00ADFBF3 /* WayMapTests.m */; };
 		078094B12076F5ED00ADFBF3 /* WayMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094B02076F5ED00ADFBF3 /* WayMapUITests.m */; };
+		078094C62082771700ADFBF3 /* TipsFirstTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094C52082771700ADFBF3 /* TipsFirstTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,12 +38,30 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		07706A742082E8CC00C0A054 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				07706A732082E8CC00C0A054 /* Mapbox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		07706A6620828B5900C0A054 /* TipsSecondTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TipsSecondTableViewController.h; sourceTree = "<group>"; };
+		07706A6720828B5900C0A054 /* TipsSecondTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TipsSecondTableViewController.m; sourceTree = "<group>"; };
+		07706A712082E8CB00C0A054 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
+		07706A762082ECF600C0A054 /* Mapbox.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Mapbox.framework.dSYM; sourceTree = "<group>"; };
+		07706A772082F01000C0A054 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		07706A782082F01000C0A054 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		078094892076F5EC00ADFBF3 /* WayMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WayMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0780948C2076F5EC00ADFBF3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0780948D2076F5EC00ADFBF3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0780948F2076F5EC00ADFBF3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		078094902076F5EC00ADFBF3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		078094932076F5EC00ADFBF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		078094952076F5ED00ADFBF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		078094982076F5ED00ADFBF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +73,8 @@
 		078094AC2076F5ED00ADFBF3 /* WayMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WayMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		078094B02076F5ED00ADFBF3 /* WayMapUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WayMapUITests.m; sourceTree = "<group>"; };
 		078094B22076F5ED00ADFBF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		078094C42082771700ADFBF3 /* TipsFirstTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TipsFirstTableViewController.h; sourceTree = "<group>"; };
+		078094C52082771700ADFBF3 /* TipsFirstTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TipsFirstTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07706A722082E8CC00C0A054 /* Mapbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +106,8 @@
 		078094802076F5EC00ADFBF3 = {
 			isa = PBXGroup;
 			children = (
+				07706A762082ECF600C0A054 /* Mapbox.framework.dSYM */,
+				07706A712082E8CB00C0A054 /* Mapbox.framework */,
 				0780948B2076F5EC00ADFBF3 /* WayMap */,
 				078094A42076F5ED00ADFBF3 /* WayMapTests */,
 				078094AF2076F5ED00ADFBF3 /* WayMapUITests */,
@@ -103,9 +130,13 @@
 			children = (
 				0780948C2076F5EC00ADFBF3 /* AppDelegate.h */,
 				0780948D2076F5EC00ADFBF3 /* AppDelegate.m */,
-				0780948F2076F5EC00ADFBF3 /* ViewController.h */,
-				078094902076F5EC00ADFBF3 /* ViewController.m */,
 				078094922076F5EC00ADFBF3 /* Main.storyboard */,
+				07706A6620828B5900C0A054 /* TipsSecondTableViewController.h */,
+				07706A6720828B5900C0A054 /* TipsSecondTableViewController.m */,
+				07706A772082F01000C0A054 /* MapViewController.h */,
+				07706A782082F01000C0A054 /* MapViewController.m */,
+				078094C42082771700ADFBF3 /* TipsFirstTableViewController.h */,
+				078094C52082771700ADFBF3 /* TipsFirstTableViewController.m */,
 				078094952076F5ED00ADFBF3 /* Assets.xcassets */,
 				078094972076F5ED00ADFBF3 /* LaunchScreen.storyboard */,
 				0780949A2076F5ED00ADFBF3 /* Info.plist */,
@@ -142,6 +173,8 @@
 				078094852076F5EC00ADFBF3 /* Sources */,
 				078094862076F5EC00ADFBF3 /* Frameworks */,
 				078094872076F5EC00ADFBF3 /* Resources */,
+				07706A742082E8CC00C0A054 /* Embed Frameworks */,
+				07706A752082E94500C0A054 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -260,12 +293,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		07706A752082E94500C0A054 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework/strip-frameworks.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		078094852076F5EC00ADFBF3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				078094912076F5EC00ADFBF3 /* ViewController.m in Sources */,
+				078094C62082771700ADFBF3 /* TipsFirstTableViewController.m in Sources */,
+				07706A6820828B5900C0A054 /* TipsSecondTableViewController.m in Sources */,
+				07706A792082F01000C0A054 /* MapViewController.m in Sources */,
 				0780949C2076F5ED00ADFBF3 /* main.m in Sources */,
 				0780948E2076F5EC00ADFBF3 /* AppDelegate.m in Sources */,
 			);
@@ -432,6 +484,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 59S3NEYJ77;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = WayMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nyu.WayMap;
@@ -446,6 +502,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 59S3NEYJ77;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = WayMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nyu.WayMap;
