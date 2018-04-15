@@ -14,14 +14,20 @@
 
 @implementation MapViewController
 @synthesize MapView;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     MapView.delegate=self;
     MapView.showsUserLocation=YES;
+    [self mapView:MapView didSelectUserLocation:MapView.userLocation];
     // Do any additional setup after loading the view.
 }
 
-
+- (void)mapView:(MGLMapView *)mapView didSelectUserLocation:(MGLUserLocation*)location {
+    MGLMapCamera *camera = [MGLMapCamera cameraLookingAtCenterCoordinate: location.coordinate fromDistance:4000 pitch:0 heading:0];
+    [mapView setCamera:camera animated:true];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -39,6 +45,6 @@
 
 - (IBAction)UserLocation:(id)sender {
     MGLMapCamera *camera = [MGLMapCamera cameraLookingAtCenterCoordinate:MapView.userLocation.coordinate fromDistance:4000 pitch:0 heading:0];
-    [MapView setCamera:camera animated:YES];
+    [MapView setCamera:camera animated:true];
 }
 @end
