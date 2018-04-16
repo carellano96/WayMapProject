@@ -10,14 +10,14 @@
 
 @interface MapViewController (){
     int _CurrentIndex;
-    const CLLocationAccuracy kCLLocationAccuracyBest;
-    CLLocationManager* locationManager;
+
     NSTimer *_timer;
     CLLocationCoordinate2D*coordinate;
 }
 @property (nonatomic) MGLShapeSource *polylineSource;
 @property (nonatomic) MGLPolyline *polyline;
 @property (nonatomic) NSMutableArray<CLLocation *> *locations;
+@property CLLocationManager* locationManager;
 @end
 
 @implementation MapViewController
@@ -29,23 +29,23 @@
     self.locations=[[NSMutableArray alloc] init];
      self.polylineSource = [[MGLShapeSource alloc] initWithIdentifier:@"polyline" features:@[] options:nil];
     CLLocationCoordinate2D coordinate;
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate=self;
-    locationManager.desiredAccuracy=kCLLocationAccuracyBest;
-    [locationManager startUpdatingLocation];
-    coordinate.latitude = locationManager.location.coordinate.latitude;
-    coordinate.longitude= locationManager.location.coordinate.longitude;
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate=self;
+    self.locationManager.desiredAccuracy=kCLLocationAccuracyBestForNavigation;
+    [self.locationManager startUpdatingLocation];
+    coordinate.latitude = self.locationManager.location.coordinate.latitude;
+    coordinate.longitude= self.locationManager.location.coordinate.longitude;
     MapView.delegate=self;
     MapView.showsUserLocation=YES;
     [MapView.self setUserTrackingMode:MGLUserTrackingModeFollow];
     [self mapView:MapView didSelectUserLocation:MapView.userLocation];
-    [locationManager requestAlwaysAuthorization];
+    [self.locationManager requestAlwaysAuthorization];
     
     // For use in foreground
-    [locationManager requestWhenInUseAuthorization];
+    [self.locationManager requestWhenInUseAuthorization];
     
 
-    [locationManager startUpdatingLocation];
+    [self.locationManager startUpdatingLocation];
     //[self.MapView setCenterCoordinate:MapView.userLocation.coordinate zoomLevel:11 animated:YES];
     // Do any additional setup after loading the view.
     //Fun new stuff
@@ -69,7 +69,7 @@
     layer.lineCap = [MGLStyleValue valueWithRawValue:[NSValue valueWithMGLLineCap:MGLLineCapRound]];
     layer.lineColor = [MGLStyleValue valueWithRawValue:[UIColor purpleColor]];
     layer.lineWidth = [MGLStyleValue valueWithInterpolationMode:MGLInterpolationModeExponential
-                                                    cameraStops: @{
+                                                        cameraStops: @{
                                                                    @14: [MGLStyleValue valueWithRawValue:@5],
                                                                    @18: [MGLStyleValue valueWithRawValue:@20]
                                                                    }
@@ -95,7 +95,8 @@
 
 -(void) updatePolylineWithLocations:(NSArray<CLLocation*>*)locations{
     CLLocationCoordinate2D coordinates[locations.count];
-    NSLog(@"Update Poly Line with Locations %lu",(unsigned long)[locations count]);
+    NSLog(@"Update Poly Line with Locations %lu",(unsigned long) locations.count);
+
     for (NSUInteger i = 0; i < locations.count; i++) {
         coordinates[i] = locations[i].coordinate;
     }
@@ -145,7 +146,7 @@
 */
 
 - (IBAction)UserLocation:(id)sender {
-    MGLMapCamera *camera = [MGLMapCamera cameraLookingAtCenterCoordinate:MapView.userLocation.coordinate fromDistance:4000 pitch:0 heading:0];
+    MGLMapCamera *camera = [MGLMapCamera cameraLookingAtCenterCoordinate:MapView.userLocation.coordinate fromDistance:1000 pitch:0 heading:0];
     [MapView setCamera:camera animated:true];
 }
 @end
