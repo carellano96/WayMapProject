@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @import Mapbox;
-@interface MapViewController : UIViewController <MGLMapViewDelegate>
+@interface MapViewController : UIViewController <MGLMapViewDelegate,CLLocationManagerDelegate>
 - (IBAction)UserLocation:(id)sender;
 @property (strong, nonatomic) IBOutlet MGLMapView *MapView;
 
