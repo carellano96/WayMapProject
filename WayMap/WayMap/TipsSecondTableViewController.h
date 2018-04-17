@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface TipsSecondTableViewController : UITableViewController<UITabBarControllerDelegate>
+@import Mapbox;
+@import MapKit;
+@import GooglePlaces;
+@import GooglePlacePicker;
+@interface TipsSecondTableViewController : UITableViewController<UITabBarControllerDelegate,UITableViewDelegate>
 @property (strong,nonatomic) NSString*LocationName;
 @property (strong,nonatomic) NSMutableArray*Food;
 @property (strong,nonatomic) NSMutableArray*Nature;
 @property (strong,nonatomic) NSMutableArray*Entertainment;
+@property (strong) GMSPlaceLikelihoodList* LikelyList;
+
 
 @end

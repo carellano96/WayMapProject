@@ -10,7 +10,10 @@
 @import Mapbox;
 @import MapKit;
 @import GooglePlaces;
-@interface MapViewController : UIViewController <MGLMapViewDelegate,CLLocationManagerDelegate>
+@import GooglePlacePicker;
+@interface MapViewController : UIViewController <MGLMapViewDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate,UITabBarDelegate>
 - (IBAction)UserLocation:(id)sender;
 @property (strong, nonatomic) IBOutlet MGLMapView *MapView;
+@property (strong,nonatomic) GMSPlaceLikelihoodList *LikelyList;
+
 @end

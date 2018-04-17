@@ -47,5 +47,7 @@
 	<string>pk.eyJ1IjoiY2FyZWxsYW5vOTYiLCJhIjoiY2pmendhMzdoNGljcDMybWRuODl0NXA5eSJ9.uCaGYgJrsMeeFBPZzjvlWQ</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Shows your location on the map and helps improve OpenStreetMap.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Shows your location on the map and helps improve OpenStreetMap!</string>
 </dict>
 </plist>
