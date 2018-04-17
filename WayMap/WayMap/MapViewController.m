@@ -8,6 +8,7 @@
 
 #import "MapViewController.h"
 #import "TipsFirstTableViewController.h"
+#import "TipsSecondTableViewController.h"
 
 @interface MapViewController (){
     int _CurrentIndex;
@@ -33,7 +34,6 @@
     LikelyList=[[GMSPlaceLikelihoodList alloc ]init];
     self.placesClient = [[GMSPlacesClient alloc] init];
     _CurrentIndex=0;
-    [super viewDidLoad];
     //creates an array of locations that will be stored for t
     self.locations=[[NSMutableArray alloc] init];
     //creates a line upon loading app
@@ -63,6 +63,7 @@
     // Do any additional setup after loading the view.
     //Fun new stuff
     
+    [super viewDidLoad];
 
 
     
@@ -196,6 +197,7 @@
         NSLog(@"Current Place name %@ at likelihood %g", place.name, likehood.likelihood);
     }
     NSLog(@"Count for MapView of LikelyList is:%d",count);
+    NSLog(@"type of delegate is %@",self.tabBarController.delegate);
     
 }
 
@@ -226,14 +228,30 @@
     MGLMapCamera *camera = [MGLMapCamera cameraLookingAtCenterCoordinate:MapView.userLocation.coordinate fromDistance:1000 pitch:0 heading:0];
     [MapView setCamera:camera animated:true];
 }
--(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+
+-(void) viewWillAppear:(BOOL)animated{
+    self.tabBarController.delegate=self;
+    
+}
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     NSLog(@"TYPE OF CONTROLLER:%@",NSStringFromClass([viewController class]));
     if ([viewController isKindOfClass:[UINavigationController class]]){
         UINavigationController*Tips1 = (UINavigationController*)viewController;
-        TipsFirstTableViewController*Tips=(TipsFirstTableViewController*)Tips1.visibleViewController;
+        if ([Tips1.visibleViewController isKindOfClass:[TipsFirstTableViewController class]]){TipsFirstTableViewController*Tips=(TipsFirstTableViewController*)Tips1.visibleViewController;
         Tips.LikelyList=self.LikelyList;
         NSLog(@"Switching view controllers to TipsFirst");
-        
+            }
+        else if ([Tips1.visibleViewController isKindOfClass:[TipsSecondTableViewController class]]){
+            TipsSecondTableViewController *Tips2 = (TipsSecondTableViewController*)Tips1.visibleViewController;
+            Tips2.LikelyList=self.LikelyList;
+            NSLog(@"Switching view controllers to SecondTipsFirst");
+
+        }
+        else{
+            NSLog(@"Type of current view %@",NSStringFromClass([Tips1.visibleViewController class]));
+        }
     }
+    
+    return YES;
 }
 @end
