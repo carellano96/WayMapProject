@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 @import Mapbox;
+@import MapKit;
+@import GooglePlaces;
 @interface MapViewController : UIViewController <MGLMapViewDelegate,CLLocationManagerDelegate>
 - (IBAction)UserLocation:(id)sender;
 @property (strong, nonatomic) IBOutlet MGLMapView *MapView;
-
 @end
