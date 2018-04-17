@@ -13,7 +13,9 @@
 
     NSTimer *_timer;
     CLLocationCoordinate2D*coordinate;
+    
 }
+
 @property (nonatomic) MGLShapeSource *polylineSource;
 @property (nonatomic) MGLPolyline *polyline;
 @property (nonatomic) NSMutableArray<CLLocation *> *locations;
@@ -26,6 +28,7 @@
 - (void)viewDidLoad {
     _CurrentIndex=0;
     [super viewDidLoad];
+    
     self.locations=[[NSMutableArray alloc] init];
      self.polylineSource = [[MGLShapeSource alloc] initWithIdentifier:@"polyline" features:@[] options:nil];
     CLLocationCoordinate2D coordinate;
@@ -46,6 +49,7 @@
     
 
     [self.locationManager startUpdatingLocation];
+    
     //[self.MapView setCenterCoordinate:MapView.userLocation.coordinate zoomLevel:11 animated:YES];
     // Do any additional setup after loading the view.
     //Fun new stuff
@@ -62,7 +66,6 @@
 - (void)addLayer:(MGLShapeSource *)source {
     // Add an empty MGLShapeSource, we’ll keep a reference to this and add points to this later.
     [self.MapView.style addSource:self.polylineSource];
-    
     // Add a layer to style our polyline.
     MGLLineStyleLayer *layer = [[MGLLineStyleLayer alloc] initWithIdentifier:@"polyline" source:source];
     layer.lineJoin = [MGLStyleValue valueWithRawValue:[NSValue valueWithMGLLineJoin:MGLLineJoinRound]];
@@ -119,6 +122,8 @@
 
     CLLocation*location = [locations lastObject];
     [self.locations addObject:location];
+    CLCircularRegion *region =[[CLCircularRegion alloc] initWithCenter:location.coordinate radius:500 identifier:@"CurrentRegion"];
+    
     NSLog(@"Main Location Updating %lu",(unsigned long)[self.locations count]);
 
     [self animatePolyline];

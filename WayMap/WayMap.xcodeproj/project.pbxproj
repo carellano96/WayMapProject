@@ -19,6 +19,9 @@
 		078094A62076F5ED00ADFBF3 /* WayMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094A52076F5ED00ADFBF3 /* WayMapTests.m */; };
 		078094B12076F5ED00ADFBF3 /* WayMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094B02076F5ED00ADFBF3 /* WayMapUITests.m */; };
 		078094C62082771700ADFBF3 /* TipsFirstTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094C52082771700ADFBF3 /* TipsFirstTableViewController.m */; };
+		2BB1C1DF22B1F35AA12499DF /* libPods-WayMapTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69F22FBD2309671A393AB9A7 /* libPods-WayMapTests.a */; };
+		34604AED24512110E9DB0ED9 /* libPods-WayMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8CBC8032AD1D5EC4F3A1A0 /* libPods-WayMap.a */; };
+		8AD4AAA63BCC37CAF50954CB /* libPods-WayMapUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F272E2B9B719845F587B5D /* libPods-WayMapUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +78,15 @@
 		078094B22076F5ED00ADFBF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		078094C42082771700ADFBF3 /* TipsFirstTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TipsFirstTableViewController.h; sourceTree = "<group>"; };
 		078094C52082771700ADFBF3 /* TipsFirstTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TipsFirstTableViewController.m; sourceTree = "<group>"; };
+		09F272E2B9B719845F587B5D /* libPods-WayMapUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WayMapUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27B4FA9384FBC3BDB84E81E1 /* Pods-WayMapUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayMapUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WayMapUITests/Pods-WayMapUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		38718CBB2C9940B76DDB47F5 /* Pods-WayMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayMapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WayMapTests/Pods-WayMapTests.release.xcconfig"; sourceTree = "<group>"; };
+		65FA49259CFB0366A06FFE86 /* Pods-WayMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WayMap/Pods-WayMap.debug.xcconfig"; sourceTree = "<group>"; };
+		69F22FBD2309671A393AB9A7 /* libPods-WayMapTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WayMapTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA8CBC8032AD1D5EC4F3A1A0 /* libPods-WayMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WayMap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB4D2FDE71C24BB6F725BE22 /* Pods-WayMapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayMapTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WayMapTests/Pods-WayMapTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F47D8E3617BF77436E75C0BD /* Pods-WayMapUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayMapUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WayMapUITests/Pods-WayMapUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F54202CECEF46A6750A33D57 /* Pods-WayMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-WayMap/Pods-WayMap.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +95,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07706A722082E8CC00C0A054 /* Mapbox.framework in Frameworks */,
+				34604AED24512110E9DB0ED9 /* libPods-WayMap.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BB1C1DF22B1F35AA12499DF /* libPods-WayMapTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AD4AAA63BCC37CAF50954CB /* libPods-WayMapUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +127,8 @@
 				078094A42076F5ED00ADFBF3 /* WayMapTests */,
 				078094AF2076F5ED00ADFBF3 /* WayMapUITests */,
 				0780948A2076F5EC00ADFBF3 /* Products */,
+				A42B4A3E2CE028FE84F44A37 /* Pods */,
+				CB7E03966FD7EDB232469CCE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -163,6 +180,29 @@
 			path = WayMapUITests;
 			sourceTree = "<group>";
 		};
+		A42B4A3E2CE028FE84F44A37 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				65FA49259CFB0366A06FFE86 /* Pods-WayMap.debug.xcconfig */,
+				F54202CECEF46A6750A33D57 /* Pods-WayMap.release.xcconfig */,
+				AB4D2FDE71C24BB6F725BE22 /* Pods-WayMapTests.debug.xcconfig */,
+				38718CBB2C9940B76DDB47F5 /* Pods-WayMapTests.release.xcconfig */,
+				27B4FA9384FBC3BDB84E81E1 /* Pods-WayMapUITests.debug.xcconfig */,
+				F47D8E3617BF77436E75C0BD /* Pods-WayMapUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CB7E03966FD7EDB232469CCE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA8CBC8032AD1D5EC4F3A1A0 /* libPods-WayMap.a */,
+				69F22FBD2309671A393AB9A7 /* libPods-WayMapTests.a */,
+				09F272E2B9B719845F587B5D /* libPods-WayMapUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -170,11 +210,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 078094B52076F5ED00ADFBF3 /* Build configuration list for PBXNativeTarget "WayMap" */;
 			buildPhases = (
+				998EBD5CD1F690D8E64C1289 /* [CP] Check Pods Manifest.lock */,
 				078094852076F5EC00ADFBF3 /* Sources */,
 				078094862076F5EC00ADFBF3 /* Frameworks */,
 				078094872076F5EC00ADFBF3 /* Resources */,
 				07706A742082E8CC00C0A054 /* Embed Frameworks */,
 				07706A752082E94500C0A054 /* Run Script */,
+				2695AC043B7F666013F673C0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -189,6 +231,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 078094B82076F5ED00ADFBF3 /* Build configuration list for PBXNativeTarget "WayMapTests" */;
 			buildPhases = (
+				454FDFFBEFFBAB779BE7AA0A /* [CP] Check Pods Manifest.lock */,
 				0780949D2076F5ED00ADFBF3 /* Sources */,
 				0780949E2076F5ED00ADFBF3 /* Frameworks */,
 				0780949F2076F5ED00ADFBF3 /* Resources */,
@@ -207,6 +250,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 078094BB2076F5ED00ADFBF3 /* Build configuration list for PBXNativeTarget "WayMapUITests" */;
 			buildPhases = (
+				9718F348F25354299B31367E /* [CP] Check Pods Manifest.lock */,
 				078094A82076F5ED00ADFBF3 /* Sources */,
 				078094A92076F5ED00ADFBF3 /* Frameworks */,
 				078094AA2076F5ED00ADFBF3 /* Resources */,
@@ -307,6 +351,82 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework/strip-frameworks.sh\"";
+		};
+		2695AC043B7F666013F673C0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WayMap/Pods-WayMap-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WayMap/Pods-WayMap-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		454FDFFBEFFBAB779BE7AA0A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WayMapTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9718F348F25354299B31367E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WayMapUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		998EBD5CD1F690D8E64C1289 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WayMap-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -480,6 +600,7 @@
 		};
 		078094B62076F5ED00ADFBF3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65FA49259CFB0366A06FFE86 /* Pods-WayMap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -498,6 +619,7 @@
 		};
 		078094B72076F5ED00ADFBF3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F54202CECEF46A6750A33D57 /* Pods-WayMap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -516,6 +638,7 @@
 		};
 		078094B92076F5ED00ADFBF3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB4D2FDE71C24BB6F725BE22 /* Pods-WayMapTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -531,6 +654,7 @@
 		};
 		078094BA2076F5ED00ADFBF3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38718CBB2C9940B76DDB47F5 /* Pods-WayMapTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -546,6 +670,7 @@
 		};
 		078094BC2076F5ED00ADFBF3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27B4FA9384FBC3BDB84E81E1 /* Pods-WayMapUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 59S3NEYJ77;
@@ -560,6 +685,7 @@
 		};
 		078094BD2076F5ED00ADFBF3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F47D8E3617BF77436E75C0BD /* Pods-WayMapUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 59S3NEYJ77;
