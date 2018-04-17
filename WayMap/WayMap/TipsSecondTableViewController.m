@@ -13,7 +13,7 @@
 @end
 
 @implementation TipsSecondTableViewController
-@synthesize Food,Nature,Entertainment;
+@synthesize Food,Nature,Entertainment,LikelyList;
 - (id) initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
     if (self){
@@ -39,11 +39,29 @@
     [Entertainment addObject:@"AMC"];
     [Entertainment addObject:@"Regal"];
     [Entertainment addObject:@"the QUAD"];
+    
     // Uncomment the following line to presrve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    int count=0;
+    for (GMSPlaceLikelihood *likehood in LikelyList.likelihoods){
+        count++;        
+        NSLog(@"ADDED TO FOOD ARRAY!");
+        GMSPlace* place = likehood.place;
+        [Food addObject:place.name];
+        NSLog(@"Current Place name %@ at likelihood %g", place.name, likehood.likelihood);
+
+    }
+    NSLog(@"COUNTFOR: %d",count);
+    
+    [self.tableView reloadData];
+
 }
 
 - (void)didReceiveMemoryWarning {

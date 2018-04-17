@@ -11,9 +11,10 @@
 #import "TipsSecondTableViewController.h"
 @interface TipsFirstTableViewController ()
 
+
 @end
 @implementation TipsFirstTableViewController
-@synthesize categories;
+@synthesize categories,LikelyList;
 NSIndexPath* SelectedIndexPath;
 - (id) initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
@@ -41,6 +42,21 @@ NSIndexPath* SelectedIndexPath;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    int count=0;
+    for (GMSPlaceLikelihood *likehood in LikelyList.likelihoods){
+        count++;
+        NSLog(@"ADDED TO FOOD ARRAY!");
+        GMSPlace* place = likehood.place;
+        NSLog(@"Current Place name %@ at likelihood %g", place.name, likehood.likelihood);
+        
+    }
+    NSLog(@"COUNTFOR1: %d",count);
+    
+    [self.tableView reloadData];
+    
 }
 
 
@@ -73,6 +89,7 @@ NSIndexPath* SelectedIndexPath;
 
 
 - (BOOL) tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    NSLog(@"Switching from tips to map");
     if ([viewController isKindOfClass:[MapViewController class]]){
         MapViewController *Map = (MapViewController* ) viewController;
     }
@@ -124,6 +141,7 @@ NSIndexPath* SelectedIndexPath;
          TipsSecondTableViewController *SecTip = [segue destinationViewController];
          SecTip.LocationName=[categories objectAtIndex:SelectedIndexPath.row];
          SecTip.title=SecTip.LocationName;
+         SecTip.LikelyList=LikelyList;
      }
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.

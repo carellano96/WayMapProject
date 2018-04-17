@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface TipsFirstTableViewController : UITableViewController <UITabBarControllerDelegate>
+@import Mapbox;
+@import MapKit;
+@import GooglePlaces;
+@import GooglePlacePicker;
+@interface TipsFirstTableViewController : UITableViewController <UITabBarControllerDelegate,UITabBarDelegate>
 @property (strong,nonatomic) NSMutableArray*categories;
+@property (strong) GMSPlaceLikelihoodList* LikelyList;
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 @end
