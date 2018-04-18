@@ -45,6 +45,7 @@ NSIndexPath* SelectedIndexPath;
 }
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.tabBarController.delegate=self;
     int count=0;
     for (GMSPlaceLikelihood *likehood in LikelyList.likelihoods){
         count++;
@@ -89,9 +90,10 @@ NSIndexPath* SelectedIndexPath;
 
 
 - (BOOL) tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
-    NSLog(@"Switching from tips to map");
     if ([viewController isKindOfClass:[MapViewController class]]){
         MapViewController *Map = (MapViewController* ) viewController;
+        NSLog(@"Switching from tips to map");
+
     }
     return YES;
 }
