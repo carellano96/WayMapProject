@@ -83,6 +83,7 @@ NSIndexPath* SelectedIndexPath;
         [categories addObject:@"Culture"];
         
     }if ([Entertainment count]!=0){
+        NSLog(@"Entertainment is: %lu",[Entertainment count]);
         [categories addObject:@"Entertainment"];
         
     }
@@ -131,7 +132,9 @@ NSIndexPath* SelectedIndexPath;
             }
             else if ([type isEqualToString:@"aquarium"]||[type isEqualToString:@"casino"]||[type isEqualToString:@"bowling_alley"]||[type isEqualToString:@"amusement_park"]||[type isEqualToString:@"zoo"]||[type isEqualToString:@"art_gallery"]||[type isEqualToString:@"bar"]||[type isEqualToString:@"campground"]||[type isEqualToString:@"night_club"]||[type isEqualToString:@"movie_rental"]||[type isEqualToString:@"movie_theater"]||[type isEqualToString:@"stadium"]){
                 if (![Entertainment containsObject:place.name]){
-                    [Entertainment addObject:place.name];}
+                    [Entertainment addObject:place.name];
+                    NSLog(@"count for entertain: %@ %lu",place.name,[Entertainment count]);
+                }
             }
             else if ([type isEqualToString:@"synagogue"]||[type isEqualToString:@"hindu_temple"]||[type isEqualToString:@"church"]||[type isEqualToString:@"city_hall"]||[type isEqualToString:@"mosque"]){
                 if (![Culture containsObject:place.name]){
@@ -255,6 +258,8 @@ NSIndexPath* SelectedIndexPath;
          SecTip.Leisure=Leisure;
          SecTip.Lifestyle=Lifestyle;
          SecTip.Culture=Culture;
+         SecTip.Entertainment=Entertainment;
+         SecTip.Financial=Financial;
      }
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.

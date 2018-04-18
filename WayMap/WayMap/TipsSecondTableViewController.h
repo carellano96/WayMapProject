@@ -35,6 +35,5 @@
  [categories addObject:@"Entertainment"];
  [categories addObject:@"Nature"];
  [categories addObject:@"Other"];*/
-- (void) CategorizeLocations
-:(GMSPlaceLikelihoodList*)LikelyList;
+
 @end
