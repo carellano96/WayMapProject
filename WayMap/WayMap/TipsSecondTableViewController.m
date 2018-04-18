@@ -13,7 +13,7 @@
 @end
 
 @implementation TipsSecondTableViewController
-@synthesize Food,Nature,Entertainment,LikelyList;
+@synthesize Food,Lifestyle,Culture,Entertainment,Leisure,Other,Shopping,LikelyList,Transportation,Occupational,Financial;
 - (id) initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
     if (self){
@@ -25,20 +25,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    Food = [[NSMutableArray alloc]init];
-    //add objects here
-    [Food addObject:@"Halal"];
-    [Food addObject:@"McDonalds"];
-    [Food addObject:@"Five Guys"];
-    Nature = [[NSMutableArray alloc]init];
-    //add more objects here 
-    [Nature addObject:@"WSP"];
-    [Nature addObject:@"Central Park"];
-    [Nature addObject:@"Gramercy Park"];
-    Entertainment = [[NSMutableArray alloc]init];
-    [Entertainment addObject:@"AMC"];
-    [Entertainment addObject:@"Regal"];
-    [Entertainment addObject:@"the QUAD"];
     
     // Uncomment the following line to presrve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -49,20 +35,11 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    int count=0;
-    for (GMSPlaceLikelihood *likehood in LikelyList.likelihoods){
-        count++;        
-        NSLog(@"ADDED TO FOOD ARRAY!");
-        GMSPlace* place = likehood.place;
-        [Food addObject:place.name];
-        NSLog(@"Current Place name %@ at likelihood %g", place.name, likehood.likelihood);
-
-    }
-    NSLog(@"COUNTFOR: %d",count);
-    
+    self.tabBarController.delegate=self;
     [self.tableView reloadData];
 
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -79,12 +56,26 @@
     if ([_LocationName isEqualToString:@"Food"]){
         return [Food count];
     }
-    if ([_LocationName isEqualToString:@"Nature"]){
-        return [Nature count];
+    if ([_LocationName isEqualToString:@"Leisure"]){
+        return [Leisure count];
     }
     else if ([_LocationName isEqualToString:@"Entertainment"]){
         return [Entertainment count];
+    }else if ([_LocationName isEqualToString:@"Culture"]){
+        return [Culture count];
+    }else if ([_LocationName isEqualToString:@"Financial"]){
+        return [Financial count];}
+    else if ([_LocationName isEqualToString:@"Transportation"]){
+        return [Transportation count];}else if ([_LocationName isEqualToString:@"Occupational"]){
+            return [Occupational count];}
+        else if ([_LocationName isEqualToString:@"Lifestyle"]){
+            return [Lifestyle count];}
+    else if ([_LocationName isEqualToString:@"Shopping"]){
+        return [Shopping count];}
+else if ([_LocationName isEqualToString:@"Other"]){
+        return [Other count];
     }
+    
     return 0;
 }
 
@@ -97,11 +88,28 @@
     if ([_LocationName isEqualToString:@"Food"]){
         cell.textLabel.text = [self.Food objectAtIndex:indexPath.row];
     }
-    if ([_LocationName isEqualToString:@"Nature"]){
-        cell.textLabel.text = [self.Nature objectAtIndex:indexPath.row];
+    else if ([_LocationName isEqualToString:@"Leisure"]){
+        cell.textLabel.text = [self.Leisure objectAtIndex:indexPath.row];
+    }else if ([_LocationName isEqualToString:@"Lifestyle"]){
+        cell.textLabel.text = [self.Lifestyle objectAtIndex:indexPath.row];
     }
     else if ([_LocationName isEqualToString:@"Entertainment"]){
         cell.textLabel.text = [self.Entertainment objectAtIndex:indexPath.row];
+    }
+else if ([_LocationName isEqualToString:@"Financial"]){
+        cell.textLabel.text = [self.Financial objectAtIndex:indexPath.row];
+}else if ([_LocationName isEqualToString:@"Transportation"]){
+    cell.textLabel.text = [self.Transportation objectAtIndex:indexPath.row];
+}else if ([_LocationName isEqualToString:@"Occupational"]){
+    cell.textLabel.text = [self.Occupational objectAtIndex:indexPath.row];
+}else if ([_LocationName isEqualToString:@"Culture"]){
+        cell.textLabel.text = [self.Culture objectAtIndex:indexPath.row];
+    }
+    else if ([_LocationName isEqualToString:@"Other"]){
+        cell.textLabel.text = [self.Other objectAtIndex:indexPath.row];
+    }
+    else if ([_LocationName isEqualToString:@"Shopping"]){
+        cell.textLabel.text = [self.Shopping objectAtIndex:indexPath.row];
     }
     
     // Configure the cell...

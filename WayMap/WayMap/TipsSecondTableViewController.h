@@ -14,9 +14,27 @@
 @interface TipsSecondTableViewController : UITableViewController<UITabBarControllerDelegate,UITableViewDelegate>
 @property (strong,nonatomic) NSString*LocationName;
 @property (strong,nonatomic) NSMutableArray*Food;
-@property (strong,nonatomic) NSMutableArray*Nature;
+@property (strong,nonatomic) NSMutableArray*Leisure;
 @property (strong,nonatomic) NSMutableArray*Entertainment;
+@property (strong,nonatomic) NSMutableArray*Culture;
+@property (strong,nonatomic) NSMutableArray*Other;
+@property (strong,nonatomic) NSMutableArray*Shopping;
+@property (strong,nonatomic) NSMutableArray*Transportation;
+@property (strong,nonatomic) NSMutableArray*Financial;
+@property (strong,nonatomic) NSMutableArray*Occupational;
+@property (strong,nonatomic) NSMutableArray*ServicesOther;
+
+@property (strong,nonatomic) NSMutableArray*Lifestyle;
+
+
 @property (strong) GMSPlaceLikelihoodList* LikelyList;
-
-
+/*[categories addObject:@"Food"];
+ [categories addObject:@"Bars"];
+ [categories addObject:@"Shopping"];
+ [categories addObject:@"Culture"];
+ [categories addObject:@"Entertainment"];
+ [categories addObject:@"Nature"];
+ [categories addObject:@"Other"];*/
+- (void) CategorizeLocations
+:(GMSPlaceLikelihoodList*)LikelyList;
 @end
