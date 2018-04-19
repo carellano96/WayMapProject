@@ -14,8 +14,8 @@
 
 @end
 @implementation TipsFirstTableViewController
-@synthesize categories,LikelyList,Transportation,Occupational,Financial,Food,Lifestyle,Culture,Entertainment,Leisure,Other,Shopping,Tips1;
-NSIndexPath* SelectedIndexPath;
+@synthesize categories,LikelyList,Transportation,Occupational,Financial,Food,Lifestyle,Culture,Entertainment,Leisure,Other,Shopping,Tips1,userLocation,SelectedPlace;
+NSString* SelectedIndexPath;
 - (id) initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
     if (self){
@@ -27,9 +27,10 @@ NSIndexPath* SelectedIndexPath;
 }
 
 - (void)viewDidLoad {
+    userLocation=[[CLLocation alloc ]init];
     categories = [[NSMutableArray alloc] init];
     self.tabBarController.delegate=self;
-    
+    SelectedIndexPath = [[NSString alloc ]init];
     [super viewDidLoad];
     
     
@@ -53,6 +54,7 @@ NSIndexPath* SelectedIndexPath;
     Entertainment = [[NSMutableArray alloc ]init];
     Lifestyle = [[NSMutableArray alloc ]init];
     Shopping = [[NSMutableArray alloc ]init];
+    SelectedPlace=[[GooglePlace alloc]init];
     self.tabBarController.delegate=self;
     int count=0;
     for (GMSPlaceLikelihood *likehood in LikelyList.likelihoods){
@@ -107,58 +109,61 @@ NSIndexPath* SelectedIndexPath;
 :(GMSPlaceLikelihoodList*)LikelyList{
     for (GMSPlaceLikelihood *likehood in LikelyList.likelihoods){
         NSLog(@"ADDED TO FOOD ARRAY!");
-        GMSPlace* place = likehood.place;
+        GMSPlace* CurrentPlace = likehood.place;
+        GooglePlace* place = [[GooglePlace alloc] init];
+        [place Initiate:CurrentPlace.name:CurrentPlace.placeID :CurrentPlace.coordinate :CurrentPlace.types :CurrentPlace.openNowStatus :CurrentPlace.phoneNumber :CurrentPlace.formattedAddress :CurrentPlace.rating :CurrentPlace.priceLevel :CurrentPlace.website];
         NSArray *typeplace = place.types;
         NSLog(@"PLACE TYPE for %@",place.name);
         for (NSString* type in typeplace){
+            NSLog(@"iterating through stuff");
             if ([type isEqualToString:@"bakery"]||[type isEqualToString:@"cafe"]||[type isEqualToString:@"restaurant"]||[type isEqualToString:@"meal_delivery"]||[type isEqualToString:@"meal_takeaway"]){
-                if (![Food containsObject:place.name]){
-                    [Food addObject:place.name];
+                if (![Food containsObject:place]){
+                    [Food addObject:place];
                     NSLog(@"adding to food array in first view, Food count %lu",[Food count]);
                 }
                 
             }
             else if ([type isEqualToString:@"department_store"]||[type isEqualToString:@"beauty_salon"]||[type isEqualToString:@"clothing_store"]||[type isEqualToString:@"book_store"]||[type isEqualToString:@"hair_care"]||[type isEqualToString:@"gym"]||[type isEqualToString:@"shopping_mall"]||[type isEqualToString:@"spa"]||[type isEqualToString:@"museum"]||[type isEqualToString:@"park"]||[type isEqualToString:@"library"]){
-                if (![Leisure containsObject:place.name]){
-                    [Leisure addObject:place.name];}
+                if (![Leisure containsObject:place]){
+                    [Leisure addObject:place];}
             }
             else if ([type isEqualToString:@"beauty_salon"]||[type isEqualToString:@"hair_care"]||[type isEqualToString:@"gym"]||[type isEqualToString:@"spa"]||[type isEqualToString:@"museum"]||[type isEqualToString:@"park"]||[type isEqualToString:@"library"]){
-                if (![Leisure containsObject:place.name]){
-                    [Leisure addObject:place.name];}
+                if (![Leisure containsObject:place]){
+                    [Leisure addObject:place];}
             }
             else if ([type isEqualToString:@"department_store"]||[type isEqualToString:@"shoe_store"]||[type isEqualToString:@"shopping_mall"]||[type isEqualToString:@"clothing_store"]||[type isEqualToString:@"book_store"]||[type isEqualToString:@"electronics_store"]||[type isEqualToString:@"bicycle_store"]||[type isEqualToString:@"home_goods_store"]||[type isEqualToString:@"jewelry_store"]||[type isEqualToString:@"pet_store"]||[type isEqualToString:@"convenience_store"]||[type isEqualToString:@"hardware_store"]||[type isEqualToString:@"store"]){
-                if (![Shopping containsObject:place.name]){
-                    [Shopping addObject:place.name];}
+                if (![Shopping containsObject:place]){
+                    [Shopping addObject:place];}
             }
             else if ([type isEqualToString:@"aquarium"]||[type isEqualToString:@"casino"]||[type isEqualToString:@"bowling_alley"]||[type isEqualToString:@"amusement_park"]||[type isEqualToString:@"zoo"]||[type isEqualToString:@"art_gallery"]||[type isEqualToString:@"bar"]||[type isEqualToString:@"campground"]||[type isEqualToString:@"night_club"]||[type isEqualToString:@"movie_rental"]||[type isEqualToString:@"movie_theater"]||[type isEqualToString:@"stadium"]){
-                if (![Entertainment containsObject:place.name]){
-                    [Entertainment addObject:place.name];
-                    NSLog(@"count for entertain: %@ %lu",place.name,[Entertainment count]);
+                if (![Entertainment containsObject:place]){
+                    [Entertainment addObject:place];
+                    NSLog(@"count for entertain: %@ %lu",place,[Entertainment count]);
                 }
             }
             else if ([type isEqualToString:@"synagogue"]||[type isEqualToString:@"hindu_temple"]||[type isEqualToString:@"church"]||[type isEqualToString:@"city_hall"]||[type isEqualToString:@"mosque"]){
-                if (![Culture containsObject:place.name]){
-                    [Culture addObject:place.name];}
+                if (![Culture containsObject:place]){
+                    [Culture addObject:place];}
             }
             else if ([type isEqualToString:@"airport"]||[type isEqualToString:@"bus_station"]||[type isEqualToString:@"gas_station"]||[type isEqualToString:@"car_dealer"]||[type isEqualToString:@"car_rental"]||[type isEqualToString:@"car_repair"]||[type isEqualToString:@"car_wash"]||[type isEqualToString:@"car_wash"]||[type isEqualToString:@"taxi_stand"]||[type isEqualToString:@"train_station"]||[type isEqualToString:@"travel_agency"]||[type isEqualToString:@"parking"]||[type isEqualToString:@"subway_station"]||[type isEqualToString:@"moving_company"]||[type isEqualToString:@"lodging"]){
-                if (![Transportation containsObject:place.name]){
-                    [Transportation addObject:place.name];}
+                if (![Transportation containsObject:place]){
+                    [Transportation addObject:place];}
             }
             else if ([type isEqualToString:@"accounting"]||[type isEqualToString:@"atm"]||[type isEqualToString:@"bank"]||[type isEqualToString:@"insurance_agency"]){
-                if (![Financial containsObject:place.name]){
-                    [Financial addObject:place.name];}
+                if (![Financial containsObject:place]){
+                    [Financial addObject:place];}
             }
             else if ([type isEqualToString:@"dentist"]||[type isEqualToString:@"doctor"]||[type isEqualToString:@"electrician"]||[type isEqualToString:@"florist"]||[type isEqualToString:@"locksmith"]||[type isEqualToString:@"painter"]||[type isEqualToString:@"physiotherapist"]||[type isEqualToString:@"plumber"]||[type isEqualToString:@"lawyer"]||[type isEqualToString:@"real_estate_agency"]||[type isEqualToString:@"roofing_contractor"]){
-                if (![Occupational containsObject:place.name]){
-                    [Occupational addObject:place.name];}
+                if (![Occupational containsObject:place]){
+                    [Occupational addObject:place];}
             }
             else if ([type isEqualToString:@"funeral_home"]||[type isEqualToString:@"furniture_store"]||[type isEqualToString:@"embassy"]||[type isEqualToString:@"fire_station"]||[type isEqualToString:@"cemetery"]||[type isEqualToString:@"veterinary_care"]||[type isEqualToString:@"courthouse"]||[type isEqualToString:@"rv_park"]||[type isEqualToString:@"police"]||[type isEqualToString:@"hospital"]){
-                if (![Other containsObject:place.name]){
-                    [Other addObject:place.name];}
+                if (![Other containsObject:place]){
+                    [Other addObject:place];}
             }
             else if ([type isEqualToString:@"laundry"]||[type isEqualToString:@"pharmacy"]||[type isEqualToString:@"post_office"]||[type isEqualToString:@"supermarket"]||[type isEqualToString:@"storage"]||[type isEqualToString:@"school"]||[type isEqualToString:@"local_government_office"]){
-                if (![Lifestyle containsObject:place.name]){
-                    [Lifestyle addObject:place.name];}
+                if (![Lifestyle containsObject:place]){
+                    [Lifestyle addObject:place];}
             }
         }
         
@@ -166,6 +171,7 @@ NSIndexPath* SelectedIndexPath;
         NSLog(@"Current Place name %@ at likelihood %g", place.name, likehood.likelihood);
         
     }
+    NSLog(@"done with loop");
 }
 
 
@@ -188,7 +194,7 @@ NSIndexPath* SelectedIndexPath;
     if (cell==nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
-    cell.textLabel.text= [categories objectAtIndex:indexPath.row];
+    cell.textLabel.text= [self.categories objectAtIndex:indexPath.row];;
     // Configure the cell...
     
     return cell;
@@ -204,7 +210,7 @@ NSIndexPath* SelectedIndexPath;
     return YES;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    SelectedIndexPath = indexPath;
+    SelectedIndexPath = [self.categories objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier:@"showMoreDetails" sender:self];
 }
 /*
@@ -247,7 +253,7 @@ NSIndexPath* SelectedIndexPath;
      if ([segue.identifier isEqualToString:@"showMoreDetails"]){
         // NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
          TipsSecondTableViewController *SecTip = [segue destinationViewController];
-         SecTip.LocationName=[categories objectAtIndex:SelectedIndexPath.row];
+         SecTip.LocationName=SelectedIndexPath;
          SecTip.title=SecTip.LocationName;
          SecTip.LikelyList=LikelyList;
          SecTip.Food=Food;
@@ -260,6 +266,7 @@ NSIndexPath* SelectedIndexPath;
          SecTip.Culture=Culture;
          SecTip.Entertainment=Entertainment;
          SecTip.Financial=Financial;
+         NSLog(@"Food count:%lu",[Food count]);
      }
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.

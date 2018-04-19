@@ -7,16 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlacesInformationViewController.h"
+#import "GooglePlace.h"
 @import Mapbox;
 @import MapKit;
 @import GooglePlaces;
 @import GooglePlacePicker;
+
 @interface TipsSecondTableViewController : UITableViewController<UITabBarControllerDelegate,UITableViewDelegate>
 @property (strong,nonatomic) NSString*LocationName;
 @property (strong,nonatomic) NSMutableArray*Food;
 @property (strong,nonatomic) NSMutableArray*Leisure;
 @property (strong,nonatomic) NSMutableArray*Entertainment;
 @property (strong,nonatomic) NSMutableArray*Culture;
+
 @property (strong,nonatomic) NSMutableArray*Other;
 @property (strong,nonatomic) NSMutableArray*Shopping;
 @property (strong,nonatomic) NSMutableArray*Transportation;
@@ -28,6 +32,8 @@
 
 
 @property (strong) GMSPlaceLikelihoodList* LikelyList;
+@property (strong) GooglePlace* SelectedPlace;
+@property (strong )CLLocation*userLocation;
 /*[categories addObject:@"Food"];
  [categories addObject:@"Bars"];
  [categories addObject:@"Shopping"];

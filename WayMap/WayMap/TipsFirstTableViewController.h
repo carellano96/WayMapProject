@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TipsSecondTableViewController.h"
+#import "GooglePlace.h"
 @import Mapbox;
 @import MapKit;
 @import GooglePlaces;
@@ -28,6 +29,8 @@
 @property (strong,nonatomic) NSMutableArray*ServicesOther;
 @property (strong,nonatomic) NSMutableArray*Lifestyle;
 @property (strong,nonatomic) TipsSecondTableViewController*Tips1;
+@property (strong )CLLocation*userLocation;
+@property (strong,nonatomic)GooglePlace*SelectedPlace;
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;

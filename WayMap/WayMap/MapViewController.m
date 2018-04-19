@@ -26,7 +26,7 @@
 @end
 
 @implementation MapViewController
-@synthesize MapView,LikelyList;
+@synthesize MapView,LikelyList,userLocation;
 //view loads
 - (void)viewDidLoad {
     
@@ -49,6 +49,8 @@
     //sets delegate and shows user location
     MapView.delegate=self;
     MapView.showsUserLocation=YES;
+    userLocation = [[CLLocation alloc] initWithLatitude:MapView.userLocation.location.coordinate.latitude longitude:MapView.userLocation.location.coordinate.longitude];
+
     [MapView.self setUserTrackingMode:MGLUserTrackingModeFollow];
     [self mapView:MapView didSelectUserLocation:MapView.userLocation];
     [self.locationManager requestAlwaysAuthorization];
@@ -88,7 +90,6 @@
     
     // If the ‘pisa’ annotation image hasn‘t been set yet, initialize it here.
     if (!annotationImage) {
-        // Leaning Tower of Pisa by Stefan Spieler from the Noun Project.
         UIImage *image = [UIImage imageNamed:@"purpledot"];
         
         // The anchor point of an annotation is currently always the center. To
@@ -166,11 +167,8 @@
 {
     NSLog(@"Updating %lu",(unsigned long)[locations count]);
     //locations array contains current user location, so we save that location in our own array
-    CLLocation*location = [locations lastObject];
-    [self.locations addObject:location];
-    CLCircularRegion *region =[[CLCircularRegion alloc] initWithCenter:location.coordinate radius:500 identifier:@"CurrentRegion"];
-    
     NSLog(@"Main Location Updating %lu",(unsigned long)[self.locations count]);
+    [self.locations addObject:locations.lastObject];
 //then we animate the line
     [self animatePolyline];
     [self.placesClient currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
@@ -239,11 +237,13 @@
         UINavigationController*Tips1 = (UINavigationController*)viewController;
         if ([Tips1.visibleViewController isKindOfClass:[TipsFirstTableViewController class]]){TipsFirstTableViewController*Tips=(TipsFirstTableViewController*)Tips1.visibleViewController;
         Tips.LikelyList=self.LikelyList;
+            Tips.userLocation=self.userLocation;
         NSLog(@"Switching view controllers to TipsFirst");
             }
         else if ([Tips1.visibleViewController isKindOfClass:[TipsSecondTableViewController class]]){
             TipsSecondTableViewController *Tips2 = (TipsSecondTableViewController*)Tips1.visibleViewController;
             Tips2.LikelyList=self.LikelyList;
+            Tips2.userLocation=self.userLocation;
             NSLog(@"Switching view controllers to SecondTipsFirst");
 
         }
