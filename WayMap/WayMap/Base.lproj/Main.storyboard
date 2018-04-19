@@ -58,6 +58,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="YJs-Sh-uWz" kind="show" identifier="showPlace" id="fi7-Cf-U0c"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -70,6 +73,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="beA-Dv-LED" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2300" y="-610"/>
+        </scene>
+        <!--Places Information View Controller-->
+        <scene sceneID="DIT-oW-LIh">
+            <objects>
+                <viewController id="YJs-Sh-uWz" customClass="PlacesInformationViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a2l-wz-eHV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSI-Td-lFh">
+                                <rect key="frame" x="63" y="98" width="248" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="ZWX-yV-zoN"/>
+                    </view>
+                    <connections>
+                        <outlet property="PlaceName" destination="FSI-Td-lFh" id="4Vb-gZ-c9X"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b7y-3I-VMX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2300" y="187.55622188905548"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="RsQ-Xq-Pwa">

@@ -15,5 +15,7 @@
 - (IBAction)UserLocation:(id)sender;
 @property (strong, nonatomic) IBOutlet MGLMapView *MapView;
 @property (strong,nonatomic) GMSPlaceLikelihoodList *LikelyList;
+@property (strong )CLLocation*userLocation;
+
 
 @end

@@ -13,7 +13,7 @@
 @end
 
 @implementation TipsSecondTableViewController
-@synthesize Food,Lifestyle,Culture,Entertainment,Leisure,Other,Shopping,LikelyList,Transportation,Occupational,Financial;
+@synthesize Food,Lifestyle,Culture,Entertainment,Leisure,Other,Shopping,LikelyList,Transportation,Occupational,Financial,userLocation,SelectedPlace;
 - (id) initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
     if (self){
@@ -25,7 +25,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    userLocation=[[CLLocation alloc ]init];
     // Uncomment the following line to presrve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -35,6 +35,8 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    SelectedPlace=[[GooglePlace alloc ]init];
+
     self.tabBarController.delegate=self;
     [self.tableView reloadData];
 
@@ -82,39 +84,85 @@ else if ([_LocationName isEqualToString:@"Other"]){
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SpecificLocation" forIndexPath:indexPath];
+    
     if (cell==nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SpecificLocation"];
     }
+    GooglePlace*SelectedPlace1 = [[GooglePlace alloc]init];
     if ([_LocationName isEqualToString:@"Food"]){
-        cell.textLabel.text = [self.Food objectAtIndex:indexPath.row];
+        SelectedPlace1=[self.Food objectAtIndex:indexPath.row];
+        NSLog(@"Showing food %@",SelectedPlace.name);
+        cell.textLabel.text = SelectedPlace1.name;
     }
     else if ([_LocationName isEqualToString:@"Leisure"]){
-        cell.textLabel.text = [self.Leisure objectAtIndex:indexPath.row];
+        SelectedPlace1=[self.Leisure objectAtIndex:indexPath.row];
+        cell.textLabel.text = SelectedPlace1.name;
+        
     }else if ([_LocationName isEqualToString:@"Lifestyle"]){
-        cell.textLabel.text = [self.Lifestyle objectAtIndex:indexPath.row];
+        SelectedPlace1=[self.Lifestyle objectAtIndex:indexPath.row];
+        cell.textLabel.text = SelectedPlace1.name;
     }
     else if ([_LocationName isEqualToString:@"Entertainment"]){
-        cell.textLabel.text = [self.Entertainment objectAtIndex:indexPath.row];
+        SelectedPlace1=[self.Entertainment objectAtIndex:indexPath.row];
+        cell.textLabel.text = SelectedPlace1.name;
     }
 else if ([_LocationName isEqualToString:@"Financial"]){
-        cell.textLabel.text = [self.Financial objectAtIndex:indexPath.row];
+    SelectedPlace1=[self.Financial objectAtIndex:indexPath.row];
+    cell.textLabel.text = SelectedPlace1.name;
 }else if ([_LocationName isEqualToString:@"Transportation"]){
-    cell.textLabel.text = [self.Transportation objectAtIndex:indexPath.row];
+    SelectedPlace1=[self.Transportation objectAtIndex:indexPath.row];
+    cell.textLabel.text = SelectedPlace1.name;
 }else if ([_LocationName isEqualToString:@"Occupational"]){
-    cell.textLabel.text = [self.Occupational objectAtIndex:indexPath.row];
+    SelectedPlace1=[self.Occupational objectAtIndex:indexPath.row];
+    cell.textLabel.text = SelectedPlace1.name;
 }else if ([_LocationName isEqualToString:@"Culture"]){
-        cell.textLabel.text = [self.Culture objectAtIndex:indexPath.row];
+    SelectedPlace1=[self.Culture objectAtIndex:indexPath.row];
+    cell.textLabel.text = SelectedPlace1.name;
     }
     else if ([_LocationName isEqualToString:@"Other"]){
-        cell.textLabel.text = [self.Other objectAtIndex:indexPath.row];
+        SelectedPlace1=[self.Other objectAtIndex:indexPath.row];
+        cell.textLabel.text = SelectedPlace1.name;
     }
     else if ([_LocationName isEqualToString:@"Shopping"]){
-        cell.textLabel.text = [self.Shopping objectAtIndex:indexPath.row];
+        SelectedPlace1=[self.Shopping objectAtIndex:indexPath.row];
+        cell.textLabel.text = SelectedPlace1.name;
     }
     
     // Configure the cell...
     
     return cell;
+}
+
+- (NSIndexPath*)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([_LocationName isEqualToString:@"Food"]){
+        SelectedPlace=[self.Food objectAtIndex:indexPath.row];
+        NSLog(@"Showing food %@",SelectedPlace.name);
+    }
+    else if ([_LocationName isEqualToString:@"Leisure"]){
+        SelectedPlace=[self.Leisure objectAtIndex:indexPath.row];
+        
+    }else if ([_LocationName isEqualToString:@"Lifestyle"]){
+        SelectedPlace=[self.Lifestyle objectAtIndex:indexPath.row];
+    }
+    else if ([_LocationName isEqualToString:@"Entertainment"]){
+        SelectedPlace=[self.Entertainment objectAtIndex:indexPath.row];
+    }
+    else if ([_LocationName isEqualToString:@"Financial"]){
+        SelectedPlace=[self.Financial objectAtIndex:indexPath.row];
+    }else if ([_LocationName isEqualToString:@"Transportation"]){
+        SelectedPlace=[self.Transportation objectAtIndex:indexPath.row];
+    }else if ([_LocationName isEqualToString:@"Occupational"]){
+        SelectedPlace=[self.Occupational objectAtIndex:indexPath.row];
+    }else if ([_LocationName isEqualToString:@"Culture"]){
+        SelectedPlace=[self.Culture objectAtIndex:indexPath.row];
+    }
+    else if ([_LocationName isEqualToString:@"Other"]){
+        SelectedPlace=[self.Other objectAtIndex:indexPath.row];
+    }
+    else if ([_LocationName isEqualToString:@"Shopping"]){
+        SelectedPlace=[self.Shopping objectAtIndex:indexPath.row];
+    }
+    return indexPath;
 }
 
 
@@ -152,14 +200,21 @@ else if ([_LocationName isEqualToString:@"Financial"]){
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showPlace"]){
+        PlacesInformationViewController *Place = [segue destinationViewController];
+        Place.SelectedPlace = self.SelectedPlace;
+        
+        
+        
+    }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 @end
