@@ -13,15 +13,19 @@
 -(void)Initiate:(NSString*)name:(NSString*)placeID:(CLLocationCoordinate2D)coordinate:(NSArray<NSString*>*) types:(GMSPlacesOpenNowStatus)openNow:(NSString*)phoneNumber:(NSString*)formattedAddress:(float)rating: (GMSPlacesPriceLevel)priceLevel:(NSURL*)website{
     self.name = [[NSString alloc ]init];
     self.types = [NSMutableArray arrayWithArray:types];
+    self.placeID=[[NSString alloc ]init];
+    self.phoneNumber=[[NSString alloc]init];
+    self.formattedAddress=[[NSString alloc]init];
+    self.website=[[NSURL alloc]init];
     self.name=name;
-    /*placeID=self.placeID;
-    coordinate=self.coordinate;
-    openNow=self.openNow;
-    phoneNumber=self.phoneNumber;
-    formattedAddress=self.formattedAddress;
-    rating=self.rating;
-    priceLevel=self.priceLevel;
-    website=self.website;*/
+    self.placeID=placeID;
+    self.coordinate=coordinate;
+    self.openNow=openNow;
+    self.phoneNumber=phoneNumber;
+    self.formattedAddress=formattedAddress;
+    self.rating=rating;
+    self.priceLevel=priceLevel;
+    self.website=website;
 }
 @end
 /*@property NSString*name;

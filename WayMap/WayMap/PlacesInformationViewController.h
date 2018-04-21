@@ -15,5 +15,8 @@
 @import GooglePlacePicker;
 
 @interface PlacesInformationViewController : UIViewController
+
 @property (strong)  GooglePlace*SelectedPlace;
+@property (strong)  NSString*segueUsed;
+@property (strong)  NSString*sourceArrayName;
 @end

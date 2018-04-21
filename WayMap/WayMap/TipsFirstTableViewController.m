@@ -186,6 +186,41 @@ NSString* SelectedIndexPath;
     NSLog(@"%lu",(unsigned long)[self.categories count]);
     return [self.categories count];
 }
+- (IBAction)SurpriseMe:(id)sender {
+    int cat = arc4random_uniform([categories count]);
+    NSString* Chosen = [categories objectAtIndex:cat];
+    NSMutableArray*ArrayChosen;
+    if ([Chosen isEqualToString:@"Food"]){
+        ArrayChosen=Food;
+    }
+    if ([Chosen isEqualToString:@"Leisure"]){
+        ArrayChosen=Leisure;
+    }
+    else if ([Chosen isEqualToString:@"Entertainment"]){
+        ArrayChosen=Entertainment;
+    }else if ([Chosen isEqualToString:@"Culture"]){
+        ArrayChosen=Culture;
+    }else if ([Chosen isEqualToString:@"Financial"]){
+        ArrayChosen=Financial;}
+    else if ([Chosen isEqualToString:@"Transportation"]){
+        ArrayChosen=Transportation;
+    }else if ([Chosen isEqualToString:@"Occupational"]){
+        ArrayChosen=Occupational;
+}
+        else if ([Chosen isEqualToString:@"Lifestyle"]){
+            ArrayChosen=Lifestyle;
+}
+        else if ([Chosen isEqualToString:@"Shopping"]){
+            ArrayChosen=Shopping;}
+        else if ([Chosen isEqualToString:@"Other"]){
+            ArrayChosen=Other;
+        }
+    int SpecificCategory = arc4random_uniform([ArrayChosen count]);
+    GooglePlace* RandomPlace = [ArrayChosen objectAtIndex:SpecificCategory];
+    SelectedPlace=RandomPlace;
+    [self performSegueWithIdentifier:@"SurpriseMe" sender:self];
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"does this work3");
@@ -200,7 +235,9 @@ NSString* SelectedIndexPath;
     return cell;
 }
 
-
+- (IBAction)FirstTipsBackToStart:(UIStoryboardSegue*) segue{
+    NSLog(@"Returned again!");
+}
 - (BOOL) tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     if ([viewController isKindOfClass:[MapViewController class]]){
         MapViewController *Map = (MapViewController* ) viewController;
@@ -267,6 +304,11 @@ NSString* SelectedIndexPath;
          SecTip.Entertainment=Entertainment;
          SecTip.Financial=Financial;
          NSLog(@"Food count:%lu",[Food count]);
+     }
+     else if ([segue.identifier isEqualToString:@"SurpriseMe"]){
+         PlacesInformationViewController* Random = [segue destinationViewController];
+         Random.SelectedPlace=SelectedPlace;
+         Random.segueUsed=segue.identifier;
      }
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
