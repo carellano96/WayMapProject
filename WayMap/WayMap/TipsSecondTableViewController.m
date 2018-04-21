@@ -201,6 +201,7 @@ else if ([_LocationName isEqualToString:@"Financial"]){
 */
 
 
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -211,6 +212,64 @@ else if ([_LocationName isEqualToString:@"Financial"]){
         
         
         
+    }
+    else if ([segue.identifier isEqualToString:@"SurpriseMe2"]){
+        PlacesInformationViewController *Random=[segue destinationViewController];
+        NSMutableArray*ChosenArray;
+        NSString*chosen;
+        if ([_LocationName isEqualToString:@"Food"]){
+            ChosenArray=Food;
+            chosen=@"Food";
+        }
+        else if ([_LocationName isEqualToString:@"Leisure"]){
+            ChosenArray=Leisure;
+            chosen=@"Leisure";
+
+        }else if ([_LocationName isEqualToString:@"Lifestyle"]){
+            ChosenArray=Lifestyle;
+            chosen=@"Lifestyle";
+
+        }
+        else if ([_LocationName isEqualToString:@"Entertainment"]){
+            ChosenArray=Entertainment;
+            chosen=@"Entertainment";
+
+        }
+        else if ([_LocationName isEqualToString:@"Financial"]){
+            ChosenArray=Financial;
+            chosen=@"Financial";
+
+        }else if ([_LocationName isEqualToString:@"Transportation"]){
+            ChosenArray=Transportation;
+            chosen=@"Transportation";
+
+        }else if ([_LocationName isEqualToString:@"Occupational"]){
+            ChosenArray=Occupational;
+            chosen=@"Occupational";
+
+        }else if ([_LocationName isEqualToString:@"Culture"]){
+            ChosenArray=Culture;
+            chosen=@"Culture";
+
+        }
+        else if ([_LocationName isEqualToString:@"Other"]){
+            ChosenArray=Other;
+            chosen=@"Other";
+
+        }
+        else if ([_LocationName isEqualToString:@"Shopping"]){
+            ChosenArray=Shopping;
+            chosen=@"Shopping";
+
+        }
+        int RandomPlace = arc4random_uniform([ChosenArray count]);
+        NSLog(@"random number is %d", RandomPlace);
+        SelectedPlace = [ChosenArray objectAtIndex:RandomPlace];
+        NSLog(@"random place again is %@", SelectedPlace.name);
+        NSLog(@"Place random is %@",self.SelectedPlace.name);
+        Random.SelectedPlace=self.SelectedPlace;
+        Random.sourceArrayName=chosen;
+        Random.segueUsed=[segue identifier];
     }
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.

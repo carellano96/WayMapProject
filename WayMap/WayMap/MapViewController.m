@@ -9,6 +9,7 @@
 #import "MapViewController.h"
 #import "TipsFirstTableViewController.h"
 #import "TipsSecondTableViewController.h"
+#import "GooglePlace.h"
 
 @interface MapViewController (){
     int _CurrentIndex;
@@ -26,10 +27,12 @@
 @end
 
 @implementation MapViewController
-@synthesize MapView,LikelyList,userLocation;
+@synthesize MapView,LikelyList,userLocation,LocationsNearby,Annotations,SelectedPlace;
 //view loads
 - (void)viewDidLoad {
-    
+    LocationsNearby = [[NSMutableArray alloc]init];
+    SelectedPlace =[[GooglePlace alloc ]init];
+    Annotations= [[NSMutableArray alloc ]init];
     self.tabBarController.delegate=self;
     LikelyList=[[GMSPlaceLikelihoodList alloc ]init];
     self.placesClient = [[GMSPlacesClient alloc] init];
@@ -47,8 +50,8 @@
     //updates user location every second
     [self.locationManager startUpdatingLocation];
     //sets delegate and shows user location
-    MapView.delegate=self;
-    MapView.showsUserLocation=YES;
+    self.MapView.delegate=self;
+    self.MapView.showsUserLocation=YES;
     userLocation = [[CLLocation alloc] initWithLatitude:MapView.userLocation.location.coordinate.latitude longitude:MapView.userLocation.location.coordinate.longitude];
 
     [MapView.self setUserTrackingMode:MGLUserTrackingModeFollow];
@@ -74,39 +77,11 @@
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style {
     //after map finishing loading initially, creates the line layer
     [self addLayer:self.polylineSource];
-    MGLPointAnnotation* annotation = [[MGLPointAnnotation alloc ] init];
     
-    //tracks user to follow them on map
-    annotation.coordinate=CLLocationCoordinate2DMake(37.785834, -122.406417);
-    annotation.title= @"Test";
-    annotation.subtitle=@"TestPoint";
-    [MapView addAnnotation:annotation];
 
 }
 
-- (MGLAnnotationImage *)mapView:(MGLMapView *)mapView imageForAnnotation:(id <MGLAnnotation>)annotation {
-    // Try to reuse the existing ‘pisa’ annotation image, if it exists.
-    MGLAnnotationImage *annotationImage = [mapView dequeueReusableAnnotationImageWithIdentifier:@"purpledot"];
-    
-    // If the ‘pisa’ annotation image hasn‘t been set yet, initialize it here.
-    if (!annotationImage) {
-        UIImage *image = [UIImage imageNamed:@"purpledot"];
-        
-        // The anchor point of an annotation is currently always the center. To
-        // shift the anchor point to the bottom of the annotation, the image
-        // asset includes transparent bottom padding equal to the original image
-        // height.
-        //
-        // To make this padding non-interactive, we create another image object
-        // with a custom alignment rect that excludes the padding.
-        image = [image imageWithAlignmentRectInsets:UIEdgeInsetsMake(0, 0, image.size.height/2, 0)];
-        
-        // Initialize the ‘pisa’ annotation image with the UIImage we just loaded.
-        annotationImage = [MGLAnnotationImage annotationImageWithImage:image reuseIdentifier:@"purpledot"];
-    }
-    
-    return annotationImage;
-}
+
 
 - (void)addLayer:(MGLShapeSource *)source {
     // Add an empty MGLShapeSource, we’ll keep a reference to this and add points to this later.
@@ -165,6 +140,8 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
+    [self.Annotations removeAllObjects];
+    [self.LocationsNearby removeAllObjects];
     NSLog(@"Updating %lu",(unsigned long)[locations count]);
     //locations array contains current user location, so we save that location in our own array
     NSLog(@"Main Location Updating %lu",(unsigned long)[self.locations count]);
@@ -177,30 +154,56 @@
             return;
         }
         for (GMSPlaceLikelihood *likelihood in likelihoodList.likelihoods) {
-            GMSPlace* place = likelihood.place;
-            NSLog(@"Current Place name %@ at likelihood %g", place.name, likelihood.likelihood);
-            NSLog(@"Current Place address %@", place.formattedAddress);
-            NSLog(@"Current Place attributions %@", place.attributions);
-            NSLog(@"Current PlaceID %@", place.placeID);
+            GMSPlace* CurrentPlace = likelihood.place;
+            NSLog(@"Current Place name %@ at likelihood %g", CurrentPlace.name, likelihood.likelihood);
+            NSLog(@"Current Place address %@", CurrentPlace.formattedAddress);
+            NSLog(@"Current Place attributions %@", CurrentPlace.attributions);
+            NSLog(@"Current PlaceID %@", CurrentPlace.placeID);
+            GooglePlace* tempplace = [[GooglePlace alloc] init];
+            [tempplace Initiate:CurrentPlace.name:CurrentPlace.placeID :CurrentPlace.coordinate :CurrentPlace.types :CurrentPlace.openNowStatus :CurrentPlace.phoneNumber :CurrentPlace.formattedAddress :CurrentPlace.rating :CurrentPlace.priceLevel :CurrentPlace.website];
+            [LocationsNearby addObject:tempplace];
+            MGLPointAnnotation*tempAnnotation = [[MGLPointAnnotation alloc ]init];
+            tempAnnotation.coordinate=tempplace.coordinate;
+            tempAnnotation.title=tempplace.name;
+            [Annotations addObject:tempAnnotation];
         }
         self.LikelyList=likelihoodList;
+        [MapView addAnnotations:Annotations];
 
         
     }];
+
     int count=0;
-    for (GMSPlaceLikelihood *likehood in self.LikelyList.likelihoods){
-        NSLog(@"LIKELY LIST PLACE CAUGHT!!!");
-        count++;
-        GMSPlace* place = likehood.place;
-        NSLog(@"Current Place name %@ at likelihood %g", place.name, likehood.likelihood);
-    }
     NSLog(@"Count for MapView of LikelyList is:%d",count);
     NSLog(@"type of delegate is %@",self.tabBarController.delegate);
     
 }
+- (IBAction)backToStart:(UIStoryboardSegue*) segue{
+    NSLog(@"Returned!");
+}
 
+-(void)mapView:(MGLMapView *)mapView tapOnCalloutForAnnotation:(id<MGLAnnotation>)annotation{
+    NSLog(@"Looking");
+    for (GooglePlace* location in LocationsNearby){
+        NSLog(@"Looking, currently at %@",location.name);
+        NSLog(@"Annotation name is %@",annotation.title);
+        if ([annotation.title isEqualToString:location.name]){
+            SelectedPlace=location;
+            
+            NSLog(@"Found selected place: name %@",SelectedPlace.name);
+            break;
+        }
+    }
+    [self performSegueWithIdentifier:@"tapToLocation" sender:self];
+}
 
-
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"tapToLocation"]){
+        PlacesInformationViewController* Info = [segue destinationViewController];
+        Info.SelectedPlace=self.SelectedPlace;
+        Info.segueUsed=segue.identifier;
+    }
+}
 //this is if the user selects their own location
 - (void)mapView:(MGLMapView *)mapView didSelectUserLocation:(MGLUserLocation*)location {
     
@@ -229,7 +232,56 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     self.tabBarController.delegate=self;
+    [self.LocationsNearby removeAllObjects];
+    [self.placesClient currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
+        if (error != nil) {
+            NSLog(@"Current Place error %@", [error localizedDescription]);
+            return;
+        }
+        for (GMSPlaceLikelihood *likelihood in likelihoodList.likelihoods) {
+            GMSPlace* CurrentPlace = likelihood.place;
+            NSLog(@"Current Place name %@ at likelihood %g", CurrentPlace.name, likelihood.likelihood);
+            NSLog(@"Current Place address %@", CurrentPlace.formattedAddress);
+            NSLog(@"Current Place attributions %@", CurrentPlace.attributions);
+            NSLog(@"Current PlaceID %@", CurrentPlace.placeID);
+            GooglePlace* tempplace = [[GooglePlace alloc] init];
+            [tempplace Initiate:CurrentPlace.name:CurrentPlace.placeID :CurrentPlace.coordinate :CurrentPlace.types :CurrentPlace.openNowStatus :CurrentPlace.phoneNumber :CurrentPlace.formattedAddress :CurrentPlace.rating :CurrentPlace.priceLevel :CurrentPlace.website];
+            [LocationsNearby addObject:tempplace];
+        }
+        self.LikelyList=likelihoodList;
+        
+        
+    }];
+
+}
+
+- (MGLAnnotationImage *)mapView:(MGLMapView *)mapView imageForAnnotation:(id <MGLAnnotation>)annotation {
+    // Try to reuse the existing ‘pisa’ annotation image, if it exists.
+    MGLAnnotationImage *annotationImage = [mapView dequeueReusableAnnotationImageWithIdentifier:@"purpledot"];
     
+    // If the ‘pisa’ annotation image hasn‘t been set yet, initialize it here.
+    if (!annotationImage) {
+        UIImage *image = [UIImage imageNamed:@"purpledot"];
+        
+        // The anchor point of an annotation is currently always the center. To
+        // shift the anchor point to the bottom of the annotation, the image
+        // asset includes transparent bottom padding equal to the original image
+        // height.
+        //
+        // To make this padding non-interactive, we create another image object
+        // with a custom alignment rect that excludes the padding.
+        image = [image imageWithAlignmentRectInsets:UIEdgeInsetsMake(0, 0, image.size.height/2, 0)];
+        
+        // Initialize the ‘pisa’ annotation image with the UIImage we just loaded.
+        annotationImage = [MGLAnnotationImage annotationImageWithImage:image reuseIdentifier:@"purpledot"];
+    }
+    NSLog(@"making the dot");
+    
+    return annotationImage;
+}
+- (BOOL)mapView:(MGLMapView *)mapView annotationCanShowCallout:(id <MGLAnnotation>)annotation {
+    // Always allow callouts to popup when annotations are tapped.
+    return YES;
 }
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     NSLog(@"TYPE OF CONTROLLER:%@",NSStringFromClass([viewController class]));
