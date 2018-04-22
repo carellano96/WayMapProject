@@ -23,7 +23,7 @@
 @property (nonatomic) MGLPolyline *polyline;
 @property (nonatomic) NSMutableArray<CLLocation *> *locations;
 @property CLLocationManager* locationManager;
-@property GMSPlacesClient* placesClient;
+@property GMSPlacesClient* placesClient; //client to get information
 @end
 
 @implementation MapViewController
@@ -187,6 +187,7 @@
     NSLog(@"type of delegate is %@",self.tabBarController.delegate);
     
 }
+//If you tap on a purple dot, the label appears for the name of the place and sends the user to the view controller with the name of the place
 - (void) UpdateAnnotationsMethod:(NSMutableArray*)MasterLocations{
     CLLocation*User= [self userLocation];
     for (GooglePlace* place in MasterLocations){
