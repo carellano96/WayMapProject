@@ -27,9 +27,10 @@
 @end
 
 @implementation MapViewController
-@synthesize MapView,LikelyList,userLocation,LocationsNearby,Annotations,SelectedPlace;
+@synthesize MapView,LikelyList,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations;
 //view loads
 - (void)viewDidLoad {
+    MasterLocations=[[NSMutableArray alloc ]init];
     LocationsNearby = [[NSMutableArray alloc]init];
     SelectedPlace =[[GooglePlace alloc ]init];
     Annotations= [[NSMutableArray alloc ]init];
@@ -140,6 +141,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
+    
     [self.Annotations removeAllObjects];
     [self.LocationsNearby removeAllObjects];
     NSLog(@"Updating %lu",(unsigned long)[locations count]);
@@ -162,12 +164,19 @@
             GooglePlace* tempplace = [[GooglePlace alloc] init];
             [tempplace Initiate:CurrentPlace.name:CurrentPlace.placeID :CurrentPlace.coordinate :CurrentPlace.types :CurrentPlace.openNowStatus :CurrentPlace.phoneNumber :CurrentPlace.formattedAddress :CurrentPlace.rating :CurrentPlace.priceLevel :CurrentPlace.website];
             [LocationsNearby addObject:tempplace];
+            [MasterLocations addObject:tempplace];
             MGLPointAnnotation*tempAnnotation = [[MGLPointAnnotation alloc ]init];
             tempAnnotation.coordinate=tempplace.coordinate;
             tempAnnotation.title=tempplace.name;
             [Annotations addObject:tempAnnotation];
         }
         self.LikelyList=likelihoodList;
+        //create a RemoveAnnotations array and master list of all locations user went nearby
+        //create a UpdateAnnotationsMethod
+        //method will iteraate through master list of locations array and check which location is more than 5 miles of the user
+        //if it is more than 5 miles, add to remove array
+        //else add to the annotations array
+        //after for loop, add annotations and remove relevant annotations
         [MapView addAnnotations:Annotations];
 
         
@@ -177,6 +186,14 @@
     NSLog(@"Count for MapView of LikelyList is:%d",count);
     NSLog(@"type of delegate is %@",self.tabBarController.delegate);
     
+}
+- (void) UpdateAnnotationsMethod:(NSMutableArray*)MasterLocations{
+    CLLocation*User= [self userLocation];
+    for (GooglePlace* place in MasterLocations){
+        CLLocation*current = [[CLLocation alloc]initWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude];
+        CLLocationDistance distance = [User distanceFromLocation:current];
+        
+    }
 }
 - (IBAction)backToStart:(UIStoryboardSegue*) segue{
     NSLog(@"Returned!");
