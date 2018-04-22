@@ -221,6 +221,7 @@ else if ([_LocationName isEqualToString:@"Financial"]){
             ChosenArray=Food;
             chosen=@"Food";
         }
+        
         else if ([_LocationName isEqualToString:@"Leisure"]){
             ChosenArray=Leisure;
             chosen=@"Leisure";
