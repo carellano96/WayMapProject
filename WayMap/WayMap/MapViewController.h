@@ -22,4 +22,5 @@
 @property (strong) NSMutableArray *Annotations;
 @property (strong) GooglePlace*SelectedPlace;
 - (IBAction)backToStart:(UIStoryboardSegue*) segue;
+@property (strong) NSMutableArray* MasterLocations;
 @end
