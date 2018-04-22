@@ -27,11 +27,12 @@
 @end
 
 @implementation MapViewController
-@synthesize MapView,LikelyList,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations;
+@synthesize MapView,LikelyList,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,RemoveAnnotations;
 //view loads
 - (void)viewDidLoad {
     MasterLocations=[[NSMutableArray alloc ]init];
     LocationsNearby = [[NSMutableArray alloc]init];
+    RemoveAnnotations=[[NSMutableArray alloc]init];
     SelectedPlace =[[GooglePlace alloc ]init];
     Annotations= [[NSMutableArray alloc ]init];
     self.tabBarController.delegate=self;
@@ -144,6 +145,7 @@
     
     [self.Annotations removeAllObjects];
     [self.LocationsNearby removeAllObjects];
+    [self.RemoveAnnotations removeAllObjects];
     NSLog(@"Updating %lu",(unsigned long)[locations count]);
     //locations array contains current user location, so we save that location in our own array
     NSLog(@"Main Location Updating %lu",(unsigned long)[self.locations count]);
@@ -178,6 +180,8 @@
         //else add to the annotations array
         //after for loop, add annotations and remove relevant annotations
         [MapView addAnnotations:Annotations];
+        [self UpdateAnnotationsMethod:self.MasterLocations:[locations lastObject]];
+        [MapView removeAnnotations:RemoveAnnotations];
 
         
     }];
@@ -188,11 +192,19 @@
     
 }
 //If you tap on a purple dot, the label appears for the name of the place and sends the user to the view controller with the name of the place
-- (void) UpdateAnnotationsMethod:(NSMutableArray*)MasterLocations{
-    CLLocation*User= [self userLocation];
+- (void) UpdateAnnotationsMethod:(NSMutableArray*)MasterLocations:(CLLocation* )User{
     for (GooglePlace* place in MasterLocations){
         CLLocation*current = [[CLLocation alloc]initWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude];
         CLLocationDistance distance = [User distanceFromLocation:current];
+        if (distance>(double)500.0){
+            for (MGLPointAnnotation* anno in Annotations){
+                if (anno.coordinate.latitude== place.coordinate.latitude&&anno.coordinate.longitude==place.coordinate.longitude&&[anno.title isEqualToString:place.name]){
+                    NSLog(@"found a bigger distance for place %@ with distance of %f",place.name,distance);
+                    [RemoveAnnotations addObject:anno];
+                    break;
+                }
+            }
+        }
         
     }
 }
