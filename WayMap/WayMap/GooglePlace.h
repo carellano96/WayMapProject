@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Mapkit/Mapkit.h>
+@import Mapbox;
 @import GooglePlaces;
 @import GooglePlacePicker;
 @class GooglePlace;
@@ -22,6 +23,7 @@
 @property GMSPlacesPriceLevel priceLevel;
 @property NSURL*website;
 @property NSMutableArray* types;
+@property MGLPointAnnotation*AnnotationPointer;
 
 -(void)Initiate:(NSString*)name:(NSString*)placeID:(CLLocationCoordinate2D)coordinate:(NSArray<NSString*>*) types:(GMSPlacesOpenNowStatus)openNow:(NSString*)phoneNumber:(NSString*)formattedAddress:(float)rating: (GMSPlacesPriceLevel)priceLevel:(NSURL*)website;
 @end

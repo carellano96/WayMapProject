@@ -15,7 +15,7 @@
 @import GooglePlacePicker;
 @interface TipsFirstTableViewController : UITableViewController <UITabBarControllerDelegate,UITabBarDelegate>
 @property (strong,nonatomic) NSMutableArray*categories;
-@property (strong) GMSPlaceLikelihoodList* LikelyList;
+@property (strong) NSMutableArray* NearbyLocations;
 @property (strong,nonatomic) NSString*LocationName;
 @property (strong,nonatomic) NSMutableArray*Food;
 @property (strong,nonatomic) NSMutableArray*Leisure;
@@ -36,5 +36,5 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 - (void) CategorizeLocations
-:(GMSPlaceLikelihoodList*)LikelyList;
+:(NSMutableArray*)NearbyLocations;
 @end
