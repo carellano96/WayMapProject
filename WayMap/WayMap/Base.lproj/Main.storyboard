@@ -202,13 +202,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cfz-Yf-D8m">
-                                <rect key="frame" x="16" y="546" width="68" height="30"/>
-                                <state key="normal" title="Show Me!"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cfz-Yf-D8m">
+                                <rect key="frame" x="16" y="568" width="66" height="50"/>
+                                <state key="normal" image="userlocation"/>
                                 <connections>
                                     <action selector="UserLocation:" destination="2Mr-Hd-JRi" eventType="touchUpInside" id="pOL-mF-sU7"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yLX-wt-515">
+                                <rect key="frame" x="16" y="549" width="341" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="WKq-8S-OIw">
+                                <rect key="frame" x="107" y="578" width="160" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="minimumTrackTintColor" red="0.50196081400000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="maximumTrackTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="thumbTintColor" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="2Mr-Hd-JRi" eventType="valueChanged" id="ouc-HJ-1BH"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -223,6 +240,8 @@
                     <tabBarItem key="tabBarItem" title="Map" image="placeholder" id="ilV-Iv-9E6"/>
                     <connections>
                         <outlet property="MapView" destination="3QN-p5-01p" id="fv1-Go-rbf"/>
+                        <outlet property="RadiusLabel" destination="yLX-wt-515" id="eHh-SP-hug"/>
+                        <outlet property="RadiusSlider" destination="WKq-8S-OIw" id="5Qw-5c-yKw"/>
                         <segue destination="YJs-Sh-uWz" kind="show" identifier="tapToLocation" id="dvG-CP-Nef"/>
                     </connections>
                 </viewController>
@@ -254,6 +273,7 @@
         <image name="map (1)" width="24" height="24"/>
         <image name="placeholder" width="24" height="24"/>
         <image name="user (1)" width="24" height="24"/>
+        <image name="userlocation" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="dvG-CP-Nef"/>

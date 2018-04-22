@@ -27,16 +27,18 @@
 @end
 
 @implementation MapViewController
-@synthesize MapView,LikelyList,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,RemoveAnnotations;
+@synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider;
 //view loads
 - (void)viewDidLoad {
     MasterLocations=[[NSMutableArray alloc ]init];
+    MasterAnnotations=[[NSMutableArray alloc]init];
     LocationsNearby = [[NSMutableArray alloc]init];
     RemoveAnnotations=[[NSMutableArray alloc]init];
     SelectedPlace =[[GooglePlace alloc ]init];
     Annotations= [[NSMutableArray alloc ]init];
+    self.RadiusSlider.minimumValue=20;
+    self.RadiusSlider.maximumValue=1000;
     self.tabBarController.delegate=self;
-    LikelyList=[[GMSPlaceLikelihoodList alloc ]init];
     self.placesClient = [[GMSPlacesClient alloc] init];
     _CurrentIndex=0;
     //creates an array of locations that will be stored for t
@@ -142,7 +144,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-    
     [self.Annotations removeAllObjects];
     [self.LocationsNearby removeAllObjects];
     [self.RemoveAnnotations removeAllObjects];
@@ -165,26 +166,35 @@
             NSLog(@"Current PlaceID %@", CurrentPlace.placeID);
             GooglePlace* tempplace = [[GooglePlace alloc] init];
             [tempplace Initiate:CurrentPlace.name:CurrentPlace.placeID :CurrentPlace.coordinate :CurrentPlace.types :CurrentPlace.openNowStatus :CurrentPlace.phoneNumber :CurrentPlace.formattedAddress :CurrentPlace.rating :CurrentPlace.priceLevel :CurrentPlace.website];
-            [LocationsNearby addObject:tempplace];
+            CLLocation*current = [[CLLocation alloc]initWithLatitude:tempplace.coordinate.latitude longitude:tempplace.coordinate.longitude];
+            CLLocationDistance distance = [[locations lastObject] distanceFromLocation:current];
+            if (distance<(double)RadiusSlider.value){
+                [LocationsNearby addObject:tempplace];
+            }
             [MasterLocations addObject:tempplace];
             MGLPointAnnotation*tempAnnotation = [[MGLPointAnnotation alloc ]init];
             tempAnnotation.coordinate=tempplace.coordinate;
             tempAnnotation.title=tempplace.name;
+            tempplace.AnnotationPointer=tempAnnotation;
             [Annotations addObject:tempAnnotation];
+            [MasterAnnotations addObject:tempAnnotation];
+            userLocation=[locations lastObject];
         }
-        self.LikelyList=likelihoodList;
+
         //create a RemoveAnnotations array and master list of all locations user went nearby
         //create a UpdateAnnotationsMethod
         //method will iteraate through master list of locations array and check which location is more than 5 miles of the user
         //if it is more than 5 miles, add to remove array
         //else add to the annotations array
         //after for loop, add annotations and remove relevant annotations
-        [MapView addAnnotations:Annotations];
-        [self UpdateAnnotationsMethod:self.MasterLocations:[locations lastObject]];
-        [MapView removeAnnotations:RemoveAnnotations];
+        [self.MapView addAnnotations:Annotations];
+        [self UpdateAnnotationsMethod:[locations lastObject]];
+        [self.MapView removeAnnotations:RemoveAnnotations];
+        NSLog(@"Removing annotations");
 
-        
     }];
+    
+   
 
     int count=0;
     NSLog(@"Count for MapView of LikelyList is:%d",count);
@@ -192,22 +202,43 @@
     
 }
 //If you tap on a purple dot, the label appears for the name of the place and sends the user to the view controller with the name of the place
-- (void) UpdateAnnotationsMethod:(NSMutableArray*)MasterLocations:(CLLocation* )User{
+- (void) UpdateAnnotationsMethod:(CLLocation* )User{
     for (GooglePlace* place in MasterLocations){
-        CLLocation*current = [[CLLocation alloc]initWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude];
+        CLLocation*current = [[CLLocation alloc]initWithLatitude:place.AnnotationPointer.coordinate.latitude longitude:place.AnnotationPointer.coordinate.longitude];
         CLLocationDistance distance = [User distanceFromLocation:current];
-        if (distance>(double)500.0){
-            for (MGLPointAnnotation* anno in Annotations){
-                if (anno.coordinate.latitude== place.coordinate.latitude&&anno.coordinate.longitude==place.coordinate.longitude&&[anno.title isEqualToString:place.name]){
-                    NSLog(@"found a bigger distance for place %@ with distance of %f",place.name,distance);
-                    [RemoveAnnotations addObject:anno];
-                    break;
-                }
-            }
+        if (distance>(double)RadiusSlider.value){
+            [RemoveAnnotations addObject:place.AnnotationPointer];
         }
         
     }
 }
+- (IBAction)sliderValueChanged:(id)sender {
+    float Feet = (RadiusSlider.value)*3.28084;
+    [RadiusLabel setAlpha:0.0f];
+    RadiusLabel.text=[[NSString alloc]initWithFormat:@"%.1f feet",Feet];
+    [RadiusLabel setAlpha:1.0f];
+    //fade in
+    [UIView animateWithDuration:2.0f animations:^{
+            
+            [RadiusLabel setAlpha:0.0f];
+            
+        } completion:nil];
+        
+    
+    //[self UpdateAnnotationsMethod:userLocation];
+    //[self UpdateLocationsNearby:userLocation];
+}
+- (void) UpdateLocationsNearby:(CLLocation* )User{
+    for (GooglePlace* place in LocationsNearby){
+        CLLocation*current = [[CLLocation alloc]initWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude];
+        CLLocationDistance distance = [User distanceFromLocation:current];
+        if (distance>(double)RadiusSlider.value){
+            [LocationsNearby removeObject:place];
+        }
+        
+    }
+}
+
 - (IBAction)backToStart:(UIStoryboardSegue*) segue{
     NSLog(@"Returned!");
 }
@@ -278,7 +309,6 @@
             [tempplace Initiate:CurrentPlace.name:CurrentPlace.placeID :CurrentPlace.coordinate :CurrentPlace.types :CurrentPlace.openNowStatus :CurrentPlace.phoneNumber :CurrentPlace.formattedAddress :CurrentPlace.rating :CurrentPlace.priceLevel :CurrentPlace.website];
             [LocationsNearby addObject:tempplace];
         }
-        self.LikelyList=likelihoodList;
         
         
     }];
@@ -318,13 +348,12 @@
     if ([viewController isKindOfClass:[UINavigationController class]]){
         UINavigationController*Tips1 = (UINavigationController*)viewController;
         if ([Tips1.visibleViewController isKindOfClass:[TipsFirstTableViewController class]]){TipsFirstTableViewController*Tips=(TipsFirstTableViewController*)Tips1.visibleViewController;
-        Tips.LikelyList=self.LikelyList;
+        Tips.NearbyLocations=self.LocationsNearby;
             Tips.userLocation=self.userLocation;
         NSLog(@"Switching view controllers to TipsFirst");
             }
         else if ([Tips1.visibleViewController isKindOfClass:[TipsSecondTableViewController class]]){
             TipsSecondTableViewController *Tips2 = (TipsSecondTableViewController*)Tips1.visibleViewController;
-            Tips2.LikelyList=self.LikelyList;
             Tips2.userLocation=self.userLocation;
             NSLog(@"Switching view controllers to SecondTipsFirst");
 
