@@ -2,21 +2,23 @@
 //  AppDelegate.m
 //  WayMap
 //
-//  Created by carlos arellano on 4/5/18.
+//  Created by carlos arellano and jean jeon on 4/5/18.
 //  Copyright © 2018 nyu.edu. All rights reserved.
 //
 
 #import "AppDelegate.h"
 @import GooglePlaces;
+@import UIKit;
+@import Firebase;
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [GMSPlacesClient provideAPIKey:@"AIzaSyD1r1DuPCcwMFH50vV6hOLK14PWiFqq8DE"];
+    [FIRApp configure];
     // Override point for customization after application launch.
     return YES;
 }

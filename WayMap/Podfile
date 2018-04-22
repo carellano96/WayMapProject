@@ -6,6 +6,7 @@ target 'WayMap' do
   # use_frameworks!
 pod 'GooglePlaces'
 pod 'GooglePlacePicker'
+pod ‘Firebase/Core’
   # Pods for WayMap
 
   target 'WayMapTests' do
