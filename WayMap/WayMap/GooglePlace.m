@@ -26,6 +26,7 @@
     self.rating=rating;
     self.priceLevel=priceLevel;
     self.website=website;
+    
 }
 @end
 /*@property NSString*name;
