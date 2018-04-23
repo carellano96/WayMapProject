@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddNewPlaceViewController : UIViewController
+@interface AddNewPlaceViewController : UIViewController <UIPickerViewDelegate,UIPickerViewDataSource>
 - (IBAction)textFieldClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UIPickerView *picker;
 
 @end

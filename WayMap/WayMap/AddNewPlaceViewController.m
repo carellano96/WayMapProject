@@ -13,10 +13,17 @@
 
 @end
 
-@implementation AddNewPlaceViewController
-@synthesize textField;
+@implementation
+AddNewPlaceViewController
+NSArray*pickerData;
+
+@synthesize textField,picker;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.picker.delegate=self;
+    self.picker.dataSource=self;
+    pickerData = @[@"Food",@"Leisure",@"Shopping",@"Entertainment",@"Culture",@"Transportation",@"Financial",@"Occupational",@"Lifestyle",@"Other"];
     // Do any additional setup after loading the view.
 }
 - (void)textFieldClick:(id)sender{
@@ -58,7 +65,22 @@ didFailAutocompleteWithError:(NSError *)error {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (int)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
 
+// The number of rows of data
+- (int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return pickerData.count;
+}
+
+// The data to return for the row and component (column) that's being passed in
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return pickerData[row];
+}
 /*
 #pragma mark - Navigation
 
