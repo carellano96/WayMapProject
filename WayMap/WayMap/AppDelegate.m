@@ -23,7 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [GMSPlacesClient provideAPIKey:@"AIzaSyD1r1DuPCcwMFH50vV6hOLK14PWiFqq8DE"];
     [FIRApp configure];
-    
+    /*
     //Init Map ViewController
     MapViewController *mapVC = [[MapViewController alloc]init];
     mapVC.tabBarItem.title = @"Map";
@@ -33,7 +33,7 @@
     tipsVC.tabBarItem.title = @"Tips";
     
     //Init the User Profile ViewController
-    MapViewController *profileVC = [[MapViewController alloc]init];
+    UserProfileViewController *profileVC = [[UserProfileViewController alloc]init];
     profileVC.tabBarItem.title = @"Profile";
     
     //init the UITabBarController
@@ -44,8 +44,8 @@
     //Add the tab bar controller to the window
     LogInViewController *loginVC = [[LogInViewController alloc]init];
     [self.window setRootViewController:loginVC];
-    
-    [self.window makeKeyAndVisible];
+    */
+    //[self.window makeKeyAndVisible];
     
     return YES;
 }
