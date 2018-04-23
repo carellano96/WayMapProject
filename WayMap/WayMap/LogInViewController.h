@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface LogInViewController : UIViewController
-- (IBAction)LogIn:(id)sender;
-
+- (IBAction)signInAction:(id)sender;
 @property (strong, nonatomic) UIWindow *window;
 @end

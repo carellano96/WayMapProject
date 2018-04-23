@@ -30,6 +30,6 @@
     
 }
 
-- (IBAction)LogIn:(id)sender {
+- (IBAction)signInAction:(id)sender {
 }
 @end

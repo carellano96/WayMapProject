@@ -152,7 +152,7 @@
         <!--Log In View Controller-->
         <scene sceneID="fPe-zi-R89">
             <objects>
-                <viewController storyboardIdentifier="LogInViewController" id="eRq-P0-Qtc" customClass="LogInViewController" sceneMemberID="viewController">
+                <viewController id="eRq-P0-Qtc" customClass="LogInViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LBd-Sc-oQo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -173,9 +173,10 @@
                                     <color key="titleColor" red="0.220308013" green="0.54685637460000003" blue="0.54029627550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="LogIn:" destination="eRq-P0-Qtc" eventType="touchUpInside" id="mKi-2u-R1u"/>
-                                    <action selector="LogInButton:" destination="eRq-P0-Qtc" eventType="touchUpInside" id="vQV-Yh-F45"/>
-                                    <segue destination="S41-ER-dga" kind="presentation" id="NY7-sq-sCJ"/>
+
+                                    <action selector="signInAction:" destination="6fX-Y4-Pg2" eventType="touchUpInside" id="4fQ-Qn-HJG"/>
+                                    <action selector="signInAction:" destination="eRq-P0-Qtc" eventType="touchUpInside" id="Dxv-2u-4mL"/>
+                                    <segue destination="S41-ER-dga" kind="show" id="Wi2-iI-FRZ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -298,6 +299,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7QS-Pm-RSJ">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="EKg-1Q-OXE" kind="relationship" relationship="rootViewController" id="V30-Pc-9yb"/>
                     </connections>
