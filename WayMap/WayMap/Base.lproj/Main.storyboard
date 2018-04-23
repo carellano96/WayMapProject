@@ -173,8 +173,6 @@
                                     <color key="titleColor" red="0.220308013" green="0.54685637460000003" blue="0.54029627550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-
-                                    <action selector="signInAction:" destination="6fX-Y4-Pg2" eventType="touchUpInside" id="4fQ-Qn-HJG"/>
                                     <action selector="signInAction:" destination="eRq-P0-Qtc" eventType="touchUpInside" id="Dxv-2u-4mL"/>
                                     <segue destination="S41-ER-dga" kind="show" id="Wi2-iI-FRZ"/>
                                 </connections>
