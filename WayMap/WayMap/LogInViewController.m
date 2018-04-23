@@ -36,7 +36,6 @@
 */
 
 - (IBAction)signInAction:(id)sender {
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate.window setRootViewController:appDelegate.tabBarController];
+
 }
 @end
