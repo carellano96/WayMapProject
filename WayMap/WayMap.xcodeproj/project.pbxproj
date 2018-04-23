@@ -20,6 +20,7 @@
 		078094A62076F5ED00ADFBF3 /* WayMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094A52076F5ED00ADFBF3 /* WayMapTests.m */; };
 		078094B12076F5ED00ADFBF3 /* WayMapUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094B02076F5ED00ADFBF3 /* WayMapUITests.m */; };
 		078094C62082771700ADFBF3 /* TipsFirstTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078094C52082771700ADFBF3 /* TipsFirstTableViewController.m */; };
+		079A77D2208E6ED5006A692A /* AddNewPlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079A77D1208E6ED5006A692A /* AddNewPlaceViewController.m */; };
 		07EB30782087D1DF00762806 /* PlacesInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EB30772087D1DF00762806 /* PlacesInformationViewController.m */; };
 		07EB307B2087E38F00762806 /* GooglePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EB307A2087E38F00762806 /* GooglePlace.m */; };
 		2BB1C1DF22B1F35AA12499DF /* libPods-WayMapTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69F22FBD2309671A393AB9A7 /* libPods-WayMapTests.a */; };
@@ -84,6 +85,8 @@
 		078094B22076F5ED00ADFBF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		078094C42082771700ADFBF3 /* TipsFirstTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TipsFirstTableViewController.h; sourceTree = "<group>"; };
 		078094C52082771700ADFBF3 /* TipsFirstTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TipsFirstTableViewController.m; sourceTree = "<group>"; };
+		079A77D0208E6ED5006A692A /* AddNewPlaceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNewPlaceViewController.h; sourceTree = "<group>"; };
+		079A77D1208E6ED5006A692A /* AddNewPlaceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNewPlaceViewController.m; sourceTree = "<group>"; };
 		07EB30762087D1DF00762806 /* PlacesInformationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacesInformationViewController.h; sourceTree = "<group>"; };
 		07EB30772087D1DF00762806 /* PlacesInformationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlacesInformationViewController.m; sourceTree = "<group>"; };
 		07EB30792087E38F00762806 /* GooglePlace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GooglePlace.h; sourceTree = "<group>"; };
@@ -174,6 +177,8 @@
 				07706A782082F01000C0A054 /* MapViewController.m */,
 				078094C42082771700ADFBF3 /* TipsFirstTableViewController.h */,
 				078094C52082771700ADFBF3 /* TipsFirstTableViewController.m */,
+				079A77D0208E6ED5006A692A /* AddNewPlaceViewController.h */,
+				079A77D1208E6ED5006A692A /* AddNewPlaceViewController.m */,
 				07EB30792087E38F00762806 /* GooglePlace.h */,
 				07EB307A2087E38F00762806 /* GooglePlace.m */,
 				078094952076F5ED00ADFBF3 /* Assets.xcassets */,
@@ -468,6 +473,7 @@
 				7C933562208C637D0032EE2F /* UserProfileViewController.m in Sources */,
 				0780949C2076F5ED00ADFBF3 /* main.m in Sources */,
 				0780948E2076F5EC00ADFBF3 /* AppDelegate.m in Sources */,
+				079A77D2208E6ED5006A692A /* AddNewPlaceViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
