@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07287969208CEAC900AC1FA7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07287968208CEAC900AC1FA7 /* GoogleService-Info.plist */; };
 		07706A6820828B5900C0A054 /* TipsSecondTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07706A6720828B5900C0A054 /* TipsSecondTableViewController.m */; };
 		07706A722082E8CC00C0A054 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07706A712082E8CB00C0A054 /* Mapbox.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		07706A732082E8CC00C0A054 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07706A712082E8CB00C0A054 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -26,6 +25,7 @@
 		34604AED24512110E9DB0ED9 /* libPods-WayMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8CBC8032AD1D5EC4F3A1A0 /* libPods-WayMap.a */; };
 		7C933562208C637D0032EE2F /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C933561208C637D0032EE2F /* UserProfileViewController.m */; };
 		7C933566208D35AD0032EE2F /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C933564208D35AB0032EE2F /* LogInViewController.m */; };
+		7C933569208D65E10032EE2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C933568208D65E10032EE2F /* GoogleService-Info.plist */; };
 		8AD4AAA63BCC37CAF50954CB /* libPods-WayMapUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F272E2B9B719845F587B5D /* libPods-WayMapUITests.a */; };
 /* End PBXBuildFile section */
 
@@ -61,7 +61,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		07287968208CEAC900AC1FA7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		07706A6620828B5900C0A054 /* TipsSecondTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TipsSecondTableViewController.h; sourceTree = "<group>"; };
 		07706A6720828B5900C0A054 /* TipsSecondTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TipsSecondTableViewController.m; sourceTree = "<group>"; };
 		07706A712082E8CB00C0A054 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
@@ -97,6 +96,7 @@
 		7C933561208C637D0032EE2F /* UserProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		7C933563208D35AB0032EE2F /* LogInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		7C933564208D35AB0032EE2F /* LogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		7C933568208D65E10032EE2F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AA8CBC8032AD1D5EC4F3A1A0 /* libPods-WayMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WayMap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB4D2FDE71C24BB6F725BE22 /* Pods-WayMapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayMapTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WayMapTests/Pods-WayMapTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F47D8E3617BF77436E75C0BD /* Pods-WayMapUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayMapUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WayMapUITests/Pods-WayMapUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 				078094952076F5ED00ADFBF3 /* Assets.xcassets */,
 				078094972076F5ED00ADFBF3 /* LaunchScreen.storyboard */,
 				0780949A2076F5ED00ADFBF3 /* Info.plist */,
-				07287968208CEAC900AC1FA7 /* GoogleService-Info.plist */,
+				7C933568208D65E10032EE2F /* GoogleService-Info.plist */,
 				0780949B2076F5ED00ADFBF3 /* main.m */,
 			);
 			path = WayMap;
@@ -339,7 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				078094992076F5ED00ADFBF3 /* LaunchScreen.storyboard in Resources */,
-				07287969208CEAC900AC1FA7 /* GoogleService-Info.plist in Resources */,
+				7C933569208D65E10032EE2F /* GoogleService-Info.plist in Resources */,
 				078094962076F5ED00ADFBF3 /* Assets.xcassets in Resources */,
 				078094942076F5EC00ADFBF3 /* Main.storyboard in Resources */,
 			);
