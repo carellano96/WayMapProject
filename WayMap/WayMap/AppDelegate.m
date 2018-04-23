@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "LogInViewController.h"
+#import "UserProfileViewController.h"
+#import "MapViewController.h"
+#import "TipsFirstTableViewController.h"
 @import GooglePlaces;
 @import UIKit;
 @import Firebase;
@@ -19,7 +23,30 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [GMSPlacesClient provideAPIKey:@"AIzaSyD1r1DuPCcwMFH50vV6hOLK14PWiFqq8DE"];
     [FIRApp configure];
-    // Override point for customization after application launch.
+    
+    //Init Map ViewController
+    MapViewController *mapVC = [[MapViewController alloc]init];
+    mapVC.tabBarItem.title = @"Map";
+    
+    //Init the FIRST Tips ViewController
+    TipsFirstTableViewController *tipsVC = [[TipsFirstTableViewController alloc]init];
+    tipsVC.tabBarItem.title = @"Tips";
+    
+    //Init the User Profile ViewController
+    MapViewController *profileVC = [[MapViewController alloc]init];
+    profileVC.tabBarItem.title = @"Profile";
+    
+    //init the UITabBarController
+    
+    self.tabBarController = [[UITabBarController alloc]init];
+    self.tabBarController.viewControllers = @[mapVC,tipsVC,profileVC];
+    
+    //Add the tab bar controller to the window
+    LogInViewController *loginVC = [[LogInViewController alloc]init];
+    [self.window setRootViewController:loginVC];
+    
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
