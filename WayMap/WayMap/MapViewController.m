@@ -10,6 +10,8 @@
 #import "TipsFirstTableViewController.h"
 #import "TipsSecondTableViewController.h"
 #import "GooglePlace.h"
+#import "AddNewPlaceViewController.h"
+#import "CustomAnnotation.h"
 
 @interface MapViewController (){
     int _CurrentIndex;
@@ -27,7 +29,7 @@
 @end
 
 @implementation MapViewController
-@synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider;
+@synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider,UserAddedLocations;
 //view loads
 - (void)viewDidLoad {
     MasterLocations=[[NSMutableArray alloc ]init];
@@ -36,6 +38,7 @@
     RemoveAnnotations=[[NSMutableArray alloc]init];
     SelectedPlace =[[GooglePlace alloc ]init];
     Annotations= [[NSMutableArray alloc ]init];
+    UserAddedLocations = [[NSMutableArray alloc ]init];
     self.RadiusSlider.minimumValue=20;
     self.RadiusSlider.maximumValue=1000;
     self.tabBarController.delegate=self;
@@ -144,6 +147,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
+    CLLocationDistance distance1;
     [self.Annotations removeAllObjects];
     [self.LocationsNearby removeAllObjects];
     [self.RemoveAnnotations removeAllObjects];
@@ -172,14 +176,31 @@
                 [LocationsNearby addObject:tempplace];
             }
             [MasterLocations addObject:tempplace];
-            MGLPointAnnotation*tempAnnotation = [[MGLPointAnnotation alloc ]init];
+            CustomAnnotation*tempAnnotation = [[CustomAnnotation alloc ]init];
             tempAnnotation.coordinate=tempplace.coordinate;
             tempAnnotation.title=tempplace.name;
+            tempAnnotation.UserAdded=false;
             tempplace.AnnotationPointer=tempAnnotation;
             [Annotations addObject:tempAnnotation];
             [MasterAnnotations addObject:tempAnnotation];
             userLocation=[locations lastObject];
         }
+        for (GooglePlace* userplace in UserAddedLocations){
+            CLLocation*current = [[CLLocation alloc]initWithLatitude:userplace.coordinate.latitude longitude:userplace.coordinate.longitude];
+            CLLocationDistance distance = [[locations lastObject] distanceFromLocation:current];
+            if (distance<(double)RadiusSlider.value){
+                [LocationsNearby addObject:userplace];
+            }
+            CustomAnnotation*tempAnnotation = [[CustomAnnotation alloc ]init];
+            tempAnnotation.coordinate=userplace.coordinate;
+            tempAnnotation.title=userplace.name;
+            tempAnnotation.UserAdded=true;
+            userplace.AnnotationPointer=tempAnnotation;
+            [Annotations addObject:tempAnnotation];
+            [MasterAnnotations addObject:tempAnnotation];
+            [MasterLocations addObject:userplace];
+        }
+        
 
         //create a RemoveAnnotations array and master list of all locations user went nearby
         //create a UpdateAnnotationsMethod
@@ -241,6 +262,14 @@
 
 - (IBAction)backToStart:(UIStoryboardSegue*) segue{
     NSLog(@"Returned!");
+}
+- (IBAction)backToStartFromAdding:(UIStoryboardSegue*) segue{
+    NSLog(@"Returned from adding!");
+    AddNewPlaceViewController* placeView = [segue sourceViewController];
+    GooglePlace* UserPlace = placeView.UserAddedPlace;
+    [UserAddedLocations addObject:UserPlace];
+    
+    
 }
 
 -(void)mapView:(MGLMapView *)mapView tapOnCalloutForAnnotation:(id<MGLAnnotation>)annotation{
@@ -317,10 +346,17 @@
 
 - (MGLAnnotationImage *)mapView:(MGLMapView *)mapView imageForAnnotation:(id <MGLAnnotation>)annotation {
     // Try to reuse the existing ‘pisa’ annotation image, if it exists.
-    MGLAnnotationImage *annotationImage = [mapView dequeueReusableAnnotationImageWithIdentifier:@"purpledot"];
-    
+    CustomAnnotation *currentanno = (CustomAnnotation*)annotation;
+    NSLog(@"current anno %d",currentanno.UserAdded);
+    MGLAnnotationImage *annotationImage;
+    if (!currentanno.UserAdded){
+        annotationImage = [mapView dequeueReusableAnnotationImageWithIdentifier:@"purpledot"];}
+    else if (currentanno.UserAdded){
+        annotationImage = [mapView dequeueReusableAnnotationImageWithIdentifier:@"bluediamond"];}
     // If the ‘pisa’ annotation image hasn‘t been set yet, initialize it here.
+    
     if (!annotationImage) {
+        if (!currentanno.UserAdded){
         UIImage *image = [UIImage imageNamed:@"purpledot"];
         
         // The anchor point of an annotation is currently always the center. To
@@ -334,6 +370,22 @@
         
         // Initialize the ‘pisa’ annotation image with the UIImage we just loaded.
         annotationImage = [MGLAnnotationImage annotationImageWithImage:image reuseIdentifier:@"purpledot"];
+        }
+        else if (currentanno.UserAdded){
+            UIImage *image = [UIImage imageNamed:@"bluediamond"];
+            
+            // The anchor point of an annotation is currently always the center. To
+            // shift the anchor point to the bottom of the annotation, the image
+            // asset includes transparent bottom padding equal to the original image
+            // height.
+            //
+            // To make this padding non-interactive, we create another image object
+            // with a custom alignment rect that excludes the padding.
+            image = [image imageWithAlignmentRectInsets:UIEdgeInsetsMake(0, 0, image.size.height/2, 0)];
+            
+            // Initialize the ‘pisa’ annotation image with the UIImage we just loaded.
+            annotationImage = [MGLAnnotationImage annotationImageWithImage:image reuseIdentifier:@"bluediamond"];
+        }
     }
     NSLog(@"making the dot");
     

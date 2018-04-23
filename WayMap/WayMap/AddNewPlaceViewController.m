@@ -17,10 +17,10 @@
 AddNewPlaceViewController
 NSArray*pickerData;
 
-@synthesize textField,picker;
+@synthesize textField,picker,UserAddedPlace;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    UserAddedPlace=[[GooglePlace alloc]init];
     self.picker.delegate=self;
     self.picker.dataSource=self;
     pickerData = @[@"Food",@"Leisure",@"Shopping",@"Entertainment",@"Culture",@"Transportation",@"Financial",@"Occupational",@"Lifestyle",@"Other"];
@@ -39,6 +39,9 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     NSLog(@"Place address %@", place.formattedAddress);
     NSLog(@"Place attributions %@", place.attributions.string);
     textField.text=place.name;
+    [UserAddedPlace Initiate:place.name :place.placeID :place.coordinate :place.types :place.openNowStatus :place.phoneNumber :place.formattedAddress :place.rating :place.priceLevel :place.website];
+    UserAddedPlace.UserAdded=true;
+    
 }
 
 - (void)viewController:(GMSAutocompleteViewController *)viewController
@@ -80,6 +83,9 @@ didFailAutocompleteWithError:(NSError *)error {
 - (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     return pickerData[row];
+}
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    
 }
 /*
 #pragma mark - Navigation

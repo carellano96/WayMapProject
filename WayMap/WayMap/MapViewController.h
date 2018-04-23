@@ -28,4 +28,5 @@
 @property (strong)NSMutableArray* RemoveAnnotations;
 @property (strong)NSMutableArray* MasterAnnotations;
 @property (strong )NSMutableArray*prepareToRemove;
+@property (strong) NSMutableArray*UserAddedLocations;
 @end
