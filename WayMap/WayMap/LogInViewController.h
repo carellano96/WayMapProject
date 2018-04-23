@@ -10,5 +10,5 @@
 
 @interface LogInViewController : UIViewController
 - (IBAction)signInAction:(id)sender;
-
+@property (strong, nonatomic) UIWindow *window;
 @end
