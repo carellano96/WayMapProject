@@ -24,28 +24,28 @@
     [GMSPlacesClient provideAPIKey:@"AIzaSyD1r1DuPCcwMFH50vV6hOLK14PWiFqq8DE"];
     [FIRApp configure];
     
-    //Init Map ViewController
-    MapViewController *mapVC = [[MapViewController alloc]init];
-    mapVC.tabBarItem.title = @"Map";
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    //Init the FIRST Tips ViewController
-    TipsFirstTableViewController *tipsVC = [[TipsFirstTableViewController alloc]init];
-    tipsVC.tabBarItem.title = @"Tips";
+    /*
+    //Map controller
+    UIViewController *mapVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"Map"];
+    //Tips controller
+    UIViewController *tipsVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"Tips"];
     
-    //Init the User Profile ViewController
-    MapViewController *profileVC = [[MapViewController alloc]init];
-    profileVC.tabBarItem.title = @"Profile";
+    //Profile controller
+    UIViewController *profileVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"Profile"];
     
-    //init the UITabBarController
+    //Instatntiate the UITabBarController
     
-    self.tabBarController = [[UITabBarController alloc]init];
-    self.tabBarController.viewControllers = @[mapVC,tipsVC,profileVC];
+    UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"TabBarVC"];
     
     //Add the tab bar controller to the window
-    LogInViewController *loginVC = [[LogInViewController alloc]init];
-    [self.window setRootViewController:loginVC];
+    UIViewController *LogInVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];
+    [self.window setRootViewController:LogInVC];
     
     [self.window makeKeyAndVisible];
+     
+     */
     
     return YES;
 }
