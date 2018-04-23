@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0728796D208E335B00AC1FA7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0728796C208E335B00AC1FA7 /* GoogleService-Info.plist */; };
+		0744570A208E9F310077126C /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 07445709208E9F310077126C /* CustomAnnotation.m */; };
 		07706A6820828B5900C0A054 /* TipsSecondTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07706A6720828B5900C0A054 /* TipsSecondTableViewController.m */; };
 		07706A722082E8CC00C0A054 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07706A712082E8CB00C0A054 /* Mapbox.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		07706A732082E8CC00C0A054 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07706A712082E8CB00C0A054 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -63,6 +64,8 @@
 
 /* Begin PBXFileReference section */
 		0728796C208E335B00AC1FA7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		07445708208E9F310077126C /* CustomAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomAnnotation.h; sourceTree = "<group>"; };
+		07445709208E9F310077126C /* CustomAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotation.m; sourceTree = "<group>"; };
 		07706A6620828B5900C0A054 /* TipsSecondTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TipsSecondTableViewController.h; sourceTree = "<group>"; };
 		07706A6720828B5900C0A054 /* TipsSecondTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TipsSecondTableViewController.m; sourceTree = "<group>"; };
 		07706A712082E8CB00C0A054 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
@@ -175,6 +178,8 @@
 				07706A6720828B5900C0A054 /* TipsSecondTableViewController.m */,
 				07706A772082F01000C0A054 /* MapViewController.h */,
 				07706A782082F01000C0A054 /* MapViewController.m */,
+				07445708208E9F310077126C /* CustomAnnotation.h */,
+				07445709208E9F310077126C /* CustomAnnotation.m */,
 				078094C42082771700ADFBF3 /* TipsFirstTableViewController.h */,
 				078094C52082771700ADFBF3 /* TipsFirstTableViewController.m */,
 				079A77D0208E6ED5006A692A /* AddNewPlaceViewController.h */,
@@ -469,6 +474,7 @@
 				07706A792082F01000C0A054 /* MapViewController.m in Sources */,
 				07EB307B2087E38F00762806 /* GooglePlace.m in Sources */,
 				07EB30782087D1DF00762806 /* PlacesInformationViewController.m in Sources */,
+				0744570A208E9F310077126C /* CustomAnnotation.m in Sources */,
 				7C933566208D35AD0032EE2F /* LogInViewController.m in Sources */,
 				7C933562208C637D0032EE2F /* UserProfileViewController.m in Sources */,
 				0780949C2076F5ED00ADFBF3 /* main.m in Sources */,

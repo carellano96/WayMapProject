@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "GooglePlace.h"
 @interface UserProfileViewController : UIViewController
-
 @end

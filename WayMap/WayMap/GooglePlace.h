@@ -24,6 +24,6 @@
 @property NSURL*website;
 @property NSMutableArray* types;
 @property MGLPointAnnotation*AnnotationPointer;
-
+@property Boolean UserAdded;
 -(void)Initiate:(NSString*)name:(NSString*)placeID:(CLLocationCoordinate2D)coordinate:(NSArray<NSString*>*) types:(GMSPlacesOpenNowStatus)openNow:(NSString*)phoneNumber:(NSString*)formattedAddress:(float)rating: (GMSPlacesPriceLevel)priceLevel:(NSURL*)website;
 @end
