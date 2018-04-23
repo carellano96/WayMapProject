@@ -25,6 +25,7 @@
     [FIRApp configure];
 
     /*Hello
+     /*How are you
     //Init Map ViewController
     MapViewController *mapVC = [[MapViewController alloc]init];
     mapVC.tabBarItem.title = @"Map";
