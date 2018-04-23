@@ -229,7 +229,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ti2-he-i4T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="448.80000000000001" y="901.79910044977521"/>
+            <point key="canvasLocation" x="-164" y="1192"/>
+        </scene>
+        <!--Add New Place View Controller-->
+        <scene sceneID="mkC-Uo-Cgb">
+            <objects>
+                <viewController id="whB-AM-vOU" customClass="AddNewPlaceViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ufa-nw-mzY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yUy-iA-yJI">
+                                <rect key="frame" x="32" y="40" width="311" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textFieldClick:" destination="whB-AM-vOU" eventType="editingDidBegin" id="lvL-FP-gnv"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="2Do-py-jdF"/>
+                    </view>
+                    <connections>
+                        <outlet property="textField" destination="yUy-iA-yJI" id="gxE-Bw-D7x"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ng-XR-KMv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="824.79999999999995" y="903.59820089955031"/>
         </scene>
         <!--Map-->
         <scene sceneID="WpC-wt-VU9">
@@ -263,6 +293,14 @@
                                     <action selector="sliderValueChanged:" destination="2Mr-Hd-JRi" eventType="valueChanged" id="ouc-HJ-1BH"/>
                                 </connections>
                             </slider>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SV8-au-1eN">
+                                <rect key="frame" x="291" y="578" width="66" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add"/>
+                                <connections>
+                                    <segue destination="whB-AM-vOU" kind="show" identifier="AddPlace" id="xWY-YS-LJ2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
