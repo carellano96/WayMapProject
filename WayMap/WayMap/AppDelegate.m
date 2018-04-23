@@ -23,9 +23,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [GMSPlacesClient provideAPIKey:@"AIzaSyD1r1DuPCcwMFH50vV6hOLK14PWiFqq8DE"];
     [FIRApp configure];
+    //I am fine thank you
 
     /*Hello
-     /*How are you
     //Init Map ViewController
     MapViewController *mapVC = [[MapViewController alloc]init];
     mapVC.tabBarItem.title = @"Map";
