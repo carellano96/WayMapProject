@@ -173,6 +173,7 @@
                                     <color key="titleColor" red="0.220308013" green="0.54685637460000003" blue="0.54029627550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="LogIn:" destination="eRq-P0-Qtc" eventType="touchUpInside" id="mKi-2u-R1u"/>
                                     <action selector="LogInButton:" destination="eRq-P0-Qtc" eventType="touchUpInside" id="vQV-Yh-F45"/>
                                     <segue destination="S41-ER-dga" kind="presentation" id="NY7-sq-sCJ"/>
                                 </connections>

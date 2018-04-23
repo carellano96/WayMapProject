@@ -24,29 +24,6 @@
     [GMSPlacesClient provideAPIKey:@"AIzaSyD1r1DuPCcwMFH50vV6hOLK14PWiFqq8DE"];
     [FIRApp configure];
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
-    /*
-    //Map controller
-    UIViewController *mapVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"Map"];
-    //Tips controller
-    UIViewController *tipsVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"Tips"];
-    
-    //Profile controller
-    UIViewController *profileVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"Profile"];
-    
-    //Instatntiate the UITabBarController
-    
-    UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"TabBarVC"];
-    
-    //Add the tab bar controller to the window
-    UIViewController *LogInVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"LogInViewController"];
-    [self.window setRootViewController:LogInVC];
-    
-    [self.window makeKeyAndVisible];
-     
-     */
-    
     return YES;
 }
 

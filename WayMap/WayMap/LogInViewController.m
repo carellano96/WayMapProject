@@ -28,8 +28,8 @@
 //Set TabBar VC as the root VC when the Log In button is pressed on the Login VC 
 - (IBAction)LogInButton:(UIButton *)sender {
     
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate.window setRootViewController:appDelegate.tabBarController];
 }
 
+- (IBAction)LogIn:(id)sender {
+}
 @end
