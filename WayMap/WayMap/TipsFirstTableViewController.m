@@ -14,7 +14,7 @@
 
 @end
 @implementation TipsFirstTableViewController
-@synthesize categories,LikelyList,Transportation,Occupational,Financial,Food,Lifestyle,Culture,Entertainment,Leisure,Other,Shopping,Tips1,userLocation,SelectedPlace;
+@synthesize categories,NearbyLocations,Transportation,Occupational,Financial,Food,Lifestyle,Culture,Entertainment,Leisure,Other,Shopping,Tips1,userLocation,SelectedPlace;
 NSString* SelectedIndexPath;
 - (id) initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
@@ -57,15 +57,14 @@ NSString* SelectedIndexPath;
     SelectedPlace=[[GooglePlace alloc]init];
     self.tabBarController.delegate=self;
     int count=0;
-    for (GMSPlaceLikelihood *likehood in LikelyList.likelihoods){
+    for (GooglePlace*place in NearbyLocations){
         count++;
         NSLog(@"ADDED TO FOOD ARRAY!");
-        GMSPlace* place = likehood.place;
-        NSLog(@"Current Place name %@ at likelihood %g", place.name, likehood.likelihood);
+        NSLog(@"Current Place name %@", place.name);
         
     }
     [categories removeAllObjects];
-    [self CategorizeLocations:LikelyList];
+    [self CategorizeLocations:NearbyLocations];
     if ([Food count]!=0){
         [categories addObject:@"Food"];
     }
@@ -106,12 +105,10 @@ NSString* SelectedIndexPath;
 }
 
 - (void) CategorizeLocations
-:(GMSPlaceLikelihoodList*)LikelyList{
-    for (GMSPlaceLikelihood *likehood in LikelyList.likelihoods){
+:(GooglePlace*)place{
+    for (GooglePlace*place in NearbyLocations){
         NSLog(@"ADDED TO FOOD ARRAY!");
-        GMSPlace* CurrentPlace = likehood.place;
-        GooglePlace* place = [[GooglePlace alloc] init];
-        [place Initiate:CurrentPlace.name:CurrentPlace.placeID :CurrentPlace.coordinate :CurrentPlace.types :CurrentPlace.openNowStatus :CurrentPlace.phoneNumber :CurrentPlace.formattedAddress :CurrentPlace.rating :CurrentPlace.priceLevel :CurrentPlace.website];
+
         NSArray *typeplace = place.types;
         NSLog(@"PLACE TYPE for %@",place.name);
         for (NSString* type in typeplace){
@@ -168,7 +165,7 @@ NSString* SelectedIndexPath;
         }
         
         
-        NSLog(@"Current Place name %@ at likelihood %g", place.name, likehood.likelihood);
+
         
     }
     NSLog(@"done with loop");
@@ -292,7 +289,6 @@ NSString* SelectedIndexPath;
          TipsSecondTableViewController *SecTip = [segue destinationViewController];
          SecTip.LocationName=SelectedIndexPath;
          SecTip.title=SecTip.LocationName;
-         SecTip.LikelyList=LikelyList;
          SecTip.Food=Food;
          SecTip.Transportation=Transportation;
          SecTip.Shopping=Shopping;

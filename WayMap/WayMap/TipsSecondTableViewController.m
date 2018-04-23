@@ -13,7 +13,7 @@
 @end
 
 @implementation TipsSecondTableViewController
-@synthesize Food,Lifestyle,Culture,Entertainment,Leisure,Other,Shopping,LikelyList,Transportation,Occupational,Financial,userLocation,SelectedPlace;
+@synthesize Food,Lifestyle,Culture,Entertainment,Leisure,Other,Shopping,Transportation,Occupational,Financial,userLocation,SelectedPlace;
 - (id) initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
     if (self){
@@ -221,6 +221,7 @@ else if ([_LocationName isEqualToString:@"Financial"]){
             ChosenArray=Food;
             chosen=@"Food";
         }
+        
         else if ([_LocationName isEqualToString:@"Leisure"]){
             ChosenArray=Leisure;
             chosen=@"Leisure";

@@ -31,7 +31,6 @@
 @property (strong,nonatomic) NSMutableArray*Lifestyle;
 
 
-@property (strong) GMSPlaceLikelihoodList* LikelyList;
 @property (strong) GooglePlace* SelectedPlace;
 @property (strong )CLLocation*userLocation;
 /*[categories addObject:@"Food"];

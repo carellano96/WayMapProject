@@ -14,8 +14,10 @@
 @import GooglePlacePicker;
 
 @interface MapViewController : UIViewController <MGLMapViewDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate,UITabBarDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *RadiusLabel;
 - (IBAction)UserLocation:(id)sender;
 @property (strong, nonatomic) IBOutlet MGLMapView *MapView;
+@property (weak, nonatomic) IBOutlet UISlider *RadiusSlider;
 @property (strong,nonatomic) GMSPlaceLikelihoodList *LikelyList;
 @property (strong )CLLocation*userLocation;
 @property (strong) NSMutableArray*LocationsNearby;
@@ -23,4 +25,7 @@
 @property (strong) GooglePlace*SelectedPlace;
 - (IBAction)backToStart:(UIStoryboardSegue*) segue;
 @property (strong) NSMutableArray* MasterLocations;
+@property (strong)NSMutableArray* RemoveAnnotations;
+@property (strong)NSMutableArray* MasterAnnotations;
+@property (strong )NSMutableArray*prepareToRemove;
 @end
