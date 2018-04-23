@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0728796B208E31D800AC1FA7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0728796A208E31D800AC1FA7 /* GoogleService-Info.plist */; };
+		0728796D208E335B00AC1FA7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0728796C208E335B00AC1FA7 /* GoogleService-Info.plist */; };
 		07706A6820828B5900C0A054 /* TipsSecondTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07706A6720828B5900C0A054 /* TipsSecondTableViewController.m */; };
 		07706A722082E8CC00C0A054 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07706A712082E8CB00C0A054 /* Mapbox.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		07706A732082E8CC00C0A054 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07706A712082E8CB00C0A054 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -61,7 +61,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0728796A208E31D800AC1FA7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0728796C208E335B00AC1FA7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		07706A6620828B5900C0A054 /* TipsSecondTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TipsSecondTableViewController.h; sourceTree = "<group>"; };
 		07706A6720828B5900C0A054 /* TipsSecondTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TipsSecondTableViewController.m; sourceTree = "<group>"; };
 		07706A712082E8CB00C0A054 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
@@ -178,8 +178,8 @@
 				07EB307A2087E38F00762806 /* GooglePlace.m */,
 				078094952076F5ED00ADFBF3 /* Assets.xcassets */,
 				078094972076F5ED00ADFBF3 /* LaunchScreen.storyboard */,
+				0728796C208E335B00AC1FA7 /* GoogleService-Info.plist */,
 				0780949A2076F5ED00ADFBF3 /* Info.plist */,
-				0728796A208E31D800AC1FA7 /* GoogleService-Info.plist */,
 				0780949B2076F5ED00ADFBF3 /* main.m */,
 			);
 			path = WayMap;
@@ -339,7 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				078094992076F5ED00ADFBF3 /* LaunchScreen.storyboard in Resources */,
-				0728796B208E31D800AC1FA7 /* GoogleService-Info.plist in Resources */,
+				0728796D208E335B00AC1FA7 /* GoogleService-Info.plist in Resources */,
 				078094962076F5ED00ADFBF3 /* Assets.xcassets in Resources */,
 				078094942076F5EC00ADFBF3 /* Main.storyboard in Resources */,
 			);
