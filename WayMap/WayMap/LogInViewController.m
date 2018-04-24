@@ -47,6 +47,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//Change label of Sign In button if "Register" is clicked
 - (IBAction)RegisterClicked:(UISegmentedControl *)sender {
     [ErrorLabel setHidden:YES];
     isSignIn = !isSignIn;
@@ -100,6 +102,7 @@
                                              [[FIRAuth auth].currentUser sendEmailVerificationWithCompletion:^(NSError *_Nullable error) {
                                                  
                                              }];
+                                             
                                              [self performSegueWithIdentifier:@"RegisterSegue" sender:self];
                                          }
                                      }];

@@ -2,14 +2,19 @@
 //  AddNewPlaceViewController.m
 //  WayMap
 //
-//  Created by carlos arellano on 4/23/18.
+//  Created by Carlos Arellano and Jean Jeon on 4/23/18.
 //  Copyright © 2018 nyu.edu. All rights reserved.
 //
 
 #import "AddNewPlaceViewController.h"
 @import GooglePlaces;
 @import  GooglePlacePicker;
+@import Firebase;
+@import FirebaseDatabase;
+@import FirebaseAuth;
 @interface AddNewPlaceViewController ()  <GMSAutocompleteViewControllerDelegate>
+
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
 
@@ -20,6 +25,7 @@ NSString* name;
 @synthesize textField,picker,UserAddedPlace,nameTextField,PlaceTypes,Type;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.ref = [[FIRDatabase database] reference];
     self.picker.delegate=self;
     self.picker.dataSource=self;
     pickerData = @[@"Food",@"Leisure",@"Shopping",@"Entertainment",@"Culture",@"Transportation",@"Financial",@"Occupational",@"Lifestyle",@"Other"];
@@ -96,7 +102,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    NSString* Type = pickerData[row];
+    Type = pickerData[row];
     PlaceTypes = [[NSMutableArray alloc] initWithObjects:Type, nil];
     NSLog(@"Type is %@", Type);
     UserAddedPlace.types=PlaceTypes;
@@ -110,6 +116,15 @@ didFailAutocompleteWithError:(NSError *)error {
         self.AddedLocation=false;
     }
 }
+
+//Push user-added data to be stored under their respective UID in Firebase
+- (IBAction)SaveBtnTapped:(UIButton *)sender {
+    FIRUser *user = [FIRAuth auth].currentUser;
+    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Added"] child:@"Name"] setValue:nameTextField.text];
+    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Added"] child:@"Address"] setValue:textField.text];
+    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Added"] child:@"Type"] setValue:Type];
+}
+
 /*
 #pragma mark - Navigation
 
