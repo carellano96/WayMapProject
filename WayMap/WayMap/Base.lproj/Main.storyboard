@@ -421,7 +421,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <segue destination="dYw-qS-jzs" kind="unwind" unwindAction="backToStartFromAdding:" id="lhb-zf-Jxu"/>
+                                    <segue destination="2Mr-Hd-JRi" kind="presentation" id="S5q-el-sEJ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYu-DF-waX">
@@ -429,6 +429,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
+                                    <action selector="SaveBtnTapped:" destination="whB-AM-vOU" eventType="touchUpInside" id="57Y-44-j4m"/>
                                     <segue destination="dYw-qS-jzs" kind="unwind" unwindAction="backToStartFromAdding:" id="e7j-v5-o1O"/>
                                 </connections>
                             </button>
@@ -558,6 +559,7 @@
         <image name="waymapLogo" width="517" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fi7-Cf-U0c"/>
+        <segue reference="S5q-el-sEJ"/>
+        <segue reference="bcr-sQ-Fe2"/>
     </inferredMetricsTieBreakers>
 </document>
