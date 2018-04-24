@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface LogInViewController : UIViewController
-- (IBAction)signInAction:(id)sender;
+
 @property (strong, nonatomic) UIWindow *window;
+
+@property (nonatomic) Boolean isSignIn;
 @end

@@ -11,6 +11,7 @@
 #import "UserProfileViewController.h"
 #import "MapViewController.h"
 #import "TipsFirstTableViewController.h"
+
 @import GooglePlaces;
 @import UIKit;
 @import Firebase;
@@ -23,35 +24,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [GMSPlacesClient provideAPIKey:@"AIzaSyD1r1DuPCcwMFH50vV6hOLK14PWiFqq8DE"];
     [FIRApp configure];
-    //I am fine thank you
-    // - I am NOT FINE NO THANK YOU!!
-    //hello!
-    //ok UMMMM
-    /*Hello
-     //OK HERE WE GO AGAINNNN!
-     //BAYBE I MISSED YOU!!!!!!!!!
-    //Init Map ViewController
-    MapViewController *mapVC = [[MapViewController alloc]init];
-    mapVC.tabBarItem.title = @"Map";
-    
-    //Init the FIRST Tips ViewController
-    TipsFirstTableViewController *tipsVC = [[TipsFirstTableViewController alloc]init];
-    tipsVC.tabBarItem.title = @"Tips";
-    
-    //Init the User Profile ViewController
-    UserProfileViewController *profileVC = [[UserProfileViewController alloc]init];
-    profileVC.tabBarItem.title = @"Profile";
-    
-    //init the UITabBarController
-    
-    self.tabBarController = [[UITabBarController alloc]init];
-    self.tabBarController.viewControllers = @[mapVC,tipsVC,profileVC];
-    
-    //Add the tab bar controller to the window
-    LogInViewController *loginVC = [[LogInViewController alloc]init];
-    [self.window setRootViewController:loginVC];
-    */
-    //[self.window makeKeyAndVisible];
     
     return YES;
 }
