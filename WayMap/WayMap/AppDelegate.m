@@ -27,6 +27,7 @@
     //hello!
     //ok UMMMM
     /*Hello
+     //OK HERE WE GO AGAINNNN!
     //Init Map ViewController
     MapViewController *mapVC = [[MapViewController alloc]init];
     mapVC.tabBarItem.title = @"Map";

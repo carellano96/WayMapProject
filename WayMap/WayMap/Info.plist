@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>WayMap</string>
+	<string>Arellalean3</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,6 +22,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoiY2FyZWxsYW5vOTYiLCJhIjoiY2pmendhMzdoNGljcDMybWRuODl0NXA5eSJ9.uCaGYgJrsMeeFBPZzjvlWQ</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Shows your location on the map and helps improve OpenStreetMap!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Shows your location on the map and helps improve OpenStreetMap.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -43,11 +49,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>MGLMapboxAccessToken</key>
-	<string>pk.eyJ1IjoiY2FyZWxsYW5vOTYiLCJhIjoiY2pmendhMzdoNGljcDMybWRuODl0NXA5eSJ9.uCaGYgJrsMeeFBPZzjvlWQ</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Shows your location on the map and helps improve OpenStreetMap.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Shows your location on the map and helps improve OpenStreetMap!</string>
 </dict>
 </plist>
