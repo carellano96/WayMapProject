@@ -7,6 +7,7 @@
 //
 
 #import "PlacesInformationViewController.h"
+#import "AppDelegate.h"
 
 @interface PlacesInformationViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *PlaceName;
@@ -19,15 +20,33 @@
 @end
 
 @implementation PlacesInformationViewController
-@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle;
+@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
     NSLog(@"pushing back to da maps");
 }
 - (IBAction)CheckIntoPlace:(id)sender {
     //check in
+    AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    SelectedPlace.CheckedIn=true;
+    [CheckedInLocations addObject:SelectedPlace];
+    myDelegate.CheckInLocations=CheckedInLocations;
+    _CheckInButton.hidden=true;
+    _IsCheckedIn.hidden=false;
+}
+-(void)viewDidLoad{
+    CheckedInLocations=[[NSMutableArray alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    if (SelectedPlace.CheckedIn){
+        _CheckInButton.hidden=true;
+        _IsCheckedIn.hidden=false;
+    }
+    else{
+        _IsCheckedIn.hidden=true;
+        _CheckInButton.hidden=false;
+    }
     _BasedOn.text=[NSString stringWithFormat:@"Based on %@ Category:",sourceArrayName];
     self.ReturnMaps.userInteractionEnabled=true;
     self.title=SelectedPlace.name;

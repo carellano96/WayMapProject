@@ -9,9 +9,10 @@
 #import "GooglePlace.h"
 
 @implementation GooglePlace
-@synthesize name,placeID,priceLevel,phoneNumber,coordinate,openNow,formattedAddress,rating,website,AnnotationPointer,UserAdded;
+@synthesize name,placeID,priceLevel,phoneNumber,coordinate,openNow,formattedAddress,rating,website,AnnotationPointer,UserAdded,CheckedIn;
 -(void)Initiate:(NSString*)name:(NSString*)placeID:(CLLocationCoordinate2D)coordinate:(NSArray<NSString*>*) types:(GMSPlacesOpenNowStatus)openNow:(NSString*)phoneNumber:(NSString*)formattedAddress:(float)rating: (GMSPlacesPriceLevel)priceLevel:(NSURL*)website{
     UserAdded=false;
+    CheckedIn=false;
     AnnotationPointer=[[MGLPointAnnotation alloc]init];
     self.name = [[NSString alloc ]init];
     self.types = [NSMutableArray arrayWithArray:types];
