@@ -97,15 +97,31 @@
                                          }
                                          
                                          else{
+                                             [[FIRAuth auth].currentUser sendEmailVerificationWithCompletion:^(NSError *_Nullable error) {
+                                                 
+                                             }];
                                              [self performSegueWithIdentifier:@"RegisterSegue" sender:self];
                                          }
                                      }];
             
         }
     }
-     
-
     
 }
+
+- (IBAction)forgotPWTapped:(UIButton *)sender {
+    [[FIRAuth auth] sendPasswordResetWithEmail:_emailTextField.text completion:^(NSError *_Nullable error) {
+        if(error){
+            NSString *errorMsg = [error localizedDescription];
+            [ErrorLabel setText: errorMsg];
+            [ErrorLabel setHidden:NO];
+        }
+        else{
+            [ErrorLabel setText: @"Password Reset has been sent to the email associated with this account"];
+            [ErrorLabel setHidden:NO];
+        }
+    }];
+}
+
 
 @end
