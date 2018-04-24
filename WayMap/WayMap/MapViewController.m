@@ -12,6 +12,7 @@
 #import "GooglePlace.h"
 #import "AddNewPlaceViewController.h"
 #import "CustomAnnotation.h"
+#import "AppDelegate.h"
 
 @interface MapViewController (){
     int _CurrentIndex;
@@ -29,9 +30,10 @@
 @end
 
 @implementation MapViewController
-@synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider,UserAddedLocations;
+@synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider,UserAddedLocations,CheckedInPlaces;
 //view loads
 - (void)viewDidLoad {
+    CheckedInPlaces =[[NSMutableArray alloc]init];
     MasterLocations=[[NSMutableArray alloc ]init];
     MasterAnnotations=[[NSMutableArray alloc]init];
     LocationsNearby = [[NSMutableArray alloc]init];
@@ -172,7 +174,21 @@
             CLLocation*current = [[CLLocation alloc]initWithLatitude:tempplace.coordinate.latitude longitude:tempplace.coordinate.longitude];
             CLLocationDistance distance = [[locations lastObject] distanceFromLocation:current];
             if (distance<(double)RadiusSlider.value){
-                [LocationsNearby addObject:tempplace];
+                if ([CheckedInPlaces count]!=0){
+                for (GooglePlace*place1 in CheckedInPlaces){
+                    if ([place1.placeID isEqualToString:tempplace.placeID]){
+                        //add checked in place
+                        [LocationsNearby addObject:place1];
+                    }
+                    else{
+                        //add none checked in places
+                        [LocationsNearby addObject:tempplace];
+                    }
+                }
+                }
+                else{
+                    [LocationsNearby addObject:tempplace];
+                }
             }
             [MasterLocations addObject:tempplace];
             CustomAnnotation*tempAnnotation = [[CustomAnnotation alloc ]init];
@@ -326,6 +342,12 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+        AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    CheckedInPlaces=myDelegate.CheckInLocations;
+    if ([CheckedInPlaces count]!=0){
+        GooglePlace*place =[CheckedInPlaces objectAtIndex:0];
+        NSLog(@"checked in place is %@", place.name);
+    }
     self.tabBarController.delegate=self;
     [self.LocationsNearby removeAllObjects];
     [self.placesClient currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
