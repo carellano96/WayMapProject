@@ -15,10 +15,12 @@
 @import GooglePlacePicker;
 
 @interface PlacesInformationViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *IsCheckedIn;
 @property (weak, nonatomic) IBOutlet UIButton *CheckInButton;
 
 @property (strong)  GooglePlace*SelectedPlace;
 @property (strong)  NSString*segueUsed;
 @property (weak, nonatomic) IBOutlet UILabel *UserAddedTitle;
 @property (strong)  NSString*sourceArrayName;
+@property (strong) NSMutableArray*CheckedInLocations;
 @end
