@@ -13,4 +13,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (weak, nonatomic) IBOutlet UILabel *ErrorLabel;
 @property (nonatomic) Boolean isSignIn;
+@property (weak, nonatomic) IBOutlet UIButton *forgotPW;
+
 @end
