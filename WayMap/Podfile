@@ -7,7 +7,7 @@ target 'WayMap' do
 pod 'GooglePlaces'
 pod 'GooglePlacePicker'
 pod 'Firebase/Core'
-pod ‘Firebase/Auth’
+pod 'Firebase/Auth'
   # Pods for WayMap
 
   target 'WayMapTests' do
