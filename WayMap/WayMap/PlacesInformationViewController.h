@@ -15,6 +15,7 @@
 @import GooglePlacePicker;
 
 @interface PlacesInformationViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIButton *CheckInButton;
 
 @property (strong)  GooglePlace*SelectedPlace;
 @property (strong)  NSString*segueUsed;

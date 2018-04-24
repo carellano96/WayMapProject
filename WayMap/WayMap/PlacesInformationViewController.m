@@ -23,6 +23,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     NSLog(@"pushing back to da maps");
 }
+- (IBAction)CheckIntoPlace:(id)sender {
+    //check in
+}
 
 - (void)viewWillAppear:(BOOL)animated{
     _BasedOn.text=[NSString stringWithFormat:@"Based on %@ Category:",sourceArrayName];

@@ -140,12 +140,21 @@
                                 <color key="textColor" red="1" green="0.049691020330000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUX-sz-NUn">
+                                <rect key="frame" x="22" y="597" width="78" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Check In"/>
+                                <connections>
+                                    <action selector="CheckIntoPlace:" destination="YJs-Sh-uWz" eventType="touchUpInside" id="xQT-5K-qal"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.94637386557361269" blue="0.75476914059034617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="ZWX-yV-zoN"/>
                     </view>
                     <connections>
                         <outlet property="BasedOn" destination="7Sm-18-mgR" id="NeG-JJ-dTe"/>
+                        <outlet property="CheckInButton" destination="BUX-sz-NUn" id="3Kd-Im-8at"/>
                         <outlet property="PlaceAddress" destination="fQY-1M-EdA" id="DQi-ap-7N9"/>
                         <outlet property="PlaceName" destination="FSI-Td-lFh" id="4Vb-gZ-c9X"/>
                         <outlet property="ReturnMaps" destination="mNe-lf-1LD" id="h4U-Vv-3BY"/>
