@@ -209,6 +209,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BtC-e9-ZoN">
+                                <rect key="frame" x="63" y="520" width="248" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.49875088048235361" blue="0.480022329169564" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -216,6 +223,7 @@
                         <viewLayoutGuide key="safeArea" id="NRD-Qb-YZI"/>
                     </view>
                     <connections>
+                        <outlet property="ErrorLabel" destination="BtC-e9-ZoN" id="KzA-DW-WtJ"/>
                         <outlet property="emailTextField" destination="LCu-vC-wcb" id="6IU-8R-HDt"/>
                         <outlet property="passwordTextField" destination="PTc-p1-ebA" id="ytD-lO-FDJ"/>
                         <outlet property="signInButton" destination="yq1-8x-e7i" id="jgi-Fl-oQK"/>
@@ -226,7 +234,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z9e-v4-Jet" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1138" y="132"/>
+            <point key="canvasLocation" x="-1138.4000000000001" y="131.78410794602701"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="RsQ-Xq-Pwa">
@@ -270,22 +278,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81u-Jy-mrt">
-                                <rect key="frame" x="118" y="386" width="139" height="67"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="TO WAYMAP">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="S41-ER-dga" kind="presentation" id="6hT-7W-OpA"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="confetti (2)" translatesAutoresizingMaskIntoConstraints="NO" id="XrN-6L-05X">
                                 <rect key="frame" x="58" y="102" width="242" height="179"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81u-Jy-mrt">
+                                <rect key="frame" x="88" y="386" width="182" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="BACK TO LOGIN">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="eRq-P0-Qtc" kind="presentation" id="fq9-bS-iAf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="Qyc-Kk-JbX"/>
@@ -510,7 +518,6 @@
         <image name="waymapLogo" width="517" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RbE-nx-2c0"/>
         <segue reference="dvG-CP-Nef"/>
     </inferredMetricsTieBreakers>
 </document>
