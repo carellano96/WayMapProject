@@ -12,6 +12,12 @@
 - (IBAction)textFieldClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIPickerView *picker;
-@property (strong) GooglePlace* UserAddedPlace;
+@property (strong,nonatomic) GooglePlace* UserAddedPlace;
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property Boolean AddedLocation;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UIButton *CancelButton;
+@property (strong) NSMutableArray* PlaceTypes;
+@property (strong) NSString* Type;
 
 @end

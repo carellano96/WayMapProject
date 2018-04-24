@@ -19,7 +19,7 @@
 @end
 
 @implementation PlacesInformationViewController
-@synthesize SelectedPlace,segueUsed,sourceArrayName;
+@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     NSLog(@"pushing back to da maps");
 }
@@ -38,6 +38,9 @@
     }
     if (![segueUsed isEqualToString:@"SurpriseMe2"]){
         self.BasedOn.hidden=true;
+    }
+    if (!SelectedPlace.UserAdded){
+        self.UserAddedTitle.hidden=true;
     }
 
     [super viewWillAppear:animated];

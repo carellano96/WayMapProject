@@ -14,7 +14,7 @@
 
 @end
 @implementation TipsFirstTableViewController
-@synthesize categories,NearbyLocations,Transportation,Occupational,Financial,Food,Lifestyle,Culture,Entertainment,Leisure,Other,Shopping,Tips1,userLocation,SelectedPlace;
+@synthesize categories,NearbyLocations,Transportation,Occupational,Financial,Food,Lifestyle,Culture,Entertainment,Leisure,Other,Shopping,Tips1,userLocation,SelectedPlace,index;
 NSString* SelectedIndexPath;
 - (id) initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
@@ -43,6 +43,7 @@ NSString* SelectedIndexPath;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 -(void) viewWillAppear:(BOOL)animated{
+    if (index==1){
     [super viewWillAppear:animated];
     Food = [[NSMutableArray alloc ]init];
     Leisure = [[NSMutableArray alloc ]init];
@@ -64,6 +65,7 @@ NSString* SelectedIndexPath;
         
     }
     [categories removeAllObjects];
+
     [self CategorizeLocations:NearbyLocations];
     if ([Food count]!=0){
         [categories addObject:@"Food"];
@@ -98,9 +100,14 @@ NSString* SelectedIndexPath;
         [categories addObject:@"Other"];
         
     }
+        [self.tableView reloadData];
+
     NSLog(@"COUNTFOR1: %d",count);
-    
-    [self.tableView reloadData];
+        index=0;
+    }
+    else{
+        [self.tableView reloadData];
+    }
     
 }
 
@@ -113,52 +120,48 @@ NSString* SelectedIndexPath;
         NSLog(@"PLACE TYPE for %@",place.name);
         for (NSString* type in typeplace){
             NSLog(@"iterating through stuff");
-            if ([type isEqualToString:@"bakery"]||[type isEqualToString:@"cafe"]||[type isEqualToString:@"restaurant"]||[type isEqualToString:@"meal_delivery"]||[type isEqualToString:@"meal_takeaway"]){
+            if ([type isEqualToString:@"bakery"]||[type isEqualToString:@"cafe"]||[type isEqualToString:@"restaurant"]||[type isEqualToString:@"meal_delivery"]||[type isEqualToString:@"meal_takeaway"]||[type isEqualToString:@"Food"]){
                 if (![Food containsObject:place]){
                     [Food addObject:place];
                     NSLog(@"adding to food array in first view, Food count %lu",[Food count]);
                 }
                 
             }
-            else if ([type isEqualToString:@"department_store"]||[type isEqualToString:@"beauty_salon"]||[type isEqualToString:@"clothing_store"]||[type isEqualToString:@"book_store"]||[type isEqualToString:@"hair_care"]||[type isEqualToString:@"gym"]||[type isEqualToString:@"shopping_mall"]||[type isEqualToString:@"spa"]||[type isEqualToString:@"museum"]||[type isEqualToString:@"park"]||[type isEqualToString:@"library"]){
+            else if ([type isEqualToString:@"beauty_salon"]||[type isEqualToString:@"hair_care"]||[type isEqualToString:@"gym"]||[type isEqualToString:@"spa"]||[type isEqualToString:@"museum"]||[type isEqualToString:@"park"]||[type isEqualToString:@"library"]||[type isEqualToString:@"Leisure"]){
                 if (![Leisure containsObject:place]){
                     [Leisure addObject:place];}
             }
-            else if ([type isEqualToString:@"beauty_salon"]||[type isEqualToString:@"hair_care"]||[type isEqualToString:@"gym"]||[type isEqualToString:@"spa"]||[type isEqualToString:@"museum"]||[type isEqualToString:@"park"]||[type isEqualToString:@"library"]){
-                if (![Leisure containsObject:place]){
-                    [Leisure addObject:place];}
-            }
-            else if ([type isEqualToString:@"department_store"]||[type isEqualToString:@"shoe_store"]||[type isEqualToString:@"shopping_mall"]||[type isEqualToString:@"clothing_store"]||[type isEqualToString:@"book_store"]||[type isEqualToString:@"electronics_store"]||[type isEqualToString:@"bicycle_store"]||[type isEqualToString:@"home_goods_store"]||[type isEqualToString:@"jewelry_store"]||[type isEqualToString:@"pet_store"]||[type isEqualToString:@"convenience_store"]||[type isEqualToString:@"hardware_store"]||[type isEqualToString:@"store"]){
+            else if ([type isEqualToString:@"department_store"]||[type isEqualToString:@"shoe_store"]||[type isEqualToString:@"shopping_mall"]||[type isEqualToString:@"clothing_store"]||[type isEqualToString:@"book_store"]||[type isEqualToString:@"electronics_store"]||[type isEqualToString:@"bicycle_store"]||[type isEqualToString:@"home_goods_store"]||[type isEqualToString:@"jewelry_store"]||[type isEqualToString:@"pet_store"]||[type isEqualToString:@"convenience_store"]||[type isEqualToString:@"hardware_store"]||[type isEqualToString:@"store"]||[type isEqualToString:@"Shopping"]){
                 if (![Shopping containsObject:place]){
                     [Shopping addObject:place];}
             }
-            else if ([type isEqualToString:@"aquarium"]||[type isEqualToString:@"casino"]||[type isEqualToString:@"bowling_alley"]||[type isEqualToString:@"amusement_park"]||[type isEqualToString:@"zoo"]||[type isEqualToString:@"art_gallery"]||[type isEqualToString:@"bar"]||[type isEqualToString:@"campground"]||[type isEqualToString:@"night_club"]||[type isEqualToString:@"movie_rental"]||[type isEqualToString:@"movie_theater"]||[type isEqualToString:@"stadium"]){
+            else if ([type isEqualToString:@"aquarium"]||[type isEqualToString:@"casino"]||[type isEqualToString:@"bowling_alley"]||[type isEqualToString:@"amusement_park"]||[type isEqualToString:@"zoo"]||[type isEqualToString:@"art_gallery"]||[type isEqualToString:@"bar"]||[type isEqualToString:@"campground"]||[type isEqualToString:@"night_club"]||[type isEqualToString:@"movie_rental"]||[type isEqualToString:@"movie_theater"]||[type isEqualToString:@"stadium"]||[type isEqualToString:@"Entertainment"]){
                 if (![Entertainment containsObject:place]){
                     [Entertainment addObject:place];
                     NSLog(@"count for entertain: %@ %lu",place,[Entertainment count]);
                 }
             }
-            else if ([type isEqualToString:@"synagogue"]||[type isEqualToString:@"hindu_temple"]||[type isEqualToString:@"church"]||[type isEqualToString:@"city_hall"]||[type isEqualToString:@"mosque"]){
+            else if ([type isEqualToString:@"synagogue"]||[type isEqualToString:@"hindu_temple"]||[type isEqualToString:@"church"]||[type isEqualToString:@"city_hall"]||[type isEqualToString:@"mosque"]||[type isEqualToString:@"Culture"]){
                 if (![Culture containsObject:place]){
                     [Culture addObject:place];}
             }
-            else if ([type isEqualToString:@"airport"]||[type isEqualToString:@"bus_station"]||[type isEqualToString:@"gas_station"]||[type isEqualToString:@"car_dealer"]||[type isEqualToString:@"car_rental"]||[type isEqualToString:@"car_repair"]||[type isEqualToString:@"car_wash"]||[type isEqualToString:@"car_wash"]||[type isEqualToString:@"taxi_stand"]||[type isEqualToString:@"train_station"]||[type isEqualToString:@"travel_agency"]||[type isEqualToString:@"parking"]||[type isEqualToString:@"subway_station"]||[type isEqualToString:@"moving_company"]||[type isEqualToString:@"lodging"]){
+            else if ([type isEqualToString:@"airport"]||[type isEqualToString:@"bus_station"]||[type isEqualToString:@"gas_station"]||[type isEqualToString:@"car_dealer"]||[type isEqualToString:@"car_rental"]||[type isEqualToString:@"car_repair"]||[type isEqualToString:@"car_wash"]||[type isEqualToString:@"car_wash"]||[type isEqualToString:@"taxi_stand"]||[type isEqualToString:@"train_station"]||[type isEqualToString:@"travel_agency"]||[type isEqualToString:@"parking"]||[type isEqualToString:@"subway_station"]||[type isEqualToString:@"moving_company"]||[type isEqualToString:@"lodging"]||[type isEqualToString:@"Transportation"]){
                 if (![Transportation containsObject:place]){
                     [Transportation addObject:place];}
             }
-            else if ([type isEqualToString:@"accounting"]||[type isEqualToString:@"atm"]||[type isEqualToString:@"bank"]||[type isEqualToString:@"insurance_agency"]){
+            else if ([type isEqualToString:@"accounting"]||[type isEqualToString:@"atm"]||[type isEqualToString:@"bank"]||[type isEqualToString:@"insurance_agency"]||[type isEqualToString:@"Financial"]){
                 if (![Financial containsObject:place]){
                     [Financial addObject:place];}
             }
-            else if ([type isEqualToString:@"dentist"]||[type isEqualToString:@"doctor"]||[type isEqualToString:@"electrician"]||[type isEqualToString:@"florist"]||[type isEqualToString:@"locksmith"]||[type isEqualToString:@"painter"]||[type isEqualToString:@"physiotherapist"]||[type isEqualToString:@"plumber"]||[type isEqualToString:@"lawyer"]||[type isEqualToString:@"real_estate_agency"]||[type isEqualToString:@"roofing_contractor"]){
+            else if ([type isEqualToString:@"dentist"]||[type isEqualToString:@"doctor"]||[type isEqualToString:@"electrician"]||[type isEqualToString:@"florist"]||[type isEqualToString:@"locksmith"]||[type isEqualToString:@"painter"]||[type isEqualToString:@"physiotherapist"]||[type isEqualToString:@"plumber"]||[type isEqualToString:@"lawyer"]||[type isEqualToString:@"real_estate_agency"]||[type isEqualToString:@"roofing_contractor"]||[type isEqualToString:@"Occupational"]){
                 if (![Occupational containsObject:place]){
                     [Occupational addObject:place];}
             }
-            else if ([type isEqualToString:@"funeral_home"]||[type isEqualToString:@"furniture_store"]||[type isEqualToString:@"embassy"]||[type isEqualToString:@"fire_station"]||[type isEqualToString:@"cemetery"]||[type isEqualToString:@"veterinary_care"]||[type isEqualToString:@"courthouse"]||[type isEqualToString:@"rv_park"]||[type isEqualToString:@"police"]||[type isEqualToString:@"hospital"]){
+            else if ([type isEqualToString:@"funeral_home"]||[type isEqualToString:@"furniture_store"]||[type isEqualToString:@"embassy"]||[type isEqualToString:@"fire_station"]||[type isEqualToString:@"cemetery"]||[type isEqualToString:@"veterinary_care"]||[type isEqualToString:@"courthouse"]||[type isEqualToString:@"rv_park"]||[type isEqualToString:@"police"]||[type isEqualToString:@"hospital"]||[type isEqualToString:@"Other"]){
                 if (![Other containsObject:place]){
                     [Other addObject:place];}
             }
-            else if ([type isEqualToString:@"laundry"]||[type isEqualToString:@"pharmacy"]||[type isEqualToString:@"post_office"]||[type isEqualToString:@"supermarket"]||[type isEqualToString:@"storage"]||[type isEqualToString:@"school"]||[type isEqualToString:@"local_government_office"]){
+            else if ([type isEqualToString:@"laundry"]||[type isEqualToString:@"pharmacy"]||[type isEqualToString:@"post_office"]||[type isEqualToString:@"supermarket"]||[type isEqualToString:@"storage"]||[type isEqualToString:@"school"]||[type isEqualToString:@"local_government_office"]||[type isEqualToString:@"Lifestyle"]){
                 if (![Lifestyle containsObject:place]){
                     [Lifestyle addObject:place];}
             }
@@ -177,7 +180,9 @@ NSString* SelectedIndexPath;
     
     return 1;
 }
-
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+    
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSLog(@"does this work2");
     NSLog(@"%lu",(unsigned long)[self.categories count]);

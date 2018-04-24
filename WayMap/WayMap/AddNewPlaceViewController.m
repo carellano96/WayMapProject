@@ -16,11 +16,10 @@
 @implementation
 AddNewPlaceViewController
 NSArray*pickerData;
-
-@synthesize textField,picker,UserAddedPlace;
+NSString* name;
+@synthesize textField,picker,UserAddedPlace,nameTextField,PlaceTypes,Type;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UserAddedPlace=[[GooglePlace alloc]init];
     self.picker.delegate=self;
     self.picker.dataSource=self;
     pickerData = @[@"Food",@"Leisure",@"Shopping",@"Entertainment",@"Culture",@"Transportation",@"Financial",@"Occupational",@"Lifestyle",@"Other"];
@@ -31,17 +30,27 @@ NSArray*pickerData;
     acController.delegate = self;
     [self presentViewController:acController animated:YES completion:nil];
 }
+-(void)viewWillAppear:(BOOL)animated{
+    name= [[NSString alloc]init];
+    PlaceTypes=[[NSMutableArray alloc]init];
+}
+- (IBAction)addName:(id)sender {
+    name=nameTextField.text;
+}
 - (void)viewController:(GMSAutocompleteViewController *)viewController
 didAutocompleteWithPlace:(GMSPlace *)place {
     [self dismissViewControllerAnimated:YES completion:nil];
     // Do something with the selected place.
-    NSLog(@"Place name %@", place.name);
+    NSLog(@"User added Place name %@", place.name);
     NSLog(@"Place address %@", place.formattedAddress);
     NSLog(@"Place attributions %@", place.attributions.string);
-    textField.text=place.name;
-    [UserAddedPlace Initiate:place.name :place.placeID :place.coordinate :place.types :place.openNowStatus :place.phoneNumber :place.formattedAddress :place.rating :place.priceLevel :place.website];
+    textField.text=place.formattedAddress;
+    UserAddedPlace=[[GooglePlace alloc ]init];
+    [UserAddedPlace Initiate:name :place.placeID :place.coordinate :place.types :place.openNowStatus :place.phoneNumber :place.formattedAddress :place.rating :place.priceLevel :place.website];
+    NSLog (@"Google place name: %@",UserAddedPlace.name);
     UserAddedPlace.UserAdded=true;
-    
+    int row=[picker selectedRowInComponent:0];
+    UserAddedPlace.types=[[NSMutableArray alloc] initWithObjects:pickerData[row], nil];
 }
 
 - (void)viewController:(GMSAutocompleteViewController *)viewController
@@ -84,8 +93,22 @@ didFailAutocompleteWithError:(NSError *)error {
 {
     return pickerData[row];
 }
+
+
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    
+    NSString* Type = pickerData[row];
+    PlaceTypes = [[NSMutableArray alloc] initWithObjects:Type, nil];
+    NSLog(@"Type is %@", Type);
+    UserAddedPlace.types=PlaceTypes;
+}
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if (sender==self.saveButton&&![UserAddedPlace.name isEqualToString:nil]){
+        self.AddedLocation=true;
+        NSLog(@"saved!");
+    }
+    else if (sender==self.CancelButton){
+        self.AddedLocation=false;
+    }
 }
 /*
 #pragma mark - Navigation
