@@ -17,18 +17,30 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *signInButton;
+@property (strong) FIRAuth *handle;
 
 @end
 
 @implementation LogInViewController
 
-@synthesize isSignIn;
+@synthesize isSignIn, ErrorLabel;
+
+- (void) viewWillAppear:(BOOL)animated{
+    self.handle = [[FIRAuth auth]
+                   addAuthStateDidChangeListener:^(FIRAuth *_Nonnull auth, FIRUser *_Nullable user) {
+                   }];
+}
 
 //testcase
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [ErrorLabel setHidden:YES];
     isSignIn = true;
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[FIRAuth auth] removeAuthStateDidChangeListener:_handle];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,6 +48,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)RegisterClicked:(UISegmentedControl *)sender {
+    [ErrorLabel setHidden:YES];
     isSignIn = !isSignIn;
     
     if(isSignIn){
@@ -53,28 +66,40 @@
     if(_emailTextField.text && _passwordTextField.text.length > 0){
         if(isSignIn){
             //Sign in the user using Firebase
+
             [[FIRAuth auth] signInWithEmail:_emailTextField.text
                                    password:_passwordTextField.text
                                  completion:^(FIRUser *user, NSError *error) {
+                                     
+                        /*Check that the user exists - if sign in was successful, then Firebase should be able
+                        to retrieve a user for us */
+                                     if(user){
+                                         [self performSegueWithIdentifier:@"SignInSegue" sender:self];
+                                     }
+                                     else{
+                                         NSString *errorMsg = [error localizedDescription];
+                                         [ErrorLabel setText: errorMsg];
+                                         [ErrorLabel setHidden:NO];
+                                     }
                                  }];
-        
-            /*Check that user isn't nil - if sign in was successful, then Firebase should be able
-            to retrieve a user for us */
-            //FIRUser *user;
-            if([FIRAuth auth].currentUser != nil){
-                 [self performSegueWithIdentifier:@"SignInSegue" sender:self];
-            }
-            
         }
-    
+        
         else{
             //Register the user with Firebase
             [[FIRAuth auth] createUserWithEmail:_emailTextField.text
                                        password:_passwordTextField.text
                                      completion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
+                                        
+                                         if(error){
+                                             NSString *errorMsg = [error localizedDescription];
+                                             [ErrorLabel setText: errorMsg];
+                                             [ErrorLabel setHidden:NO];
+                                         }
+                                         
+                                         else{
+                                             [self performSegueWithIdentifier:@"RegisterSegue" sender:self];
+                                         }
                                      }];
-            
-            [self performSegueWithIdentifier:@"RegisterSegue" sender:self];
             
         }
     }
