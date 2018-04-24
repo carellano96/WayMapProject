@@ -31,7 +31,7 @@
 @property (strong,nonatomic) TipsSecondTableViewController*Tips1;
 @property (strong )CLLocation*userLocation;
 @property (strong,nonatomic)GooglePlace*SelectedPlace;
-
+@property int index;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;

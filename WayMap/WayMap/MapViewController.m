@@ -147,7 +147,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-    CLLocationDistance distance1;
     [self.Annotations removeAllObjects];
     [self.LocationsNearby removeAllObjects];
     [self.RemoveAnnotations removeAllObjects];
@@ -186,10 +185,12 @@
             userLocation=[locations lastObject];
         }
         for (GooglePlace* userplace in UserAddedLocations){
+            NSLog(@"User added place:%@ ",userplace.name);
             CLLocation*current = [[CLLocation alloc]initWithLatitude:userplace.coordinate.latitude longitude:userplace.coordinate.longitude];
-            CLLocationDistance distance = [[locations lastObject] distanceFromLocation:current];
-            if (distance<(double)RadiusSlider.value){
+            CLLocationDistance distance1 = [[locations lastObject] distanceFromLocation:current];
+            if (distance1<(double)RadiusSlider.value){
                 [LocationsNearby addObject:userplace];
+                NSLog(@"user place Within range");
             }
             CustomAnnotation*tempAnnotation = [[CustomAnnotation alloc ]init];
             tempAnnotation.coordinate=userplace.coordinate;
@@ -266,9 +267,13 @@
 - (IBAction)backToStartFromAdding:(UIStoryboardSegue*) segue{
     NSLog(@"Returned from adding!");
     AddNewPlaceViewController* placeView = [segue sourceViewController];
-    GooglePlace* UserPlace = placeView.UserAddedPlace;
+    if (placeView.AddedLocation==true){
+        GooglePlace*UserPlace=placeView.UserAddedPlace;
+        NSLog(@"new added place is %@",UserPlace.name);
     [UserAddedLocations addObject:UserPlace];
-    
+        NSLog(@"saved, adding new locaiton!");
+
+    }
     
 }
 
@@ -402,6 +407,7 @@
         if ([Tips1.visibleViewController isKindOfClass:[TipsFirstTableViewController class]]){TipsFirstTableViewController*Tips=(TipsFirstTableViewController*)Tips1.visibleViewController;
         Tips.NearbyLocations=self.LocationsNearby;
             Tips.userLocation=self.userLocation;
+            Tips.index=1;
         NSLog(@"Switching view controllers to TipsFirst");
             }
         else if ([Tips1.visibleViewController isKindOfClass:[TipsSecondTableViewController class]]){

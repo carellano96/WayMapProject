@@ -18,5 +18,6 @@
 
 @property (strong)  GooglePlace*SelectedPlace;
 @property (strong)  NSString*segueUsed;
+@property (weak, nonatomic) IBOutlet UILabel *UserAddedTitle;
 @property (strong)  NSString*sourceArrayName;
 @end
