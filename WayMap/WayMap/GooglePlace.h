@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Mapkit/Mapkit.h>
+#import "CustomAnnotation.h"
 @import Mapbox;
 @import GooglePlaces;
 @import GooglePlacePicker;
@@ -23,7 +24,7 @@
 @property GMSPlacesPriceLevel priceLevel;
 @property NSURL*website;
 @property NSMutableArray* types;
-@property MGLPointAnnotation*AnnotationPointer;
+@property CustomAnnotation* AnnotationPointer;
 @property Boolean UserAdded;
 @property Boolean CheckedIn;
 -(void)Initiate:(NSString*)name:(NSString*)placeID:(CLLocationCoordinate2D)coordinate:(NSArray<NSString*>*) types:(GMSPlacesOpenNowStatus)openNow:(NSString*)phoneNumber:(NSString*)formattedAddress:(float)rating: (GMSPlacesPriceLevel)priceLevel:(NSURL*)website;
