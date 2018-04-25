@@ -28,6 +28,7 @@
 		34604AED24512110E9DB0ED9 /* libPods-WayMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8CBC8032AD1D5EC4F3A1A0 /* libPods-WayMap.a */; };
 		7C933562208C637D0032EE2F /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C933561208C637D0032EE2F /* UserProfileViewController.m */; };
 		7C933566208D35AD0032EE2F /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C933564208D35AB0032EE2F /* LogInViewController.m */; };
+		7CA87876209100610047F99F /* UserDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA87875209100610047F99F /* UserDataTableViewController.m */; };
 		8AD4AAA63BCC37CAF50954CB /* libPods-WayMapUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F272E2B9B719845F587B5D /* libPods-WayMapUITests.a */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,8 @@
 		7C933561208C637D0032EE2F /* UserProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		7C933563208D35AB0032EE2F /* LogInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		7C933564208D35AB0032EE2F /* LogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		7CA87874209100610047F99F /* UserDataTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDataTableViewController.h; sourceTree = "<group>"; };
+		7CA87875209100610047F99F /* UserDataTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDataTableViewController.m; sourceTree = "<group>"; };
 		AA8CBC8032AD1D5EC4F3A1A0 /* libPods-WayMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WayMap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB4D2FDE71C24BB6F725BE22 /* Pods-WayMapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayMapTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WayMapTests/Pods-WayMapTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F47D8E3617BF77436E75C0BD /* Pods-WayMapUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WayMapUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WayMapUITests/Pods-WayMapUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -174,6 +177,8 @@
 				7C933564208D35AB0032EE2F /* LogInViewController.m */,
 				7C933560208C637D0032EE2F /* UserProfileViewController.h */,
 				7C933561208C637D0032EE2F /* UserProfileViewController.m */,
+				7CA87874209100610047F99F /* UserDataTableViewController.h */,
+				7CA87875209100610047F99F /* UserDataTableViewController.m */,
 				07706A6620828B5900C0A054 /* TipsSecondTableViewController.h */,
 				07706A6720828B5900C0A054 /* TipsSecondTableViewController.m */,
 				07706A772082F01000C0A054 /* MapViewController.h */,
@@ -473,6 +478,7 @@
 				07706A6820828B5900C0A054 /* TipsSecondTableViewController.m in Sources */,
 				07706A792082F01000C0A054 /* MapViewController.m in Sources */,
 				07EB307B2087E38F00762806 /* GooglePlace.m in Sources */,
+				7CA87876209100610047F99F /* UserDataTableViewController.m in Sources */,
 				07EB30782087D1DF00762806 /* PlacesInformationViewController.m in Sources */,
 				0744570A208E9F310077126C /* CustomAnnotation.m in Sources */,
 				7C933566208D35AD0032EE2F /* LogInViewController.m in Sources */,
