@@ -354,25 +354,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A3f-Va-dMR">
-                                <rect key="frame" x="40" y="96" width="150" height="128"/>
+                                <rect key="frame" x="112" y="79" width="150" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ARELLALEAN 4 PRES" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Umr-rW-LK4">
-                                <rect key="frame" x="198" y="96" width="143" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="3P1-Cm-jYX">
+                                <rect key="frame" x="229" y="412" width="81" height="77"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PLACES ADDED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="td3-a3-XZM">
-                                <rect key="frame" x="103" y="269" width="169" height="59"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pf-UG-Jp1">
+                                <rect key="frame" x="48" y="395" width="111" height="133"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0Y-Zp-ieZ">
-                                <rect key="frame" x="68" y="336" width="239" height="49"/>
+                                <state key="normal" title="USER ADDED"/>
+                                <connections>
+                                    <segue destination="EZS-6h-3mh" kind="presentation" id="7J0-YU-xBx"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="plus" translatesAutoresizingMaskIntoConstraints="NO" id="pSI-Ho-8nf">
+                                <rect key="frame" x="63" y="412" width="81" height="77"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhM-Wu-CKe">
+                                <rect key="frame" x="214" y="395" width="111" height="133"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="FAVORITES"/>
+                                <connections>
+                                    <segue destination="EZS-6h-3mh" kind="presentation" id="VSJ-h9-l49"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="testLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RsD-vl-kk9">
+                                <rect key="frame" x="115" y="234" width="144" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -384,12 +394,40 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" image="user (1)" id="esL-Rh-wLm"/>
                     <connections>
-                        <outlet property="placesVisitedTest" destination="s0Y-Zp-ieZ" id="srR-2I-mPi"/>
+                        <outlet property="testLabel" destination="RsD-vl-kk9" id="h8s-zj-yJY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ti2-he-i4T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-164" y="1191.4542728635683"/>
+            <point key="canvasLocation" x="-354.39999999999998" y="1181.5592203898052"/>
+        </scene>
+        <!--User Data Table View Controller-->
+        <scene sceneID="WPW-ez-y27">
+            <objects>
+                <tableViewController id="EZS-6h-3mh" customClass="UserDataTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="n8T-Hs-h4W">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="t3h-0T-XqC">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t3h-0T-XqC" id="0TT-pa-Sfd">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="EZS-6h-3mh" id="HDf-vG-2xR"/>
+                            <outlet property="delegate" destination="EZS-6h-3mh" id="raf-R4-hpZ"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CZW-r4-yiW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="482" y="1182"/>
         </scene>
         <!--Add New Place View Controller-->
         <scene sceneID="mkC-Uo-Cgb">
@@ -487,7 +525,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ng-XR-KMv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="dYw-qS-jzs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="824.79999999999995" y="903.59820089955031"/>
+            <point key="canvasLocation" x="1354" y="888"/>
         </scene>
         <!--Map-->
         <scene sceneID="WpC-wt-VU9">
@@ -580,8 +618,10 @@
         <image name="confetti (2)" width="256" height="256"/>
         <image name="map (1)" width="24" height="24"/>
         <image name="placeholder" width="24" height="24"/>
+        <image name="plus" width="256" height="256"/>
         <image name="road" width="256" height="256"/>
         <image name="signs2" width="200" height="200"/>
+        <image name="star" width="256" height="256"/>
         <image name="store" width="256" height="256"/>
         <image name="user (1)" width="24" height="24"/>
         <image name="userlocation" width="50" height="50"/>
@@ -590,6 +630,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="xWY-YS-LJ2"/>
         <segue reference="S5q-el-sEJ"/>
+        <segue reference="7J0-YU-xBx"/>
         <segue reference="dvG-CP-Nef"/>
     </inferredMetricsTieBreakers>
 </document>
