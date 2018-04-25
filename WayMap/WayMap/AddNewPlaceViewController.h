@@ -2,7 +2,7 @@
 //  AddNewPlaceViewController.h
 //  WayMap
 //
-//  Created by carlos arellano on 4/23/18.
+//  Created by Carlos Arellano and Jean Jeon on 4/23/18.
 //  Copyright © 2018 nyu.edu. All rights reserved.
 //
 

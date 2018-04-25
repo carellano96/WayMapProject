@@ -7,30 +7,49 @@
 //
 
 #import "UserProfileViewController.h"
-
+@import FirebaseDatabase;
+@import Firebase;
+@import FirebaseAuth;
 @interface UserProfileViewController ()
+    
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (nonatomic) FIRDatabaseHandle *refHandle;
+@property (nonatomic) FIRDatabaseReference *postRef;
+@property (nonatomic) NSMutableArray *Favorites;
 
 @end
 
 @implementation UserProfileViewController
+
+@synthesize placesVisitedTest;
+
+-(void)configure:(NSString *)field {
+    
+    placesVisitedTest.text = field;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.ref = [[FIRDatabase database] reference];
+    FIRUser *user = [FIRAuth auth].currentUser;
+    [[[[_ref child:@"users"] child:user.uid] child:@"Places Added"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *placesDict = snapshot.value;
+        
+        NSLog(@"%@",placesDict);
+        
+        [placesDict objectForKey:@"Places Added"];
+        
+        [self configure:[placesDict objectForKey:@"Name"]];
+        
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
