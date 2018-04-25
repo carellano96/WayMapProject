@@ -23,4 +23,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *UserAddedTitle;
 @property (strong)  NSString*sourceArrayName;
 @property (strong) NSMutableArray*CheckedInLocations;
+
 @end

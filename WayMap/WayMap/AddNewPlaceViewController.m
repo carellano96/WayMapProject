@@ -43,6 +43,8 @@ NSString* name;
 - (IBAction)addName:(id)sender {
     name=nameTextField.text;
 }
+
+
 - (void)viewController:(GMSAutocompleteViewController *)viewController
 didAutocompleteWithPlace:(GMSPlace *)place {
     [self dismissViewControllerAnimated:YES completion:nil];
