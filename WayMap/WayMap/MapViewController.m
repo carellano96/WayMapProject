@@ -31,9 +31,11 @@
 
 @implementation MapViewController
 AppDelegate*myDelegate;
+Boolean correct;
 @synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider,UserAddedLocations,CheckedInPlaces;
 //view loads
 - (void)viewDidLoad {
+    correct = false;
     CheckedInPlaces =[[NSMutableArray alloc]init];
     MasterLocations=[[NSMutableArray alloc ]init];
     MasterAnnotations=[[NSMutableArray alloc]init];
@@ -47,6 +49,7 @@ AppDelegate*myDelegate;
     self.tabBarController.delegate=self;
     self.placesClient = [[GMSPlacesClient alloc] init];
     _CurrentIndex=0;
+    self.RadiusSlider.value = 510;
     //creates an array of locations that will be stored for t
     self.locations=[[NSMutableArray alloc] init];
     //creates a line upon loading app
@@ -149,10 +152,11 @@ AppDelegate*myDelegate;
 //everytime there is a new location, this function is called
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
-{
+{//clear locations nearby, annotations, and remove annotations list
     [self.Annotations removeAllObjects];
-    [self.LocationsNearby removeAllObjects];
+    //[self.LocationsNearby removeAllObjects];
     [self.RemoveAnnotations removeAllObjects];
+
     NSLog(@"Updating %lu",(unsigned long)[locations count]);
     //locations array contains current user location, so we save that location in our own array
     NSLog(@"Main Location Updating %lu",(unsigned long)[self.locations count]);
@@ -165,43 +169,65 @@ AppDelegate*myDelegate;
             return;
         }
         for (GMSPlaceLikelihood *likelihood in likelihoodList.likelihoods) {
+            //getting from Google API
             GMSPlace* CurrentPlace = likelihood.place;
             NSLog(@"Current Place name %@ at likelihood %g", CurrentPlace.name, likelihood.likelihood);
             NSLog(@"Current Place address %@", CurrentPlace.formattedAddress);
             NSLog(@"Current Place attributions %@", CurrentPlace.attributions);
             NSLog(@"Current PlaceID %@", CurrentPlace.placeID);
+            //creating Google Place
+            if (![self DoesPlaceExist:CurrentPlace]){
+                NSLog(@"new place alert %@",CurrentPlace.name);
             GooglePlace* tempplace = [[GooglePlace alloc] init];
             [tempplace Initiate:CurrentPlace.name:CurrentPlace.placeID :CurrentPlace.coordinate :CurrentPlace.types :CurrentPlace.openNowStatus :CurrentPlace.phoneNumber :CurrentPlace.formattedAddress :CurrentPlace.rating :CurrentPlace.priceLevel :CurrentPlace.website];
+            //setting distance for google radius distance
             CLLocation*current = [[CLLocation alloc]initWithLatitude:tempplace.coordinate.latitude longitude:tempplace.coordinate.longitude];
             CLLocationDistance distance = [[locations lastObject] distanceFromLocation:current];
             if (distance<(double)RadiusSlider.value){
-                if ([CheckedInPlaces count]!=0){
-                for (GooglePlace*place1 in CheckedInPlaces){
-                    if ([place1.placeID isEqualToString:tempplace.placeID]){
-                        //add checked in place
-                        [LocationsNearby addObject:place1];
-                        [MasterLocations addObject:place1];
-                    }
-                    else{
-                        //add none checked in places
-                        [LocationsNearby addObject:tempplace];
-                    }
-                }
-                }
-                else{
-                    [LocationsNearby addObject:tempplace];
+                //compare locations with checked in places
+                //****figure out checked in places*******
+                [LocationsNearby addObject:tempplace];
+
+            }
+            //add the object to Masterlocations
+            [MasterLocations addObject:tempplace];
+            //create the annotation for the point
+        
+            //add to master annotations as well to update them
+        }
+    }
+        //add temp annotations and checking if any should be there based on radius slider
+        for (GooglePlace* check in LocationsNearby){
+            CustomAnnotation*tempAnnotation = [[CustomAnnotation alloc ]init];
+            tempAnnotation.coordinate=check.coordinate;
+            tempAnnotation.title=check.name;
+            tempAnnotation.UserAdded=false;
+            check.AnnotationPointer=tempAnnotation;
+
+            userLocation=[locations lastObject];
+            CLLocation*current = [[CLLocation alloc]initWithLatitude:check.coordinate.latitude longitude:check.coordinate.longitude];
+            CLLocationDistance distance = [[locations lastObject] distanceFromLocation:current];
+            if (distance<(double)RadiusSlider.value){
+                [Annotations addObject:check.AnnotationPointer];
+                [MasterAnnotations addObject:check.AnnotationPointer];
+                
+            }
+            else{
+                [RemoveAnnotations addObject:check.AnnotationPointer];
+            }
+        }
+        if ([CheckedInPlaces count]!=0){
+            for (int i=0;i<[LocationsNearby count];i++){
+                GooglePlace* Existing = [LocationsNearby objectAtIndex:i];
+            for (GooglePlace*place1 in CheckedInPlaces){
+                if ([place1.placeID isEqualToString:Existing.placeID]){
+                    //add checked in place if it exists
+                    [LocationsNearby replaceObjectAtIndex:i withObject:place1];
                 }
             }
-            [MasterLocations addObject:tempplace];
-            CustomAnnotation*tempAnnotation = [[CustomAnnotation alloc ]init];
-            tempAnnotation.coordinate=tempplace.coordinate;
-            tempAnnotation.title=tempplace.name;
-            tempAnnotation.UserAdded=false;
-            tempplace.AnnotationPointer=tempAnnotation;
-            [Annotations addObject:tempAnnotation];
-            [MasterAnnotations addObject:tempAnnotation];
-            userLocation=[locations lastObject];
         }
+        }
+        //add user added locations
         for (GooglePlace* userplace in UserAddedLocations){
             NSLog(@"User added place:%@ ",userplace.name);
             CLLocation*current = [[CLLocation alloc]initWithLatitude:userplace.coordinate.latitude longitude:userplace.coordinate.longitude];
@@ -226,13 +252,12 @@ AppDelegate*myDelegate;
         //create a RemoveAnnotations array and master list of all locations user went nearby
         //create a UpdateAnnotationsMethod
         //method will iteraate through master list of locations array and check which location is more than 5 miles of the user
-        //if it is more than 5 miles, add to remove array
+        //if it is more than x miles, add to remove array
         //else add to the annotations array
         //after for loop, add annotations and remove relevant annotations
         [self.MapView addAnnotations:Annotations];
         [self UpdateAnnotationsMethod:[locations lastObject]];
-        [self.MapView removeAnnotations:RemoveAnnotations];
-        NSLog(@"Removing annotations");
+                NSLog(@"Removing annotations");
 
     }];
     
@@ -243,35 +268,52 @@ AppDelegate*myDelegate;
     NSLog(@"type of delegate is %@",self.tabBarController.delegate);
     
 }
+- (BOOL) DoesPlaceExist:(GMSPlace*)NewPlace{
+    
+    for (GooglePlace* ExistingPlace in LocationsNearby){
+        if ([ExistingPlace.placeID isEqualToString:NewPlace.placeID]&&[ExistingPlace.name isEqualToString:NewPlace.name]){
+            NSLog(@"This place is in our array already: %@",ExistingPlace.name);
+            //If this place exists already in our array, return true
+            return true;
+        }
+    }//else if it doesn't exist return false
+    return false;
+}
 //If you tap on a purple dot, the label appears for the name of the place and sends the user to the view controller with the name of the place
 - (void) UpdateAnnotationsMethod:(CLLocation* )User{
-    for (GooglePlace* place in MasterLocations){
+    
+    NSMutableArray* LocationRemove = [[NSMutableArray alloc]init];
+    for (GooglePlace* place in LocationsNearby){
         NSLog(@"Things in master location: %@",place.name);
         CLLocation*current = [[CLLocation alloc]initWithLatitude:place.AnnotationPointer.coordinate.latitude longitude:place.AnnotationPointer.coordinate.longitude];
         CLLocationDistance distance = [User distanceFromLocation:current];
         if (distance>(double)RadiusSlider.value){
             NSLog(@"Removing annotation: %@",place.name);
-
             [RemoveAnnotations addObject:place.AnnotationPointer];
+            [LocationRemove addObject:place];
         }
         
     }
+    [LocationsNearby removeObjectsInArray:LocationRemove];
 }
 - (IBAction)sliderValueChanged:(id)sender {
     float Feet = (RadiusSlider.value)*3.28084;
     [RadiusLabel setAlpha:0.0f];
     RadiusLabel.text=[[NSString alloc]initWithFormat:@"%.1f feet",Feet];
     [RadiusLabel setAlpha:1.0f];
-    //fade in
+    //fade out
     [UIView animateWithDuration:2.0f animations:^{
             
             [RadiusLabel setAlpha:0.0f];
             
         } completion:nil];
         
-    
-    //[self UpdateAnnotationsMethod:userLocation];
-    //[self UpdateLocationsNearby:userLocation];
+    //[self UpdateLocationsNearby:[self.locations lastObject]];
+    correct=true;
+    //[self UpdateAnnotationsMethod:[self.locations lastObject]];
+
+    [self.MapView removeAnnotations:RemoveAnnotations];
+    //[self.MapView removeAnnotations:RemoveAnnotations];
 }
 - (void) UpdateLocationsNearby:(CLLocation* )User{
     for (GooglePlace* place in LocationsNearby){
@@ -282,6 +324,7 @@ AppDelegate*myDelegate;
         }
         
     }
+    
 }
 
 - (IBAction)backToStart:(UIStoryboardSegue*) segue{
@@ -359,24 +402,7 @@ AppDelegate*myDelegate;
     }
     self.tabBarController.delegate=self;
     [self.LocationsNearby removeAllObjects];
-    [self.placesClient currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
-        if (error != nil) {
-            NSLog(@"Current Place error %@", [error localizedDescription]);
-            return;
-        }
-        for (GMSPlaceLikelihood *likelihood in likelihoodList.likelihoods) {
-            GMSPlace* CurrentPlace = likelihood.place;
-            NSLog(@"Current Place name %@ at likelihood %g", CurrentPlace.name, likelihood.likelihood);
-            NSLog(@"Current Place address %@", CurrentPlace.formattedAddress);
-            NSLog(@"Current Place attributions %@", CurrentPlace.attributions);
-            NSLog(@"Current PlaceID %@", CurrentPlace.placeID);
-            GooglePlace* tempplace = [[GooglePlace alloc] init];
-            [tempplace Initiate:CurrentPlace.name:CurrentPlace.placeID :CurrentPlace.coordinate :CurrentPlace.types :CurrentPlace.openNowStatus :CurrentPlace.phoneNumber :CurrentPlace.formattedAddress :CurrentPlace.rating :CurrentPlace.priceLevel :CurrentPlace.website];
-            [LocationsNearby addObject:tempplace];
-        }
-        
-        
-    }];
+
 
 }
 
