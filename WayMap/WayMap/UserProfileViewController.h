@@ -9,4 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "GooglePlace.h"
 @interface UserProfileViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *placesVisitedTest;
+
 @end
