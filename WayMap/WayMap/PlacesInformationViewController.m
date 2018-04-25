@@ -2,12 +2,14 @@
 //  PlacesInformationViewController.m
 //  WayMap
 //
-//  Created by carlos arellano on 4/18/18.
+//  Created by Carlos Arellano and Jean Jeon on 4/18/18.
 //  Copyright © 2018 nyu.edu. All rights reserved.
 //
 
 #import "PlacesInformationViewController.h"
 #import "AppDelegate.h"
+@import FirebaseAuth;
+@import FirebaseDatabase;
 
 @interface PlacesInformationViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *PlaceName;
@@ -16,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *BasedOn;
 
 @property (weak, nonatomic) IBOutlet UILabel *PlaceAddress;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
 
@@ -33,9 +36,15 @@
     myDelegate.CheckInLocations=CheckedInLocations;
     _CheckInButton.hidden=true;
     _IsCheckedIn.hidden=false;
+    
+    FIRUser *user = [FIRAuth auth].currentUser;
+    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] child:@"Name"] setValue:_PlaceName.text];
+    
+    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] child:@"Address"] setValue:_PlaceAddress.text];
 }
 -(void)viewDidLoad{
     CheckedInLocations=[[NSMutableArray alloc] init];
+    self.ref = [[FIRDatabase database] reference];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
