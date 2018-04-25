@@ -12,5 +12,8 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong,nonatomic) NSMutableArray* CheckInLocations;
+@property (strong,nonatomic) NSMutableArray* LocationsNearby;
+@property (strong) NSMutableArray*UserAddedLocations;
+
 @end
 
