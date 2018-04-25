@@ -120,9 +120,10 @@ didFailAutocompleteWithError:(NSError *)error {
 //Push user-added data to be stored under their respective UID in Firebase
 - (IBAction)SaveBtnTapped:(UIButton *)sender {
     FIRUser *user = [FIRAuth auth].currentUser;
-    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Added"] child:@"Name"] setValue:nameTextField.text];
-    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Added"] child:@"Address"] setValue:textField.text];
-    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Added"] child:@"Type"] setValue:Type];
+    FIRDatabaseReference *newReference= [[[[self.ref child:@"users"] child:user.uid] child:@"Places Added"] childByAutoId];
+    [[newReference child:@"Name"] setValue:nameTextField.text];
+    [[newReference child:@"Address"] setValue:textField.text];
+    [[newReference child:@"Type"] setValue:Type];
 }
 
 /*
