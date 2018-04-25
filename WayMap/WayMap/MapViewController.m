@@ -30,6 +30,7 @@
 @end
 
 @implementation MapViewController
+AppDelegate*myDelegate;
 @synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider,UserAddedLocations,CheckedInPlaces;
 //view loads
 - (void)viewDidLoad {
@@ -179,6 +180,7 @@
                     if ([place1.placeID isEqualToString:tempplace.placeID]){
                         //add checked in place
                         [LocationsNearby addObject:place1];
+                        [MasterLocations addObject:place1];
                     }
                     else{
                         //add none checked in places
@@ -217,6 +219,8 @@
             [MasterAnnotations addObject:tempAnnotation];
             [MasterLocations addObject:userplace];
         }
+        myDelegate.LocationsNearby=self.LocationsNearby;
+
         
 
         //create a RemoveAnnotations array and master list of all locations user went nearby
@@ -242,9 +246,12 @@
 //If you tap on a purple dot, the label appears for the name of the place and sends the user to the view controller with the name of the place
 - (void) UpdateAnnotationsMethod:(CLLocation* )User{
     for (GooglePlace* place in MasterLocations){
+        NSLog(@"Things in master location: %@",place.name);
         CLLocation*current = [[CLLocation alloc]initWithLatitude:place.AnnotationPointer.coordinate.latitude longitude:place.AnnotationPointer.coordinate.longitude];
         CLLocationDistance distance = [User distanceFromLocation:current];
         if (distance>(double)RadiusSlider.value){
+            NSLog(@"Removing annotation: %@",place.name);
+
             [RemoveAnnotations addObject:place.AnnotationPointer];
         }
         
@@ -287,6 +294,8 @@
         GooglePlace*UserPlace=placeView.UserAddedPlace;
         NSLog(@"new added place is %@",UserPlace.name);
     [UserAddedLocations addObject:UserPlace];
+        myDelegate.UserAddedLocations=UserAddedLocations;
+
         NSLog(@"saved, adding new locaiton!");
 
     }
@@ -342,7 +351,7 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-        AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     CheckedInPlaces=myDelegate.CheckInLocations;
     if ([CheckedInPlaces count]!=0){
         GooglePlace*place =[CheckedInPlaces objectAtIndex:0];
@@ -422,12 +431,15 @@
     // Always allow callouts to popup when annotations are tapped.
     return YES;
 }
+
+
+
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     NSLog(@"TYPE OF CONTROLLER:%@",NSStringFromClass([viewController class]));
     if ([viewController isKindOfClass:[UINavigationController class]]){
         UINavigationController*Tips1 = (UINavigationController*)viewController;
         if ([Tips1.visibleViewController isKindOfClass:[TipsFirstTableViewController class]]){TipsFirstTableViewController*Tips=(TipsFirstTableViewController*)Tips1.visibleViewController;
-        Tips.NearbyLocations=self.LocationsNearby;
+        //Tips.NearbyLocations=self.LocationsNearby;
             Tips.userLocation=self.userLocation;
             Tips.index=1;
         NSLog(@"Switching view controllers to TipsFirst");

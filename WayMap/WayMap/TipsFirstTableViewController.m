@@ -9,11 +9,13 @@
 #import "TipsFirstTableViewController.h"
 #import "MapViewController.h"
 #import "TipsSecondTableViewController.h"
+#import "AppDelegate.h"
 @interface TipsFirstTableViewController ()
 
 
 @end
 @implementation TipsFirstTableViewController
+AppDelegate* myDelegate1;
 @synthesize categories,NearbyLocations,Transportation,Occupational,Financial,Food,Lifestyle,Culture,Entertainment,Leisure,Other,Shopping,Tips1,userLocation,SelectedPlace,index;
 NSString* SelectedIndexPath;
 - (id) initWithStyle:(UITableViewStyle)style{
@@ -44,6 +46,8 @@ NSString* SelectedIndexPath;
 }
 -(void) viewWillAppear:(BOOL)animated{
     if (index==1){
+        myDelegate1 = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        NearbyLocations=myDelegate1.LocationsNearby;
     [super viewWillAppear:animated];
     Food = [[NSMutableArray alloc ]init];
     Leisure = [[NSMutableArray alloc ]init];
