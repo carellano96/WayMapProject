@@ -30,4 +30,5 @@
 @property (strong )NSMutableArray*prepareToRemove;
 @property (strong) NSMutableArray*UserAddedLocations;
 @property (strong) NSMutableArray* CheckedInPlaces;
+@property (strong) NSMutableArray* RadiusRemoveAnnotations;
 @end
