@@ -21,6 +21,4 @@
 
 @property (strong, nonatomic) UITableViewCell *selectedPlace;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *backBtn;
-
 @end
