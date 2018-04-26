@@ -32,7 +32,7 @@
 @implementation MapViewController
 AppDelegate*myDelegate;
 Boolean correct;
-@synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider,UserAddedLocations,CheckedInPlaces;
+@synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider,UserAddedLocations,CheckedInPlaces,RadiusRemoveAnnotations;
 //view loads
 - (void)viewDidLoad {
     correct = false;
@@ -43,6 +43,7 @@ Boolean correct;
     RemoveAnnotations=[[NSMutableArray alloc]init];
     SelectedPlace =[[GooglePlace alloc ]init];
     Annotations= [[NSMutableArray alloc ]init];
+    RadiusRemoveAnnotations= [[NSMutableArray alloc ]init];
     UserAddedLocations = [[NSMutableArray alloc ]init];
     self.RadiusSlider.minimumValue=20;
     self.RadiusSlider.maximumValue=1000;
@@ -198,24 +199,29 @@ Boolean correct;
     }
         //add temp annotations and checking if any should be there based on radius slider
         for (GooglePlace* check in LocationsNearby){
+            if (check.UserAdded){
+                continue;
+            }
             CustomAnnotation*tempAnnotation = [[CustomAnnotation alloc ]init];
             tempAnnotation.coordinate=check.coordinate;
             tempAnnotation.title=check.name;
             tempAnnotation.UserAdded=false;
             check.AnnotationPointer=tempAnnotation;
-
+            NSLog(@"Locations Nearby contains: %@",check.name);
             userLocation=[locations lastObject];
             CLLocation*current = [[CLLocation alloc]initWithLatitude:check.coordinate.latitude longitude:check.coordinate.longitude];
             CLLocationDistance distance = [[locations lastObject] distanceFromLocation:current];
             if (distance<(double)RadiusSlider.value){
                 [Annotations addObject:check.AnnotationPointer];
                 [MasterAnnotations addObject:check.AnnotationPointer];
-                
+
             }
             else{
                 [RemoveAnnotations addObject:check.AnnotationPointer];
             }
         }
+        
+        //////////////
         if ([CheckedInPlaces count]!=0){
             for (int i=0;i<[LocationsNearby count];i++){
                 GooglePlace* Existing = [LocationsNearby objectAtIndex:i];
@@ -233,17 +239,18 @@ Boolean correct;
             CLLocation*current = [[CLLocation alloc]initWithLatitude:userplace.coordinate.latitude longitude:userplace.coordinate.longitude];
             CLLocationDistance distance1 = [[locations lastObject] distanceFromLocation:current];
             if (distance1<(double)RadiusSlider.value){
+                CustomAnnotation*tempAnnotation = [[CustomAnnotation alloc ]init];
+                tempAnnotation.coordinate=userplace.coordinate;
+                tempAnnotation.title=userplace.name;
+                tempAnnotation.UserAdded=true;
+                userplace.AnnotationPointer=tempAnnotation;
+                [Annotations addObject:tempAnnotation];
+                [MasterAnnotations addObject:tempAnnotation];
+                [MasterLocations addObject:userplace];
                 [LocationsNearby addObject:userplace];
                 NSLog(@"user place Within range");
             }
-            CustomAnnotation*tempAnnotation = [[CustomAnnotation alloc ]init];
-            tempAnnotation.coordinate=userplace.coordinate;
-            tempAnnotation.title=userplace.name;
-            tempAnnotation.UserAdded=true;
-            userplace.AnnotationPointer=tempAnnotation;
-            [Annotations addObject:tempAnnotation];
-            [MasterAnnotations addObject:tempAnnotation];
-            [MasterLocations addObject:userplace];
+            
         }
         myDelegate.LocationsNearby=self.LocationsNearby;
 
@@ -257,7 +264,7 @@ Boolean correct;
         //after for loop, add annotations and remove relevant annotations
         [self.MapView addAnnotations:Annotations];
         [self UpdateAnnotationsMethod:[locations lastObject]];
-                NSLog(@"Removing annotations");
+        [self.MapView removeAnnotations:RemoveAnnotations];
 
     }];
     
@@ -284,7 +291,7 @@ Boolean correct;
     
     NSMutableArray* LocationRemove = [[NSMutableArray alloc]init];
     for (GooglePlace* place in LocationsNearby){
-        NSLog(@"Things in master location: %@",place.name);
+        NSLog(@"Things in locations nearby location: %@",place.name);
         CLLocation*current = [[CLLocation alloc]initWithLatitude:place.AnnotationPointer.coordinate.latitude longitude:place.AnnotationPointer.coordinate.longitude];
         CLLocationDistance distance = [User distanceFromLocation:current];
         if (distance>(double)RadiusSlider.value){
@@ -295,8 +302,16 @@ Boolean correct;
         
     }
     [LocationsNearby removeObjectsInArray:LocationRemove];
+    for (CustomAnnotation* annotation1 in MasterAnnotations){
+        CLLocation*current = [[CLLocation alloc]initWithLatitude:annotation1.coordinate.latitude longitude:annotation1.coordinate.longitude];
+        CLLocationDistance distance = [[_locations lastObject] distanceFromLocation:current];
+        if (distance>(double)RadiusSlider.value){
+            [RemoveAnnotations addObject:annotation1];
+        }
+    }
 }
 - (IBAction)sliderValueChanged:(id)sender {
+    [self.locationManager stopUpdatingLocation];
     float Feet = (RadiusSlider.value)*3.28084;
     [RadiusLabel setAlpha:0.0f];
     RadiusLabel.text=[[NSString alloc]initWithFormat:@"%.1f feet",Feet];
@@ -311,9 +326,23 @@ Boolean correct;
     //[self UpdateLocationsNearby:[self.locations lastObject]];
     correct=true;
     //[self UpdateAnnotationsMethod:[self.locations lastObject]];
-
-    [self.MapView removeAnnotations:RemoveAnnotations];
     //[self.MapView removeAnnotations:RemoveAnnotations];
+    [RadiusRemoveAnnotations removeAllObjects];
+    for (GooglePlace* currentplace in LocationsNearby){
+        CLLocation*current = [[CLLocation alloc]initWithLatitude:currentplace.coordinate.latitude longitude:currentplace.coordinate.longitude];
+        CLLocationDistance distance1 = [[_locations lastObject] distanceFromLocation:current];
+        if (distance1>(double)RadiusSlider.value){
+            if ([self.MapView.annotations containsObject:currentplace.AnnotationPointer]){
+                NSLog(@"does contain annotation");
+               
+            }
+            [RadiusRemoveAnnotations addObject:currentplace.AnnotationPointer];
+        }
+        
+
+    }
+    [self.MapView removeAnnotations:RadiusRemoveAnnotations];
+    [self.locationManager startUpdatingLocation];
 }
 - (void) UpdateLocationsNearby:(CLLocation* )User{
     for (GooglePlace* place in LocationsNearby){
