@@ -14,43 +14,67 @@
 @interface UserProfileViewController ()
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
-@property (strong, nonatomic) FIRDatabaseReference *userAddedref;
 @property (nonatomic) FIRDatabaseHandle *favoritesRef;
-@property (nonatomic) NSMutableArray *favoritePlaces;
 
 @end
 
 @implementation UserProfileViewController
 
-@synthesize userAddedPlaces, testLabel;
+@synthesize userAddedPlaces, favoritePlaces, testLabel, favoritesHit, userAddedHit;
 
 -(void)configure:(NSString *)field {
     
     testLabel.text = field;
 }
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
+-(void) viewDidAppear:(BOOL)animated{
+    
+    userAddedHit = false;
+    favoritesHit = false;
     
     FIRUser *user = [FIRAuth auth].currentUser;
     
     userAddedPlaces = [[NSMutableArray alloc]init];
+    favoritePlaces = [[NSMutableArray alloc]init];
     
     self.ref = [[FIRDatabase database] reference];
     
     [[[[_ref child:@"users"] child:user.uid] child:@"Places Added"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
         
-        for (FIRDataSnapshot *place in snapshot.children){
-            NSString *key = place.key;
-            NSDictionary *placesDict = place.value;
-            [placesDict objectForKey:key];
-            [self configure:[placesDict objectForKey:@"Name"]];
-            [userAddedPlaces addObject:[placesDict objectForKey:@"Name"]];
+        for (FIRDataSnapshot *addedPlace in snapshot.children){
+            NSString *key = addedPlace.key;
+            NSDictionary *addedPlacesDict = addedPlace.value;
+            [addedPlacesDict objectForKey:key];
+            [self configure:[addedPlacesDict objectForKey:@"Name"]];
+            [userAddedPlaces addObject:[addedPlacesDict objectForKey:@"Name"]];
         }
         
     }];
     
+    [[[[_ref child:@"users"] child:user.uid] child:@"Favorite Places"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
+        
+        for (FIRDataSnapshot *favoritePlace in snapshot.children){
+            NSString *key = favoritePlace.key;
+            NSDictionary *favoritePlacesDict = favoritePlace.value;
+            [favoritePlacesDict objectForKey:key];
+            [self configure:[favoritePlacesDict objectForKey:@"Name"]];
+            [favoritePlaces addObject:[favoritePlacesDict objectForKey:@"Name"]];
+        }
+    }];
 }
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+}
+- (IBAction)favoritesBtnPressed:(UIButton *)sender {
+    favoritesHit = true;
+    
+}
+
+- (IBAction)userAddedBtnPressed:(UIButton *)sender {
+    userAddedHit = true;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -62,6 +86,9 @@
     UserDataTableViewController *UDVC;
     UDVC = [segue destinationViewController];
     UDVC.userAddedPlaces= userAddedPlaces;
+    UDVC.favoritePlaces = favoritePlaces;
+    UDVC.favoritesHit = favoritesHit;
+    UDVC.userAddedHit = userAddedHit;
 }
 
 @end
