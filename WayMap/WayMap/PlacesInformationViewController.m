@@ -12,7 +12,6 @@
 @import FirebaseDatabase;
 
 @interface PlacesInformationViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *PlaceName;
 @property (weak, nonatomic) IBOutlet UILabel *temp;
 @property (weak, nonatomic) IBOutlet UIButton *ReturnMaps;
 @property (weak, nonatomic) IBOutlet UILabel *BasedOn;
@@ -23,7 +22,7 @@
 @end
 
 @implementation PlacesInformationViewController
-@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations;
+@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations, favoriteBtn, favoritedLabel, placeNameLabel;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     NSLog(@"pushing back to da maps");
@@ -38,16 +37,29 @@
     _IsCheckedIn.hidden=false;
     
     FIRUser *user = [FIRAuth auth].currentUser;
-    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] child:@"Name"] setValue:_PlaceName.text];
+    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] child:@"Name"] setValue:placeNameLabel.text];
     
     [[[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] child:@"Address"] setValue:_PlaceAddress.text];
 }
 -(void)viewDidLoad{
-    CheckedInLocations=[[NSMutableArray alloc] init];
     self.ref = [[FIRDatabase database] reference];
 }
 
+- (IBAction)favoriteBtnTapped:(UIButton *)sender {
+    FIRUser *user = [FIRAuth auth].currentUser;
+    [[[[[_ref child:@"users"] child:user.uid] child:@"Favorite Places"] child:@"Name"] setValue:placeNameLabel.text];
+    
+    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] child:@"Address"] setValue:_PlaceAddress.text];
+    
+    [favoriteBtn setHidden:YES];
+    [favoritedLabel setHidden:NO];
+
+}
+
 - (void)viewWillAppear:(BOOL)animated{
+    [favoriteBtn setHidden:NO];
+    [favoritedLabel setHidden:YES];
+    
     if (SelectedPlace.CheckedIn){
         _CheckInButton.hidden=true;
         _IsCheckedIn.hidden=false;
@@ -59,9 +71,9 @@
     _BasedOn.text=[NSString stringWithFormat:@"Based on %@ Category:",sourceArrayName];
     self.ReturnMaps.userInteractionEnabled=true;
     self.title=SelectedPlace.name;
-    self.PlaceName.adjustsFontSizeToFitWidth=YES;
+    self.placeNameLabel.adjustsFontSizeToFitWidth=YES;
     self.PlaceAddress.adjustsFontSizeToFitWidth=YES;
-    self.PlaceName.text=SelectedPlace.name;
+    self.placeNameLabel.text=SelectedPlace.name;
     self.PlaceAddress.text=SelectedPlace.formattedAddress;
     NSLog(@"Current view controller");
     if (![segueUsed isEqualToString:@"tapToLocation"]){

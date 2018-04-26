@@ -11,6 +11,9 @@
 @interface UserProfileViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *userAddedPlaces;
+@property (strong, nonatomic) NSMutableArray *favoritePlaces;
 @property (weak, nonatomic) IBOutlet UILabel *testLabel;
+@property (nonatomic) Boolean favoritesHit;
+@property (nonatomic) Boolean userAddedHit;
 
 @end

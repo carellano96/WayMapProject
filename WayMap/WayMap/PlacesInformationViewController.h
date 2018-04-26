@@ -23,5 +23,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *UserAddedTitle;
 @property (strong)  NSString*sourceArrayName;
 @property (strong) NSMutableArray*CheckedInLocations;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteBtn;
+@property (weak, nonatomic) IBOutlet UILabel *favoritedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *placeNameLabel;
 
 @end

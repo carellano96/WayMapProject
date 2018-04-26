@@ -11,5 +11,16 @@
 @interface UserDataTableViewController : UITableViewController
 
 @property (strong, nonatomic) NSMutableArray *userAddedPlaces;
+@property (strong, nonatomic) NSMutableArray *favoritePlaces;
+
+@property (nonatomic) Boolean favoritesHit;
+@property (nonatomic) Boolean userAddedHit;
+
+@property (strong, nonatomic) NSString *sectionTitle;
+@property (strong, nonatomic) NSString *placeName;
+
+@property (strong, nonatomic) UITableViewCell *selectedPlace;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backBtn;
 
 @end
