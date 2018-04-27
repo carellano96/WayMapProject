@@ -31,6 +31,12 @@
     self.website=website;
     
 }
+
+- (void) initiateRating:(float)rating{
+    if (UserAdded){
+        self.rating=0;
+    }
+}
 @end
 /*@property NSString*name;
  @property NSString*placeID;
