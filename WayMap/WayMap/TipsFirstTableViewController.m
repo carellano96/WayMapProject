@@ -107,8 +107,8 @@ NSString* SelectedIndexPath;
 
     NSLog(@"COUNTFOR1: %d",count);
         for (GooglePlace* location in NearbyLocations){
-            if (location.CheckedIn){
-                NSLog(@"WOOOO CHECKED IN!!! %@",location.name);
+            if (location.Favorited){
+                NSLog(@"WOOOO FAVORITED!!! %@",location.name);
             }
         }
         index=0;

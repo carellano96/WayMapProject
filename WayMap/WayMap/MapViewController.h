@@ -35,4 +35,5 @@
 @property (strong) NSMutableArray* CheckedInPlaces;
 @property (strong) NSMutableArray* RadiusRemoveAnnotations;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong) NSMutableArray* FavoritedPlaces;
 @end
