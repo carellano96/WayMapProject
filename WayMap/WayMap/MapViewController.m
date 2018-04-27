@@ -14,6 +14,10 @@
 #import "CustomAnnotation.h"
 #import "AppDelegate.h"
 
+@import Firebase;
+@import FirebaseAuth;
+@import FirebaseDatabase;
+
 @interface MapViewController (){
     int _CurrentIndex;
 
@@ -27,6 +31,8 @@
 @property (nonatomic) NSMutableArray<CLLocation *> *locations;
 @property CLLocationManager* locationManager;
 @property GMSPlacesClient* placesClient; //client to get information
+
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 @end
 
 @implementation MapViewController
@@ -423,12 +429,19 @@ Boolean correct;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-        myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    CheckedInPlaces=myDelegate.CheckInLocations;
-    if ([CheckedInPlaces count]!=0){
-        GooglePlace*place =[CheckedInPlaces objectAtIndex:0];
-        NSLog(@"checked in place is %@", place.name);
-    }
+    
+    FIRUser *user = [FIRAuth auth].currentUser;
+    self.ref = [[FIRDatabase database] reference];
+    
+    [[[[_ref child:@"users"] child:user.uid] child:@"Favorite Places"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
+        
+        for (FIRDataSnapshot *favoritePlace in snapshot.children){
+            NSString *key = favoritePlace.key;
+            NSDictionary *checkedInPlacesDict = favoritePlace.value;
+            [checkedInPlacesDict objectForKey:key];
+            [CheckedInPlaces addObject:[checkedInPlacesDict objectForKey:@"Name"]];
+        }
+    }];
     self.tabBarController.delegate=self;
     [self.LocationsNearby removeAllObjects];
 

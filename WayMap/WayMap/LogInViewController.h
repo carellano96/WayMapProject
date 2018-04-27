@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LogInViewController : UIViewController
+@interface LogInViewController : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (weak, nonatomic) IBOutlet UILabel *ErrorLabel;

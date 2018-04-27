@@ -90,18 +90,24 @@
     return sectionName;
 }
 
+/*
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-        selectedPlace = [tableView cellForRowAtIndexPath:indexPath];
-        placeName = selectedPlace.textLabel.text;
+    selectedPlace = [tableView cellForRowAtIndexPath:indexPath];
+    placeName = selectedPlace.textLabel.text;
+    //[self performSegueWithIdentifier:@"placesInfoSegue" sender:self];
     
 }
+ */
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"placesInfoSegue"]){
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+         
         PlacesInformationViewController *PIVC;
         PIVC = [segue destinationViewController];
-        PIVC.placeNameLabel.text = placeName;
+        PIVC.placeNameLabel.text = [favoritePlaces objectAtIndex:indexPath.row];
     }
     //PIVC.placeAddressLabel.text = 
 }
