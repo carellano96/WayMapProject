@@ -12,9 +12,9 @@
 @import MapKit;
 @import GooglePlaces;
 @import GooglePlacePicker;
-@import Firebase
-@import FirebaseDatabase
-@import FirebaseAuth
+@import Firebase;
+@import FirebaseDatabase;
+@import FirebaseAuth;
 
 @interface MapViewController : UIViewController <MGLMapViewDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate,UITabBarDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *RadiusLabel;

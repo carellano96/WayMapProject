@@ -33,6 +33,7 @@ NSString* SelectedIndexPath;
     categories = [[NSMutableArray alloc] init];
     self.tabBarController.delegate=self;
     SelectedIndexPath = [[NSString alloc ]init];
+    SelectedPlace= [[GooglePlace alloc ]init];
     [super viewDidLoad];
     
     
@@ -47,7 +48,7 @@ NSString* SelectedIndexPath;
 -(void) viewWillAppear:(BOOL)animated{
     if (index==1){
         myDelegate1 = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        NearbyLocations=myDelegate1.LocationsNearby;
+    self.NearbyLocations=myDelegate1.LocationsNearby;
     [super viewWillAppear:animated];
     Food = [[NSMutableArray alloc ]init];
     Leisure = [[NSMutableArray alloc ]init];
@@ -59,10 +60,9 @@ NSString* SelectedIndexPath;
     Entertainment = [[NSMutableArray alloc ]init];
     Lifestyle = [[NSMutableArray alloc ]init];
     Shopping = [[NSMutableArray alloc ]init];
-    SelectedPlace=[[GooglePlace alloc]init];
     self.tabBarController.delegate=self;
     int count=0;
-    for (GooglePlace*place in NearbyLocations){
+    for (GooglePlace*place in self.NearbyLocations){
         count++;
         NSLog(@"ADDED TO FOOD ARRAY!");
         NSLog(@"Current Place name %@", place.name);
@@ -104,9 +104,13 @@ NSString* SelectedIndexPath;
         [categories addObject:@"Other"];
         
     }
-        [self.tableView reloadData];
 
     NSLog(@"COUNTFOR1: %d",count);
+        for (GooglePlace* location in NearbyLocations){
+            if (location.CheckedIn){
+                NSLog(@"WOOOO CHECKED IN!!! %@",location.name);
+            }
+        }
         index=0;
     }
     else{
