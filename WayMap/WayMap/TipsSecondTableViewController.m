@@ -138,10 +138,18 @@ else if ([_LocationName isEqualToString:@"Financial"]){
 }
 
 - (NSIndexPath*)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    NSLog(@"Checking food places:");
+    for (GooglePlace* location in Food){
+        NSLog(@"Name of food: %@, %d:",location.name,location.CheckedIn);
+        if (location.Favorited){
+            
+            NSLog(@"WOOOO FAVORITED again x3!!! %@",location.name);
+        }
+        
+    }
     if ([_LocationName isEqualToString:@"Food"]){
         SelectedPlace=[Food objectAtIndex:indexPath.row];
-        NSLog(@"Showing food %d",SelectedPlace.CheckedIn);
+        NSLog(@"Showing food %d",SelectedPlace.Favorited);
     }
     else if ([_LocationName isEqualToString:@"Leisure"]){
         SelectedPlace=[self.Leisure objectAtIndex:indexPath.row];

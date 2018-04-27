@@ -28,7 +28,6 @@
 }
 - (IBAction)CheckIntoPlace:(id)sender {
     //check in
-    AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 
     SelectedPlace.CheckedIn=true;
     _CheckInButton.hidden=true;
@@ -45,12 +44,12 @@
 }
 
 - (IBAction)favoriteBtnTapped:(UIButton *)sender {
+    SelectedPlace.Favorited=true;
     FIRUser *user = [FIRAuth auth].currentUser;
     _updateRef = [[[[self.ref child:@"users"] child:user.uid] child:@"Favorite Places"] childByAutoId];
     [[_updateRef child:@"Name"] setValue:placeNameLabel.text];
     [[_updateRef child:@"Address"] setValue:placeAddressLabel.text];
     [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
-    //[[newReference child:@"Type"] setValue:Type];
     
     [favoriteBtn setHidden:YES];
     [favoritedLabel setHidden:NO];
@@ -58,8 +57,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [favoriteBtn setHidden:NO];
-    [favoritedLabel setHidden:YES];
+    
     NSLog(@"Is checked in %d",SelectedPlace.CheckedIn);
     if (SelectedPlace.CheckedIn){
         _CheckInButton.hidden=true;
@@ -68,6 +66,14 @@
     else{
         _IsCheckedIn.hidden=true;
         _CheckInButton.hidden=false;
+    }
+    if (SelectedPlace.Favorited){
+        favoriteBtn.hidden=true;
+        favoritedLabel.hidden=false;
+    }
+    else{
+        favoritedLabel.hidden=true;
+        favoriteBtn.hidden=false;
     }
     _BasedOn.text=[NSString stringWithFormat:@"Based on %@ Category:",sourceArrayName];
     self.ReturnMaps.userInteractionEnabled=true;

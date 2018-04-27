@@ -37,11 +37,12 @@
 @implementation MapViewController
 AppDelegate*myDelegate;
 Boolean correct;
-@synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider,UserAddedLocations,CheckedInPlaces,RadiusRemoveAnnotations;
+@synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider,UserAddedLocations,CheckedInPlaces,RadiusRemoveAnnotations,FavoritedPlaces;
 //view loads
 - (void)viewDidLoad {
     correct = false;
     CheckedInPlaces =[[NSMutableArray alloc]init];
+    FavoritedPlaces = [[NSMutableArray alloc] init];
     MasterLocations=[[NSMutableArray alloc ]init];
     MasterAnnotations=[[NSMutableArray alloc]init];
     LocationsNearby = [[NSMutableArray alloc]init];
@@ -226,22 +227,7 @@ Boolean correct;
             }
         }
         
-        //////////////
-        if ([CheckedInPlaces count]!=0){
-            for (int i=0;i<[LocationsNearby count];i++){
-                //finding google place
-                GooglePlace* Existing = [LocationsNearby objectAtIndex:i];
-            for (GooglePlace*CheckedIn in CheckedInPlaces){
-                if ([CheckedIn.name isEqualToString:Existing.name]){
-                    //add checked in place if it exists
-                    [Existing setCheckedIn:true];
-                    [self.LocationsNearby replaceObjectAtIndex:i withObject:Existing];
-                    NSLog(@"found checked in place %@",Existing.name);
-                }
-                
-            }
-        }
-        }
+   
         //add user added locations
         for (GooglePlace* userplace in UserAddedLocations){
             NSLog(@"User added place:%@ ",userplace.name);
@@ -261,6 +247,41 @@ Boolean correct;
             }
             
         }
+        //////////////
+        ////////////// Checks checked in places list
+        if ([CheckedInPlaces count]!=0){
+            for (int i=0;i<[LocationsNearby count];i++){
+                //finding google place
+                GooglePlace* Existing = [LocationsNearby objectAtIndex:i];
+                for (GooglePlace*CheckedIn in CheckedInPlaces){
+                    if ([CheckedIn.placeID isEqualToString:Existing.placeID]){
+                        //add checked in place if it exists
+                        [Existing setCheckedIn:true];
+                        //[self.LocationsNearby replaceObjectAtIndex:i withObject:Existing];
+                        NSLog(@"found checked in place %@",Existing.name);
+                    }
+                    
+                }
+            }
+        }
+        //check favorited places
+        if ([FavoritedPlaces count]!=0){
+            for (int i=0;i<[LocationsNearby count];i++){
+                //finding google place
+                GooglePlace* Existing = [LocationsNearby objectAtIndex:i];
+                for (GooglePlace*Favorite in FavoritedPlaces){
+                    if ([Favorite.placeID isEqualToString:Existing.placeID]){
+                        //add favorited place if it exists
+                        [Existing setFavorited:true];
+                        //[self.LocationsNearby replaceObjectAtIndex:i withObject:Existing];
+                        NSLog(@"found favorited place %@",Existing.name);
+                    }
+                    
+                }
+            }
+        }
+        //updates rating in user added locations
+        //insert code here//
         myDelegate.LocationsNearby=self.LocationsNearby;
 
 
@@ -389,6 +410,7 @@ Boolean correct;
         NSLog(@"Annotation name is %@",annotation.title);
         if ([annotation.title isEqualToString:location.name]){
             SelectedPlace=location;
+            NSLog(@"Checked in; %d favorited %d",location.CheckedIn,location.Favorited);
             
             NSLog(@"Found selected place: name %@",SelectedPlace.name);
             break;
@@ -435,20 +457,39 @@ Boolean correct;
     LocationsNearby= myDelegate.LocationsNearby;
     FIRUser *user = [FIRAuth auth].currentUser;
     [self.CheckedInPlaces removeAllObjects];
+    [self.FavoritedPlaces removeAllObjects];
     self.ref = [[FIRDatabase database] reference];
     
+    [[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
+        
+        for (FIRDataSnapshot *VisitedPlace in snapshot.children){
+            NSString *key = VisitedPlace.key;
+            NSDictionary *checkedInPlacesDict = VisitedPlace.value;
+            [checkedInPlacesDict objectForKey:key];
+            GooglePlace *googletemp = [[GooglePlace alloc]init];
+            googletemp.name =[checkedInPlacesDict objectForKey:@"Name"];
+            googletemp.formattedAddress=[checkedInPlacesDict objectForKey:@"Address"];
+            googletemp.placeID=[checkedInPlacesDict objectForKey:@"placeID"];
+            [CheckedInPlaces addObject:googletemp];
+        }
+    }];
     [[[[_ref child:@"users"] child:user.uid] child:@"Favorite Places"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
         
         for (FIRDataSnapshot *favoritePlace in snapshot.children){
             NSString *key = favoritePlace.key;
-            NSDictionary *checkedInPlacesDict = favoritePlace.value;
-            [checkedInPlacesDict objectForKey:key];
+            NSDictionary *favPlacesDict = favoritePlace.value;
+            [favPlacesDict objectForKey:key];
             GooglePlace *googletemp = [[GooglePlace alloc]init];
-            googletemp.name =[checkedInPlacesDict objectForKey:@"Name"];
-            [CheckedInPlaces addObject:googletemp];
+            googletemp.name =[favPlacesDict objectForKey:@"Name"];
+            googletemp.formattedAddress=[favPlacesDict objectForKey:@"Address"];
+            googletemp.placeID=[favPlacesDict objectForKey:@"placeID"];
+            [FavoritedPlaces addObject:googletemp];
         }
     }];
+
     myDelegate.CheckInLocations=CheckedInPlaces;
+    myDelegate.FavoritedPlaces=FavoritedPlaces;
+    myDelegate.LocationsNearby=LocationsNearby;
     self.tabBarController.delegate=self;
     [self.LocationsNearby removeAllObjects];
 
