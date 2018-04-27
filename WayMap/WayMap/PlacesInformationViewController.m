@@ -29,17 +29,16 @@
 - (IBAction)CheckIntoPlace:(id)sender {
     //check in
     AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+
     SelectedPlace.CheckedIn=true;
-    [CheckedInLocations addObject:SelectedPlace];
-    myDelegate.CheckInLocations=CheckedInLocations;
     _CheckInButton.hidden=true;
     _IsCheckedIn.hidden=false;
-    
     FIRUser *user = [FIRAuth auth].currentUser;
     _updateRef = [[[[self.ref child:@"users"] child:user.uid] child:@"Places Visited"] childByAutoId];
     [[_updateRef child:@"Name"] setValue:placeNameLabel.text];
     [[_updateRef child:@"Address"] setValue:placeAddressLabel.text];
     [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
+    
 }
 -(void)viewDidLoad{
     self.ref = [[FIRDatabase database] reference];
@@ -61,7 +60,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [favoriteBtn setHidden:NO];
     [favoritedLabel setHidden:YES];
-    
+    NSLog(@"Is checked in %d",SelectedPlace.CheckedIn);
     if (SelectedPlace.CheckedIn){
         _CheckInButton.hidden=true;
         _IsCheckedIn.hidden=false;

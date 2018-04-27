@@ -35,10 +35,14 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    SelectedPlace=[[GooglePlace alloc ]init];
 
     self.tabBarController.delegate=self;
     [self.tableView reloadData];
+    for (GooglePlace* location in Food){
+        if (location.CheckedIn){
+            NSLog(@"WOOOO CHECKED IN again!!! %@",location.name);
+        }
+    }
 
 }
 
@@ -77,7 +81,7 @@
 else if ([_LocationName isEqualToString:@"Other"]){
         return [Other count];
     }
-    
+
     return 0;
 }
 
@@ -88,7 +92,7 @@ else if ([_LocationName isEqualToString:@"Other"]){
     if (cell==nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SpecificLocation"];
     }
-    GooglePlace*SelectedPlace1 = [[GooglePlace alloc]init];
+    GooglePlace*SelectedPlace1=[[GooglePlace alloc]init];;
     if ([_LocationName isEqualToString:@"Food"]){
         SelectedPlace1=[self.Food objectAtIndex:indexPath.row];
         NSLog(@"Showing food %@",SelectedPlace.name);
@@ -134,9 +138,10 @@ else if ([_LocationName isEqualToString:@"Financial"]){
 }
 
 - (NSIndexPath*)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
     if ([_LocationName isEqualToString:@"Food"]){
-        SelectedPlace=[self.Food objectAtIndex:indexPath.row];
-        NSLog(@"Showing food %@",SelectedPlace.name);
+        SelectedPlace=[Food objectAtIndex:indexPath.row];
+        NSLog(@"Showing food %d",SelectedPlace.CheckedIn);
     }
     else if ([_LocationName isEqualToString:@"Leisure"]){
         SelectedPlace=[self.Leisure objectAtIndex:indexPath.row];
@@ -208,6 +213,7 @@ else if ([_LocationName isEqualToString:@"Financial"]){
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showPlace"]){
         PlacesInformationViewController *Place = [segue destinationViewController];
+        NSLog(@"Selected place check in %d",SelectedPlace.CheckedIn);
         Place.SelectedPlace = self.SelectedPlace;
         
         

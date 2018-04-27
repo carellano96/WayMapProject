@@ -12,6 +12,9 @@
 @import MapKit;
 @import GooglePlaces;
 @import GooglePlacePicker;
+@import Firebase;
+@import FirebaseDatabase;
+@import FirebaseAuth;
 
 @interface MapViewController : UIViewController <MGLMapViewDelegate,CLLocationManagerDelegate,UITabBarControllerDelegate,UITabBarDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *RadiusLabel;
@@ -31,4 +34,5 @@
 @property (strong) NSMutableArray*UserAddedLocations;
 @property (strong) NSMutableArray* CheckedInPlaces;
 @property (strong) NSMutableArray* RadiusRemoveAnnotations;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 @end

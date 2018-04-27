@@ -32,7 +32,6 @@
 @property CLLocationManager* locationManager;
 @property GMSPlacesClient* placesClient; //client to get information
 
-@property (strong, nonatomic) FIRDatabaseReference *ref;
 @end
 
 @implementation MapViewController
@@ -230,12 +229,16 @@ Boolean correct;
         //////////////
         if ([CheckedInPlaces count]!=0){
             for (int i=0;i<[LocationsNearby count];i++){
+                //finding google place
                 GooglePlace* Existing = [LocationsNearby objectAtIndex:i];
-            for (GooglePlace*place1 in CheckedInPlaces){
-                if ([place1.placeID isEqualToString:Existing.placeID]){
+            for (GooglePlace*CheckedIn in CheckedInPlaces){
+                if ([CheckedIn.name isEqualToString:Existing.name]){
                     //add checked in place if it exists
-                    [LocationsNearby replaceObjectAtIndex:i withObject:place1];
+                    [Existing setCheckedIn:true];
+                    [self.LocationsNearby replaceObjectAtIndex:i withObject:Existing];
+                    NSLog(@"found checked in place %@",Existing.name);
                 }
+                
             }
         }
         }
@@ -260,7 +263,6 @@ Boolean correct;
         }
         myDelegate.LocationsNearby=self.LocationsNearby;
 
-        
 
         //create a RemoveAnnotations array and master list of all locations user went nearby
         //create a UpdateAnnotationsMethod
@@ -429,8 +431,10 @@ Boolean correct;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    
+    myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    LocationsNearby= myDelegate.LocationsNearby;
     FIRUser *user = [FIRAuth auth].currentUser;
+    [self.CheckedInPlaces removeAllObjects];
     self.ref = [[FIRDatabase database] reference];
     
     [[[[_ref child:@"users"] child:user.uid] child:@"Favorite Places"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
@@ -439,9 +443,12 @@ Boolean correct;
             NSString *key = favoritePlace.key;
             NSDictionary *checkedInPlacesDict = favoritePlace.value;
             [checkedInPlacesDict objectForKey:key];
-            [CheckedInPlaces addObject:[checkedInPlacesDict objectForKey:@"Name"]];
+            GooglePlace *googletemp = [[GooglePlace alloc]init];
+            googletemp.name =[checkedInPlacesDict objectForKey:@"Name"];
+            [CheckedInPlaces addObject:googletemp];
         }
     }];
+    myDelegate.CheckInLocations=CheckedInPlaces;
     self.tabBarController.delegate=self;
     [self.LocationsNearby removeAllObjects];
 
