@@ -39,6 +39,7 @@
     _updateRef = [[[[self.ref child:@"users"] child:user.uid] child:@"Places Visited"] childByAutoId];
     [[_updateRef child:@"Name"] setValue:placeNameLabel.text];
     [[_updateRef child:@"Address"] setValue:placeAddressLabel.text];
+    [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
 }
 -(void)viewDidLoad{
     self.ref = [[FIRDatabase database] reference];
@@ -49,6 +50,7 @@
     _updateRef = [[[[self.ref child:@"users"] child:user.uid] child:@"Favorite Places"] childByAutoId];
     [[_updateRef child:@"Name"] setValue:placeNameLabel.text];
     [[_updateRef child:@"Address"] setValue:placeAddressLabel.text];
+    [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
     //[[newReference child:@"Type"] setValue:Type];
     
     [favoriteBtn setHidden:YES];

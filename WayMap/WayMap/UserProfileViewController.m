@@ -14,7 +14,6 @@
 @interface UserProfileViewController ()
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
-@property (nonatomic) FIRDatabaseHandle *favoritesRef;
 
 @end
 
