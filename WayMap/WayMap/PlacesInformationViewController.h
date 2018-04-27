@@ -26,5 +26,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *favoriteBtn;
 @property (weak, nonatomic) IBOutlet UILabel *favoritedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *placeNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
 
 @end

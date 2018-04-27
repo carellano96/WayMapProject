@@ -20,16 +20,13 @@
 
 @implementation UserProfileViewController
 
-@synthesize userAddedPlaces, favoritePlaces, testLabel, favoritesHit, userAddedHit;
+@synthesize userAddedPlaces, favoritePlaces, testLabel;
 
 -(void)configure:(NSString *)field {
     
     testLabel.text = field;
 }
--(void) viewDidAppear:(BOOL)animated{
-    
-    userAddedHit = false;
-    favoritesHit = false;
+-(void) viewWillAppear:(BOOL)animated{
     
     FIRUser *user = [FIRAuth auth].currentUser;
     
@@ -60,21 +57,13 @@
             [favoritePlaces addObject:[favoritePlacesDict objectForKey:@"Name"]];
         }
     }];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
 }
-- (IBAction)favoritesBtnPressed:(UIButton *)sender {
-    favoritesHit = true;
-    
-}
-
-- (IBAction)userAddedBtnPressed:(UIButton *)sender {
-    userAddedHit = true;
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -83,12 +72,24 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
-    UserDataTableViewController *UDVC;
-    UDVC = [segue destinationViewController];
-    UDVC.userAddedPlaces= userAddedPlaces;
-    UDVC.favoritePlaces = favoritePlaces;
-    UDVC.favoritesHit = favoritesHit;
-    UDVC.userAddedHit = userAddedHit;
+    if([segue.identifier isEqualToString:@"favoritesSegue"]){
+        UserDataTableViewController *UDVC;
+        UDVC = [segue destinationViewController];
+        UDVC.userAddedPlaces = self.userAddedPlaces;
+        UDVC.favoritePlaces = self.favoritePlaces;
+        UDVC.favoritesHit = true;
+        UDVC.userAddedHit = false;
+    }
+    
+    else if([segue.identifier isEqualToString:@"userAddedSegue"]){
+        UserDataTableViewController *UDVC;
+        UDVC = [segue destinationViewController];
+        UDVC.userAddedPlaces = self.userAddedPlaces;
+        UDVC.favoritePlaces = self.favoritePlaces;
+        UDVC.favoritesHit = false;
+        UDVC.userAddedHit = true;
+    }
+    
 }
 
 @end
