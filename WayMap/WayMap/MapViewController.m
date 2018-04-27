@@ -14,6 +14,10 @@
 #import "CustomAnnotation.h"
 #import "AppDelegate.h"
 
+@import Firebase;
+@import FirebaseAuth;
+@import FirebaseDatabase;
+
 @interface MapViewController (){
     int _CurrentIndex;
 
@@ -27,6 +31,8 @@
 @property (nonatomic) NSMutableArray<CLLocation *> *locations;
 @property CLLocationManager* locationManager;
 @property GMSPlacesClient* placesClient; //client to get information
+
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 @end
 
 @implementation MapViewController
