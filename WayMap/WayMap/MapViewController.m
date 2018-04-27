@@ -429,6 +429,9 @@ Boolean correct;
         GooglePlace*place =[CheckedInPlaces objectAtIndex:0];
         NSLog(@"checked in place is %@", place.name);
     }
+    
+    
+
     self.tabBarController.delegate=self;
     [self.LocationsNearby removeAllObjects];
 
