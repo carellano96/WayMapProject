@@ -15,14 +15,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *temp;
 @property (weak, nonatomic) IBOutlet UIButton *ReturnMaps;
 @property (weak, nonatomic) IBOutlet UILabel *BasedOn;
-
-@property (weak, nonatomic) IBOutlet UILabel *PlaceAddress;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong, nonatomic) FIRDatabaseReference *updateRef;
 
 @end
 
 @implementation PlacesInformationViewController
-@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations, favoriteBtn, favoritedLabel, placeNameLabel;
+@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations, favoriteBtn, favoritedLabel, placeNameLabel, placeAddressLabel;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     NSLog(@"pushing back to da maps");
@@ -37,9 +36,9 @@
     _IsCheckedIn.hidden=false;
     
     FIRUser *user = [FIRAuth auth].currentUser;
-    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] child:@"Name"] setValue:placeNameLabel.text];
-    
-    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] child:@"Address"] setValue:_PlaceAddress.text];
+    _updateRef = [[[[self.ref child:@"users"] child:user.uid] child:@"Places Visited"] childByAutoId];
+    [[_updateRef child:@"Name"] setValue:placeNameLabel.text];
+    [[_updateRef child:@"Address"] setValue:placeAddressLabel.text];
 }
 -(void)viewDidLoad{
     self.ref = [[FIRDatabase database] reference];
@@ -47,9 +46,10 @@
 
 - (IBAction)favoriteBtnTapped:(UIButton *)sender {
     FIRUser *user = [FIRAuth auth].currentUser;
-    [[[[[_ref child:@"users"] child:user.uid] child:@"Favorite Places"] child:@"Name"] setValue:placeNameLabel.text];
-    
-    [[[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] child:@"Address"] setValue:_PlaceAddress.text];
+    _updateRef = [[[[self.ref child:@"users"] child:user.uid] child:@"Favorite Places"] childByAutoId];
+    [[_updateRef child:@"Name"] setValue:placeNameLabel.text];
+    [[_updateRef child:@"Address"] setValue:placeAddressLabel.text];
+    //[[newReference child:@"Type"] setValue:Type];
     
     [favoriteBtn setHidden:YES];
     [favoritedLabel setHidden:NO];
@@ -72,9 +72,9 @@
     self.ReturnMaps.userInteractionEnabled=true;
     self.title=SelectedPlace.name;
     self.placeNameLabel.adjustsFontSizeToFitWidth=YES;
-    self.PlaceAddress.adjustsFontSizeToFitWidth=YES;
+    self.placeAddressLabel.adjustsFontSizeToFitWidth=YES;
     self.placeNameLabel.text=SelectedPlace.name;
-    self.PlaceAddress.text=SelectedPlace.formattedAddress;
+    self.placeAddressLabel.text=SelectedPlace.formattedAddress;
     NSLog(@"Current view controller");
     if (![segueUsed isEqualToString:@"tapToLocation"]){
         self.ReturnMaps.hidden=true;

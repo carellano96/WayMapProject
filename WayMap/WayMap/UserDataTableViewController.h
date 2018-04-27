@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserDataTableViewController : UITableViewController
+@interface UserDataTableViewController : UITableViewController 
 
 @property (strong, nonatomic) NSMutableArray *userAddedPlaces;
 @property (strong, nonatomic) NSMutableArray *favoritePlaces;
@@ -20,5 +20,7 @@
 @property (strong, nonatomic) NSString *placeName;
 
 @property (strong, nonatomic) UITableViewCell *selectedPlace;
+
+@property(nonatomic, strong) UIBarButtonItem *backBarButtonItem;
 
 @end

@@ -15,17 +15,19 @@
 
 @implementation UserDataTableViewController
 
-@synthesize userAddedPlaces, favoritePlaces, sectionTitle, favoritesHit, userAddedHit, selectedPlace, placeName;
+@synthesize userAddedPlaces, favoritePlaces, sectionTitle, favoritesHit, userAddedHit, selectedPlace, placeName, backBarButtonItem;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    /*
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-     */
+ 
+    self.navigationItem.leftBarButtonItem = backBarButtonItem;
+}
+
+- (void) backButtonPressed: (UIBarButtonItem *)sender{
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,6 +42,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    
     if(favoritesHit == true){
         if([favoritePlaces count] > 0){
             return [favoritePlaces count];
@@ -51,6 +54,7 @@
         }
     }
     return 0;
+     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -58,7 +62,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyIdentifier"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
@@ -94,10 +98,12 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    PlacesInformationViewController *PIVC;
-    PIVC = [segue destinationViewController];
-    PIVC.placeNameLabel.text = placeName;
-    
+    if([segue.identifier isEqualToString:@"placesInfoSegue"]){
+        PlacesInformationViewController *PIVC;
+        PIVC = [segue destinationViewController];
+        PIVC.placeNameLabel.text = placeName;
+    }
+    //PIVC.placeAddressLabel.text = 
 }
 
 
