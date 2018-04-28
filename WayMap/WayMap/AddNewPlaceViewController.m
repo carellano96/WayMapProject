@@ -126,6 +126,7 @@ didFailAutocompleteWithError:(NSError *)error {
     [[newReference child:@"Name"] setValue:nameTextField.text];
     [[newReference child:@"Address"] setValue:textField.text];
     [[newReference child:@"Type"] setValue:Type];
+    [[newReference child:@"placeID"] setValue: UserAddedPlace.placeID];
 }
 
 /*

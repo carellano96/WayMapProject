@@ -686,7 +686,6 @@
         <image name="waymapLogo" width="517" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xWY-YS-LJ2"/>
         <segue reference="S5q-el-sEJ"/>
         <segue reference="UmF-wK-QkM"/>
         <segue reference="Blq-j7-53R"/>
