@@ -453,6 +453,7 @@ Boolean correct;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    self.hidesBottomBarWhenPushed = NO;
     myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     LocationsNearby= myDelegate.LocationsNearby;
     FIRUser *user = [FIRAuth auth].currentUser;
