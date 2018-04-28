@@ -439,15 +439,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="Cell" rowHeight="57" id="t3h-0T-XqC">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="57" id="t3h-0T-XqC">
                                 <rect key="frame" x="0.0" y="28" width="375" height="57"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t3h-0T-XqC" id="0TT-pa-Sfd">
-                                    <rect key="frame" x="0.0" y="0.0" width="307" height="56.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="YJs-Sh-uWz" kind="push" trigger="accessoryAction" id="Blq-j7-53R"/>
+                                    <segue destination="YJs-Sh-uWz" kind="show" identifier="placesInfoSegue" id="w2p-pL-7GK"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -524,7 +524,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <segue destination="2Mr-Hd-JRi" kind="presentation" id="S5q-el-sEJ"/>
+                                    <segue destination="dYw-qS-jzs" kind="unwind" unwindAction="backToStartFromAdding:" id="Pec-4W-XPc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYu-DF-waX">
@@ -686,9 +686,7 @@
         <image name="waymapLogo" width="517" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xWY-YS-LJ2"/>
-        <segue reference="S5q-el-sEJ"/>
         <segue reference="UmF-wK-QkM"/>
-        <segue reference="Blq-j7-53R"/>
+        <segue reference="w2p-pL-7GK"/>
     </inferredMetricsTieBreakers>
 </document>
