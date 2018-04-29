@@ -21,6 +21,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"cowntent of da fav array ! %@",favoritePlaces);
+    NSLog(@"cowntent of da added array ! %@",userAddedPlaces);
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+ 
     self.navigationItem.leftBarButtonItem = backBarButtonItem;
 }
 
@@ -103,6 +108,7 @@
          
         PlacesInformationViewController *PIVC;
         PIVC = [segue destinationViewController];
+        
         PIVC.placeNameLabel.text = [favoritePlaces objectAtIndex:indexPath.row];
     }
     //PIVC.placeAddressLabel.text = 

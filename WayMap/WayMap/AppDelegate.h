@@ -15,6 +15,7 @@
 @property (strong,nonatomic) NSMutableArray* LocationsNearby;
 @property (strong) NSMutableArray*UserAddedLocations;
 @property (strong) NSMutableArray*FavoritedPlaces;
+@property (strong) NSMutableArray*MyUserAddedLocations;
 
 @end
 
