@@ -7,6 +7,7 @@
 //
 
 #import "AddNewPlaceViewController.h"
+#import "AppDelegate.h"
 @import GooglePlaces;
 @import  GooglePlacePicker;
 @import Firebase;
@@ -133,6 +134,8 @@ didFailAutocompleteWithError:(NSError *)error {
     [[newReference child:@"placeID"] setValue: UserAddedPlace.placeID];
     [[newReference child:@"Latitude"] setValue: [latitude stringValue]];
     [[newReference child:@"Longitude"] setValue: [longitude stringValue]];
+    AppDelegate* myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [myDelegate.MyUserAddedLocations addObject:UserAddedPlace];
 }
 
 /*

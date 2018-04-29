@@ -130,7 +130,6 @@
     [[_updateRef child:@"Name"] setValue:placeNameLabel.text];
     [[_updateRef child:@"Address"] setValue:placeAddressLabel.text];
     [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
-    [[_updateRef child:@"User's Place Rating"] setValue:userPlaceRating];
     
 }
 -(void)viewWillDisappear:(BOOL)animated{
