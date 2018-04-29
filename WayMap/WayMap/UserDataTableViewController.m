@@ -72,6 +72,7 @@
         cell.textLabel.text = favoritePlaces[indexPath.row];
     }
     
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 

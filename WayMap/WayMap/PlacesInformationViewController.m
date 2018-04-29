@@ -20,7 +20,7 @@
 @end
 
 @implementation PlacesInformationViewController
-@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations, favoriteBtn, favoritedLabel, placeNameLabel, placeAddressLabel, OneStarFull, OneStarEmpty, TwoStarsFull, TwoStarsEmpty, ThreeStarsFull, ThreeStarsEmpty, FourStarsFull, FourStarsEmpty, FiveStarsFull, FiveStarsEmpty, userPlaceRating, fullStarsArray, emptyStarsArray, backBarButtonItem, buttonsArray, oneStarBtn, TwoStarsBtn, ThreeStarsBtn, FourStarsBtn, FiveStarsBtn;
+@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations, favoriteBtn, favoritedLabel, placeNameLabel, placeAddressLabel, OneStarFull, OneStarEmpty, TwoStarsFull, TwoStarsEmpty, ThreeStarsFull, ThreeStarsEmpty, FourStarsFull, FourStarsEmpty, FiveStarsFull, FiveStarsEmpty, userPlaceRating, fullStarsArray, emptyStarsArray, backBarButtonItem, buttonsArray, oneStarBtn, TwoStarsBtn, ThreeStarsBtn, FourStarsBtn, FiveStarsBtn, rateLabel;
 
 - (IBAction)oneStarBtnPressed:(UIButton *)sender {
     
@@ -244,6 +244,8 @@
         for(UIButton *button in buttonsArray){
             [button setUserInteractionEnabled:NO];
         }
+        
+        [rateLabel setHidden:YES];
 
     }
     NSLog(@"Is checked in %d",SelectedPlace.CheckedIn);
