@@ -2,7 +2,7 @@
 //  UserProfileViewController.m
 //  WayMap
 //
-//  Created by Jean Jeon on 4/22/18.
+//  Created by Jean Jeon and Carlos Arellanoon 4/22/18.
 //  Copyright © 2018 nyu.edu. All rights reserved.
 //
 
@@ -19,7 +19,7 @@
 
 @implementation UserProfileViewController
 
-@synthesize addedPlacesDict, favoritePlacesDict, testLabel;
+@synthesize testLabel, userAddedPlaces, favoritePlaces;
 
 -(void)configure:(NSString *)field {
     
@@ -35,10 +35,10 @@
         
         for (FIRDataSnapshot *addedPlace in snapshot.children){
             NSString *key = addedPlace.key;
-            addedPlacesDict = addedPlace.value;
+            NSDictionary *addedPlacesDict = addedPlace.value;
             [addedPlacesDict objectForKey:key];
             [self configure:[addedPlacesDict objectForKey:@"Name"]];
-            //[userAddedPlaces addObject:[addedPlacesDict objectForKey:@"Name"]];
+            [userAddedPlaces addObject:[addedPlacesDict objectForKey:@"Name"]];
         }
         
     }];
@@ -47,10 +47,10 @@
         
         for (FIRDataSnapshot *favoritePlace in snapshot.children){
             NSString *key = favoritePlace.key;
-            favoritePlacesDict = favoritePlace.value;
+            NSDictionary *favoritePlacesDict = favoritePlace.value;
             [favoritePlacesDict objectForKey:key];
             [self configure:[favoritePlacesDict objectForKey:@"Name"]];
-            //[favoritePlaces addObject:[favoritePlacesDict objectForKey:@"Name"]];
+            [favoritePlaces addObject:[favoritePlacesDict objectForKey:@"Name"]];
         }
     }];
     
@@ -58,7 +58,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    userAddedPlaces = [[NSMutableArray alloc]init];
+    favoritePlaces = [[NSMutableArray alloc]init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,8 +72,8 @@
     if([segue.identifier isEqualToString:@"favoritesSegue"]){
         UserDataTableViewController *UDVC;
         UDVC = [segue destinationViewController];
-       // UDVC.userAddedPlaces = self.userAddedPlaces;
-        //UDVC.favoritePlaces = self.favoritePlaces;
+        UDVC.userAddedPlaces = userAddedPlaces;
+        UDVC.favoritePlaces = favoritePlaces;
         UDVC.favoritesHit = true;
         UDVC.userAddedHit = false;
     }
@@ -80,8 +81,8 @@
     else if([segue.identifier isEqualToString:@"userAddedSegue"]){
         UserDataTableViewController *UDVC;
         UDVC = [segue destinationViewController];
-        //UDVC.userAddedPlaces = self.userAddedPlaces;
-        //UDVC.favoritePlaces = self.favoritePlaces;
+        UDVC.userAddedPlaces = userAddedPlaces;
+        UDVC.favoritePlaces = favoritePlaces;
         UDVC.favoritesHit = false;
         UDVC.userAddedHit = true;
     }

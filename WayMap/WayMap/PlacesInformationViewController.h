@@ -28,7 +28,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *placeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
 
-//Star TWO is EMPTY
 @property (weak, nonatomic) IBOutlet UIImageView *OneStarEmpty;
 @property (weak, nonatomic) IBOutlet UIImageView *OneStarFull;
 @property (weak, nonatomic) IBOutlet UIImageView *TwoStarsEmpty;
@@ -44,5 +43,7 @@
 
 @property (strong, nonatomic) NSArray *fullStarsArray;
 @property (strong, nonatomic) NSArray *emptyStarsArray;
+
+@property(nonatomic, strong) UIBarButtonItem *backBarButtonItem;
 
 @end
