@@ -121,12 +121,18 @@ didFailAutocompleteWithError:(NSError *)error {
 
 //Push user-added data to be stored under their respective UID in Firebase
 - (IBAction)SaveBtnTapped:(UIButton *)sender {
+    
+    NSNumber *latitude = [NSNumber numberWithDouble:UserAddedPlace.coordinate.latitude];
+    NSNumber *longitude = [NSNumber numberWithDouble:UserAddedPlace.coordinate.longitude];
+    
     FIRUser *user = [FIRAuth auth].currentUser;
     FIRDatabaseReference *newReference= [[[[self.ref child:@"users"] child:user.uid] child:@"Places Added"] childByAutoId];
     [[newReference child:@"Name"] setValue:nameTextField.text];
     [[newReference child:@"Address"] setValue:textField.text];
     [[newReference child:@"Type"] setValue:Type];
     [[newReference child:@"placeID"] setValue: UserAddedPlace.placeID];
+    [[newReference child:@"Latitude"] setValue: [latitude stringValue]];
+    [[newReference child:@"Longitude"] setValue: [longitude stringValue]];
 }
 
 /*
