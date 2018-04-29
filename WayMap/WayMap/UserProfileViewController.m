@@ -12,6 +12,7 @@
 @import Firebase;
 @import FirebaseAuth;
 @interface UserProfileViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *ProfilePicture;
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 
@@ -62,7 +63,8 @@
     userAddedPlaces = [[NSMutableArray alloc]init];
     favoritePlaces = [[NSMutableArray alloc]init];
     [super viewDidLoad];
-
+    userAddedPlaces = [[NSMutableArray alloc]init];
+    favoritePlaces = [[NSMutableArray alloc]init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,8 +76,8 @@
     if([segue.identifier isEqualToString:@"favoritesSegue"]){
         UserDataTableViewController *UDVC;
         UDVC = [segue destinationViewController];
-        UDVC.userAddedPlaces = self.userAddedPlaces;
-        UDVC.favoritePlaces = self.favoritePlaces;
+        UDVC.userAddedPlaces = userAddedPlaces;
+        UDVC.favoritePlaces = favoritePlaces;
         UDVC.favoritesHit = true;
         UDVC.userAddedHit = false;
         
@@ -84,12 +86,69 @@
     else if([segue.identifier isEqualToString:@"userAddedSegue"]){
         UserDataTableViewController *UDVC;
         UDVC = [segue destinationViewController];
-        UDVC.userAddedPlaces = self.userAddedPlaces;
-        UDVC.favoritePlaces = self.favoritePlaces;
+        UDVC.userAddedPlaces = userAddedPlaces;
+        UDVC.favoritePlaces = favoritePlaces;
         UDVC.favoritesHit = false;
         UDVC.userAddedHit = true;
     }
     
 }
+
+- (IBAction)ProfilePictureUpload:(id)sender {
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Set Profile Picture" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+        // Cancel button tappped
+        [actionSheet dismissViewControllerAnimated:YES completion:NULL];
+    }]];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Photo Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIImagePickerController*pics =[[UIImagePickerController alloc ]init];
+        pics.delegate=self;
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
+            pics.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+        }
+        [self presentViewController:pics animated:YES completion:NULL];
+        // Photo Library button tapped.
+
+    }]];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        // camera button tapped.
+        UIImagePickerController*imagePicker =[[UIImagePickerController alloc ]init];
+        imagePicker.delegate = self;
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        }
+        [self presentViewController:imagePicker animated:YES completion:NULL];
+        
+        
+
+    }]];
+    // Present action sheet.
+    [self presentViewController:actionSheet animated:YES completion:nil];
+    
+}
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    if (picker.sourceType==UIImagePickerControllerSourceTypePhotoLibrary){
+    _ProfilePicture.image=[info objectForKey:UIImagePickerControllerOriginalImage];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    }
+    else{
+        _ProfilePicture.image=[info objectForKey:UIImagePickerControllerOriginalImage];
+        [self dismissViewControllerAnimated:YES completion:NULL];
+
+
+    }
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+
+
 
 @end

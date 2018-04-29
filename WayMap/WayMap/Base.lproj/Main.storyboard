@@ -480,8 +480,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A3f-Va-dMR">
-                                <rect key="frame" x="112" y="79" width="150" height="128"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultuserprofile" translatesAutoresizingMaskIntoConstraints="NO" id="A3f-Va-dMR">
+                                <rect key="frame" x="121" y="157" width="133" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="3P1-Cm-jYX">
@@ -508,25 +508,26 @@
                                     <segue destination="EZS-6h-3mh" kind="push" identifier="favoritesSegue" id="UmF-wK-QkM"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="testLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RsD-vl-kk9">
-                                <rect key="frame" x="115" y="234" width="144" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1G-PY-bEQ">
+                                <rect key="frame" x="121" y="249" width="35" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <state key="normal" image="uploadprofile"/>
+                                <connections>
+                                    <action selector="ProfilePictureUpload:" destination="six-NQ-Uh3" eventType="touchUpInside" id="wcw-20-TFF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="Pl1-sf-8yY"/>
                     </view>
                     <navigationItem key="navigationItem" id="RHq-eY-EJC"/>
                     <connections>
-                        <outlet property="testLabel" destination="RsD-vl-kk9" id="h8s-zj-yJY"/>
+                        <outlet property="ProfilePicture" destination="A3f-Va-dMR" id="bKI-Zq-wU9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ti2-he-i4T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-471.19999999999999" y="1693.4032983508248"/>
+            <point key="canvasLocation" x="-471.19999999999999" y="1692.8571428571429"/>
         </scene>
         <!--User Data Table View Controller-->
         <scene sceneID="WPW-ez-y27">
@@ -770,6 +771,7 @@
     <resources>
         <image name="addicon" width="50" height="51"/>
         <image name="confetti (2)" width="256" height="256"/>
+        <image name="defaultuserprofile" width="256" height="256"/>
         <image name="heart (1)" width="256" height="256"/>
         <image name="map (1)" width="24" height="24"/>
         <image name="maps-and-flags" width="256" height="256"/>
@@ -781,12 +783,13 @@
         <image name="star (1)" width="128" height="128"/>
         <image name="star (2)" width="128" height="128"/>
         <image name="store" width="256" height="256"/>
+        <image name="uploadprofile" width="256" height="256"/>
         <image name="user (1)" width="24" height="24"/>
         <image name="userlocation" width="50" height="50"/>
         <image name="waymapLogo" width="517" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="UmF-wK-QkM"/>
-        <segue reference="dvG-CP-Nef"/>
+        <segue reference="bcr-sQ-Fe2"/>
     </inferredMetricsTieBreakers>
 </document>
