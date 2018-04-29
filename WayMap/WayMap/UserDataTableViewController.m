@@ -17,14 +17,10 @@
     NSArray *animals;
 }
 
-@synthesize addedPlacesDict, favoritePlacesDict, sectionTitle, favoritesHit, userAddedHit, selectedPlace, placeName, backBarButtonItem, userAddedPlaces, favoritePlaces;
+@synthesize sectionTitle, favoritesHit, userAddedHit, selectedPlace, placeName, backBarButtonItem, userAddedPlaces, favoritePlaces;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"cowntent of da fav array ! %@",favoritePlaces);
-    NSLog(@"cowntent of da added array ! %@",userAddedPlaces);
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
  
     self.navigationItem.leftBarButtonItem = backBarButtonItem;
 }
