@@ -28,4 +28,21 @@
 @property (weak, nonatomic) IBOutlet UILabel *placeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
 
+//Star TWO is EMPTY
+@property (weak, nonatomic) IBOutlet UIImageView *OneStarEmpty;
+@property (weak, nonatomic) IBOutlet UIImageView *OneStarFull;
+@property (weak, nonatomic) IBOutlet UIImageView *TwoStarsEmpty;
+@property (weak, nonatomic) IBOutlet UIImageView *TwoStarsFull;
+@property (weak, nonatomic) IBOutlet UIImageView *ThreeStarsEmpty;
+@property (weak, nonatomic) IBOutlet UIImageView *ThreeStarsFull;
+@property (weak, nonatomic) IBOutlet UIImageView *FourStarsEmpty;
+@property (weak, nonatomic) IBOutlet UIImageView *FourStarsFull;
+@property (weak, nonatomic) IBOutlet UIImageView *FiveStarsEmpty;
+@property (weak, nonatomic) IBOutlet UIImageView *FiveStarsFull;
+
+@property (nonatomic) NSNumber *userPlaceRating;
+
+@property (strong, nonatomic) NSArray *fullStarsArray;
+@property (strong, nonatomic) NSArray *emptyStarsArray;
+
 @end
