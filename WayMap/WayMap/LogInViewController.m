@@ -23,7 +23,7 @@
 
 @implementation LogInViewController
 
-@synthesize isSignIn, ErrorLabel;
+@synthesize isSignIn, ErrorLabel, emailTextField, passwordTextField;
 
 - (void) viewWillAppear:(BOOL)animated{
     self.handle = [[FIRAuth auth]
@@ -36,7 +36,16 @@
     [super viewDidLoad];
     [ErrorLabel setHidden:YES];
     isSignIn = true;
-    // Do any additional setup after loading the view from its nib.
+    
+    emailTextField.delegate = self;
+    passwordTextField.delegate = self;
+    
+}
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField{
+    [emailTextField resignFirstResponder];
+    [passwordTextField resignFirstResponder];
+    return true;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -65,12 +74,12 @@
     
     
     //Make sure the email and password text fields are NOT empty
-    if(_emailTextField.text && _passwordTextField.text.length > 0){
+    if(emailTextField.text && passwordTextField.text.length > 0){
         if(isSignIn){
             //Sign in the user using Firebase
 
-            [[FIRAuth auth] signInWithEmail:_emailTextField.text
-                                   password:_passwordTextField.text
+            [[FIRAuth auth] signInWithEmail:emailTextField.text
+                                   password:passwordTextField.text
                                  completion:^(FIRUser *user, NSError *error) {
                                      
                         /*Check that the user exists - if sign in was successful, then Firebase should be able
@@ -88,8 +97,8 @@
         
         else{
             //Register the user with Firebase
-            [[FIRAuth auth] createUserWithEmail:_emailTextField.text
-                                       password:_passwordTextField.text
+            [[FIRAuth auth] createUserWithEmail:emailTextField.text
+                                       password:passwordTextField.text
                                      completion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
                                         
                                          if(error){
@@ -113,7 +122,7 @@
 }
 
 - (IBAction)forgotPWTapped:(UIButton *)sender {
-    [[FIRAuth auth] sendPasswordResetWithEmail:_emailTextField.text completion:^(NSError *_Nullable error) {
+    [[FIRAuth auth] sendPasswordResetWithEmail:emailTextField.text completion:^(NSError *_Nullable error) {
         if(error){
             NSString *errorMsg = [error localizedDescription];
             [ErrorLabel setText: errorMsg];

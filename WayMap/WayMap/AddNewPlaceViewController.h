@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GooglePlace.h"
-@interface AddNewPlaceViewController : UIViewController <UIPickerViewDelegate,UIPickerViewDataSource>
+@interface AddNewPlaceViewController : UIViewController <UIPickerViewDelegate,UIPickerViewDataSource, UITextFieldDelegate>
 - (IBAction)textFieldClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIPickerView *picker;
@@ -19,5 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *CancelButton;
 @property (strong) NSMutableArray* PlaceTypes;
 @property (strong) NSString* Type;
+
+@property (strong, nonatomic) NSMutableArray *addedPlaces;
 
 @end
