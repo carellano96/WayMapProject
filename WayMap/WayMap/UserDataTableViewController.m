@@ -8,6 +8,7 @@
 
 #import "UserDataTableViewController.h"
 #import "PlacesInformationViewController.h"
+#import "AppDelegate.h"
 
 @interface UserDataTableViewController ()
 
@@ -17,7 +18,7 @@
     NSArray *animals;
 }
 
-@synthesize sectionTitle, favoritesHit, userAddedHit, selectedPlace, placeName, backBarButtonItem, userAddedPlaces, favoritePlaces;
+@synthesize sectionTitle, favoritesHit, userAddedHit, selectedPlace, placeName, backBarButtonItem, userAddedPlaces, favoritePlaces, sectionName;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -74,9 +75,7 @@
     return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    NSString *sectionName;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if(userAddedHit == true){
         sectionName = @"ADDED BY USER";
     }
@@ -92,7 +91,6 @@
     
     selectedPlace = [tableView cellForRowAtIndexPath:indexPath];
     placeName = selectedPlace.textLabel.text;
-    //[self performSegueWithIdentifier:@"placesInfoSegue" sender:self];
     return indexPath;
 }
 
@@ -100,15 +98,34 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"placesInfoSegue"]){
         
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-         
         PlacesInformationViewController *PIVC;
         PIVC = [segue destinationViewController];
         
-        PIVC.placeNameLabel.text = [favoritePlaces objectAtIndex:indexPath.row];
+        //NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        
+        AppDelegate *userAddedOrFavesDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+        
+        if([sectionName isEqualToString:@"ADDED BY USER"]){
+            NSMutableArray *tempUserAdded = userAddedOrFavesDelegate.MyUserAddedLocations;
+            
+            for(GooglePlace *userPlace in tempUserAdded){
+                if([userPlace.name isEqualToString:placeName]){
+                    PIVC.SelectedPlace = userPlace;
+                }
+            }
+        }
+        else{
+            NSMutableArray *tempFaves = userAddedOrFavesDelegate.FavoritedPlaces;
+            
+            for(GooglePlace *userPlace in tempFaves){
+                if([userPlace.name isEqualToString:placeName]){
+                    PIVC.SelectedPlace = userPlace;
+                }
+
+        }
     }
-    //PIVC.placeAddressLabel.text = 
+}
 }
 
-
 @end
+    
