@@ -12,7 +12,6 @@
 @import FirebaseDatabase;
 
 @interface PlacesInformationViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *temp;
 @property (weak, nonatomic) IBOutlet UIButton *ReturnMaps;
 @property (weak, nonatomic) IBOutlet UILabel *BasedOn;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
@@ -21,7 +20,101 @@
 @end
 
 @implementation PlacesInformationViewController
-@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations, favoriteBtn, favoritedLabel, placeNameLabel, placeAddressLabel;
+@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations, favoriteBtn, favoritedLabel, placeNameLabel, placeAddressLabel, OneStarFull, OneStarEmpty, TwoStarsFull, TwoStarsEmpty, ThreeStarsFull, ThreeStarsEmpty, FourStarsFull, FourStarsEmpty, FiveStarsFull, FiveStarsEmpty, userPlaceRating, fullStarsArray, emptyStarsArray;
+
+- (IBAction)oneStarBtnPressed:(UIButton *)sender {
+    
+    static int numberOfTimesPressed = 1;
+    numberOfTimesPressed ++;
+    if(numberOfTimesPressed % 2 == 0){
+        [OneStarFull setHidden:NO];
+        [OneStarEmpty setHidden:YES];
+        userPlaceRating = [NSNumber numberWithInt:1];
+    }
+    else{
+        [OneStarFull setHidden:YES];
+        [OneStarEmpty setHidden:NO];
+        userPlaceRating = [NSNumber numberWithInt:0];
+    }
+}
+
+- (IBAction)twoStarBtnPressed:(UIButton *)sender {
+    
+    static int numberOfTimesPressed = 1;
+    numberOfTimesPressed ++;
+    if(numberOfTimesPressed % 2 == 0){
+        
+        for(int i = 0; i < 2; i++){
+            [[fullStarsArray objectAtIndex:i] setHidden:NO];
+            [[emptyStarsArray objectAtIndex:i] setHidden:YES];
+        }
+        userPlaceRating = [NSNumber numberWithInt:2];
+    }
+    else{
+        [FourStarsFull setHidden:YES];
+        [FourStarsEmpty setHidden:NO];
+        userPlaceRating = [NSNumber numberWithInt:1];
+    }
+}
+
+- (IBAction)ThreeStarBtnPressed:(UIButton *)sender {
+    
+    static int numberOfTimesPressed = 1;
+    numberOfTimesPressed ++;
+    if(numberOfTimesPressed % 2 == 0){
+        
+        for(int i = 0; i < 3; i++){
+            [[fullStarsArray objectAtIndex:i] setHidden:NO];
+            [[emptyStarsArray objectAtIndex:i] setHidden:YES];
+        }
+        userPlaceRating = [NSNumber numberWithInt:3];
+    }
+    else{
+        [ThreeStarsFull setHidden:YES];
+        [ThreeStarsEmpty setHidden:NO];
+        userPlaceRating = [NSNumber numberWithInt:2];
+    }
+}
+
+- (IBAction)FourStarBtnPressed:(UIButton *)sender {
+    
+    static int numberOfTimesPressed = 1;
+    numberOfTimesPressed ++;
+    if(numberOfTimesPressed % 2 == 0){
+        
+        for(int i = 0; i < 4; i++){
+            [[fullStarsArray objectAtIndex:i] setHidden:NO];
+            [[emptyStarsArray objectAtIndex:i] setHidden:YES];
+        }
+        userPlaceRating = [NSNumber numberWithInt:4];
+    }
+    else{
+        [FourStarsFull setHidden:YES];
+        [FourStarsEmpty setHidden:NO];
+        userPlaceRating = [NSNumber numberWithInt:3];
+    }
+}
+
+- (IBAction)FiveStarBtnPressed:(UIButton *)sender {
+    static int numberOfTimesPressed = 1;
+    numberOfTimesPressed ++;
+    
+    //If star is pressed at an even number (e.g. for a second time), then it reverts back to being empty
+    if(numberOfTimesPressed % 2 == 0){
+        
+        for(int i = 0; i < 5; i++){
+            [[fullStarsArray objectAtIndex:i] setHidden:NO];
+            [[emptyStarsArray objectAtIndex:i] setHidden:YES];
+        }
+        userPlaceRating = [NSNumber numberWithInt:5];
+    }
+    else{
+        [FiveStarsFull setHidden:YES];
+        [FiveStarsEmpty setHidden:NO];
+        userPlaceRating = [NSNumber numberWithInt:4];
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     NSLog(@"pushing back to da maps");
@@ -37,10 +130,17 @@
     [[_updateRef child:@"Name"] setValue:placeNameLabel.text];
     [[_updateRef child:@"Address"] setValue:placeAddressLabel.text];
     [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
+    [[_updateRef child:@"User's Place Rating"] setValue:userPlaceRating];
     
 }
 -(void)viewDidLoad{
+    
+    fullStarsArray = [[NSArray alloc]initWithObjects: OneStarFull, TwoStarsFull, ThreeStarsFull, FourStarsFull, FiveStarsFull, nil];
+    
+    emptyStarsArray = [[NSArray alloc]initWithObjects: OneStarEmpty, TwoStarsEmpty, ThreeStarsEmpty, FourStarsEmpty, FiveStarsEmpty, nil];
+    
     self.ref = [[FIRDatabase database] reference];
+    
 }
 
 - (IBAction)favoriteBtnTapped:(UIButton *)sender {
@@ -57,6 +157,12 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    
+    [OneStarFull setHidden:YES];
+    [TwoStarsFull setHidden:YES];
+    [ThreeStarsFull setHidden:YES];
+    [FourStarsFull setHidden:YES];
+    [FiveStarsFull setHidden:YES];
     
     NSLog(@"Is checked in %d",SelectedPlace.CheckedIn);
     if (SelectedPlace.CheckedIn){
