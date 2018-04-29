@@ -20,4 +20,6 @@
 @property (strong) NSMutableArray* PlaceTypes;
 @property (strong) NSString* Type;
 
+@property (strong, nonatomic) NSMutableArray *addedPlaces;
+
 @end

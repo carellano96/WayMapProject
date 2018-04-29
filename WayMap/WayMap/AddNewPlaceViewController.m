@@ -23,7 +23,7 @@
 AddNewPlaceViewController
 NSArray*pickerData;
 NSString* name;
-@synthesize textField,picker,UserAddedPlace,nameTextField,PlaceTypes,Type;
+@synthesize textField,picker,UserAddedPlace,nameTextField,PlaceTypes,Type, addedPlaces;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.ref = [[FIRDatabase database] reference];
@@ -31,6 +31,8 @@ NSString* name;
     self.picker.dataSource=self;
     pickerData = @[@"Food",@"Leisure",@"Shopping",@"Entertainment",@"Culture",@"Transportation",@"Financial",@"Occupational",@"Lifestyle",@"Other"];
     // Do any additional setup after loading the view.
+    
+    addedPlaces = [[NSMutableArray alloc]init];
 }
 - (void)textFieldClick:(id)sender{
     GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
@@ -134,8 +136,11 @@ didFailAutocompleteWithError:(NSError *)error {
     [[newReference child:@"placeID"] setValue: UserAddedPlace.placeID];
     [[newReference child:@"Latitude"] setValue: [latitude stringValue]];
     [[newReference child:@"Longitude"] setValue: [longitude stringValue]];
-    AppDelegate* myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [myDelegate.MyUserAddedLocations addObject:UserAddedPlace];
+    
+    AppDelegate* addedPlacesDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    [addedPlaces addObject:UserAddedPlace];
+    addedPlacesDelegate.MyUserAddedLocations = addedPlaces;
 }
 
 /*
