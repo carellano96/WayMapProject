@@ -19,7 +19,7 @@
 
 @implementation UserProfileViewController
 
-@synthesize /*addedPlacesDict, favoritePlacesDict, */testLabel, userAddedPlaces, favoritePlaces;
+@synthesize testLabel, userAddedPlaces, favoritePlaces;
 
 -(void)configure:(NSString *)field {
     
@@ -58,6 +58,9 @@
 }
 
 - (void)viewDidLoad {
+    
+    userAddedPlaces = [[NSMutableArray alloc]init];
+    favoritePlaces = [[NSMutableArray alloc]init];
     [super viewDidLoad];
 
 }
