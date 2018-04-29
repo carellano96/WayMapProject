@@ -10,9 +10,6 @@
 
 @interface UserDataTableViewController : UITableViewController <UITableViewDelegate>
 
-@property (strong, nonatomic) NSDictionary *addedPlacesDict;
-@property (strong, nonatomic) NSDictionary *favoritePlacesDict;
-
 @property (strong, nonatomic) NSMutableArray *userAddedPlaces;
 @property (strong, nonatomic) NSMutableArray *favoritePlaces;
 
@@ -25,5 +22,7 @@
 @property (strong, nonatomic) UITableViewCell *selectedPlace;
 
 @property(nonatomic, strong) UIBarButtonItem *backBarButtonItem;
+
+@property(nonatomic, strong) NSString *sectionName;
 
 @end

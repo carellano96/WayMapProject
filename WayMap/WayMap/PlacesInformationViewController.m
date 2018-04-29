@@ -164,7 +164,11 @@
     [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
     [favoriteBtn setHidden:YES];
     [favoritedLabel setHidden:NO];
-
+    
+    NSMutableArray *favePlaces = [[NSMutableArray alloc]init];
+    AppDelegate *favesDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    [favePlaces addObject:SelectedPlace];
+    favesDelegate.FavoritedPlaces = favePlaces;
 }
 
 - (void)viewWillAppear:(BOOL)animated{

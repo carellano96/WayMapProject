@@ -58,6 +58,9 @@
 }
 
 - (void)viewDidLoad {
+    
+    userAddedPlaces = [[NSMutableArray alloc]init];
+    favoritePlaces = [[NSMutableArray alloc]init];
     [super viewDidLoad];
     userAddedPlaces = [[NSMutableArray alloc]init];
     favoritePlaces = [[NSMutableArray alloc]init];
