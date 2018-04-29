@@ -23,4 +23,6 @@
 
 @property(nonatomic, strong) UIBarButtonItem *backBarButtonItem;
 
+@property(nonatomic, strong) NSString *sectionName;
+
 @end
