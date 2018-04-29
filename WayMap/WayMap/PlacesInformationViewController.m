@@ -133,6 +133,13 @@
     [[_updateRef child:@"User's Place Rating"] setValue:userPlaceRating];
     
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    FIRUser *user = [FIRAuth auth].currentUser;
+    _updateRef = [[[[self.ref child:@"users"] child:user.uid] child:@"Rated Places"] childByAutoId];
+    [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
+    [[_updateRef child:@"User's Place Rating"] setValue:userPlaceRating];
+    NSLog(@"Final rating is %@",userPlaceRating);
+}
 -(void)viewDidLoad{
     
     self.navigationItem.leftBarButtonItem = backBarButtonItem;
@@ -163,13 +170,74 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    
+    if (SelectedPlace.UserAdded){
+        
+    if (!SelectedPlace.Rated){
     [OneStarFull setHidden:YES];
     [TwoStarsFull setHidden:YES];
     [ThreeStarsFull setHidden:YES];
     [FourStarsFull setHidden:YES];
     [FiveStarsFull setHidden:YES];
-    
+    }
+    else if (SelectedPlace.Rating==1){
+        [OneStarFull setHidden:NO];
+        [TwoStarsFull setHidden:YES];
+        [ThreeStarsFull setHidden:YES];
+        [FourStarsFull setHidden:YES];
+        [FiveStarsFull setHidden:YES];
+    }
+    else if (SelectedPlace.Rating==2){
+        [OneStarFull setHidden:NO];
+        [TwoStarsFull setHidden:NO];
+        [ThreeStarsFull setHidden:YES];
+        [FourStarsFull setHidden:YES];
+        [FiveStarsFull setHidden:YES];
+    }    else if (SelectedPlace.Rating==3){
+        [OneStarFull setHidden:NO];
+        [TwoStarsFull setHidden:NO];
+        [ThreeStarsFull setHidden:NO];
+        [FourStarsFull setHidden:YES];
+        [FiveStarsFull setHidden:YES];
+    }    else if (SelectedPlace.Rating==4){
+        [OneStarFull setHidden:NO];
+        [TwoStarsFull setHidden:NO];
+        [ThreeStarsFull setHidden:NO];
+        [FourStarsFull setHidden:NO];
+        [FiveStarsFull setHidden:YES];
+    }    else if (SelectedPlace.Rating==5){
+        NSLog(@"rated five stars");
+        [OneStarFull setHidden:NO];
+        [TwoStarsFull setHidden:NO];
+        [ThreeStarsFull setHidden:NO];
+        [FourStarsFull setHidden:NO];
+        [FiveStarsFull setHidden:NO];
+    }
+    }
+    else{
+        [OneStarFull setHidden:YES];
+        [TwoStarsFull setHidden:YES];
+        [ThreeStarsFull setHidden:YES];
+        [FourStarsFull setHidden:YES];
+        [FiveStarsFull setHidden:YES];
+        [FiveStarsEmpty setHidden:YES];
+        [FourStarsEmpty setHidden:YES];
+        [ThreeStarsEmpty setHidden:YES];
+        [TwoStarsEmpty setHidden:YES];
+        [OneStarEmpty setHidden:YES];
+        [OneStarFull setUserInteractionEnabled:NO];
+        [TwoStarsFull setUserInteractionEnabled:NO];
+        [ThreeStarsFull setUserInteractionEnabled:NO];
+        [FourStarsFull setUserInteractionEnabled:NO];
+        [FiveStarsFull setUserInteractionEnabled:NO];
+        [OneStarEmpty setUserInteractionEnabled:NO];
+        [TwoStarsEmpty setUserInteractionEnabled:NO];
+        [ThreeStarsEmpty setUserInteractionEnabled:NO];
+        [FourStarsEmpty setUserInteractionEnabled:NO];
+        [FiveStarsEmpty setUserInteractionEnabled:NO];
+
+
+
+    }
     NSLog(@"Is checked in %d",SelectedPlace.CheckedIn);
     if (SelectedPlace.CheckedIn){
         _CheckInButton.hidden=true;

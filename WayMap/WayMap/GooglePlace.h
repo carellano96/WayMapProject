@@ -20,7 +20,6 @@
 @property GMSPlacesOpenNowStatus openNow;
 @property NSString*phoneNumber;
 @property NSString*formattedAddress;
-@property float rating;
 @property GMSPlacesPriceLevel priceLevel;
 @property NSURL*website;
 @property NSMutableArray* types;
@@ -28,5 +27,7 @@
 @property Boolean UserAdded;
 @property Boolean CheckedIn;
 @property Boolean Favorited;
+@property Boolean Rated;
+@property int Rating;
 -(void)Initiate:(NSString*)name:(NSString*)placeID:(CLLocationCoordinate2D)coordinate:(NSArray<NSString*>*) types:(GMSPlacesOpenNowStatus)openNow:(NSString*)phoneNumber:(NSString*)formattedAddress:(float)rating: (GMSPlacesPriceLevel)priceLevel:(NSURL*)website;
 @end
