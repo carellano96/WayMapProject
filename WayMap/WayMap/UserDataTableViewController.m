@@ -101,7 +101,19 @@
         PlacesInformationViewController *PIVC;
         PIVC = [segue destinationViewController];
         
-        //NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        [PIVC.rateLabel setHidden:YES];
+        
+        for(UIImageView *FullStar in PIVC.fullStarsArray){
+            [FullStar setHidden:YES];
+        }
+        
+        for(UIImageView *EmptyStar in PIVC.emptyStarsArray){
+            [EmptyStar setHidden:YES];
+        }
+        
+        for(UIButton *button in PIVC.buttonsArray){
+            [button setUserInteractionEnabled:NO];
+        }
         
         AppDelegate *userAddedOrFavesDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
         

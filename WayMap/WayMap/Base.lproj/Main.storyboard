@@ -278,23 +278,29 @@
                     <connections>
                         <outlet property="BasedOn" destination="7Sm-18-mgR" id="NeG-JJ-dTe"/>
                         <outlet property="CheckInButton" destination="BUX-sz-NUn" id="3Kd-Im-8at"/>
+                        <outlet property="FiveStarsBtn" destination="vKk-4p-loX" id="EDl-PQ-Gd6"/>
                         <outlet property="FiveStarsEmpty" destination="2zS-ep-sKq" id="N5x-HM-M8z"/>
                         <outlet property="FiveStarsFull" destination="X9Q-ZN-u3h" id="v2m-Z6-xcf"/>
+                        <outlet property="FourStarsBtn" destination="Lhy-5M-xCc" id="sqZ-FT-wIj"/>
                         <outlet property="FourStarsEmpty" destination="4xE-On-sHh" id="rZF-rL-Q1J"/>
                         <outlet property="FourStarsFull" destination="QGV-Zh-s14" id="2Cx-a4-na2"/>
                         <outlet property="IsCheckedIn" destination="YrN-b4-c1c" id="s2F-Cs-s7P"/>
                         <outlet property="OneStarEmpty" destination="sbZ-Hu-qlZ" id="ey0-1S-wI7"/>
                         <outlet property="OneStarFull" destination="Y7F-No-RO2" id="ZZ9-uk-MDz"/>
                         <outlet property="ReturnMaps" destination="mNe-lf-1LD" id="h4U-Vv-3BY"/>
+                        <outlet property="ThreeStarsBtn" destination="XA7-Bc-x9l" id="djU-8O-mXv"/>
                         <outlet property="ThreeStarsEmpty" destination="xEj-6x-tYZ" id="Ncd-KS-frD"/>
                         <outlet property="ThreeStarsFull" destination="4dU-3w-m0i" id="fZ6-jA-rJF"/>
+                        <outlet property="TwoStarsBtn" destination="jwC-CH-AjJ" id="F6j-Bq-xzO"/>
                         <outlet property="TwoStarsEmpty" destination="zG3-kI-pP9" id="iOF-gC-Igg"/>
                         <outlet property="TwoStarsFull" destination="fV1-rj-GQ2" id="dvU-lV-OLc"/>
                         <outlet property="UserAddedTitle" destination="3Rw-lF-gLa" id="MyU-zf-WlN"/>
                         <outlet property="favoriteBtn" destination="Zsf-w2-qLT" id="pQi-iQ-eEe"/>
                         <outlet property="favoritedLabel" destination="dND-9S-Z3A" id="y2m-JV-WMR"/>
+                        <outlet property="oneStarBtn" destination="05O-3v-UDg" id="EWJ-cr-KyL"/>
                         <outlet property="placeAddressLabel" destination="fQY-1M-EdA" id="DY6-o3-J87"/>
                         <outlet property="placeNameLabel" destination="FSI-Td-lFh" id="jiR-7P-K8B"/>
+                        <outlet property="rateLabel" destination="Mv9-Bm-l82" id="cLJ-RY-Mh7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b7y-3I-VMX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -379,9 +385,9 @@
                     </view>
                     <connections>
                         <outlet property="ErrorLabel" destination="BtC-e9-ZoN" id="KzA-DW-WtJ"/>
-                        <outlet property="emailTextField" destination="LCu-vC-wcb" id="6IU-8R-HDt"/>
+                        <outlet property="emailTextField" destination="LCu-vC-wcb" id="oTI-QZ-jxI"/>
                         <outlet property="forgotPW" destination="eri-ND-R77" id="FQ9-ak-C02"/>
-                        <outlet property="passwordTextField" destination="PTc-p1-ebA" id="ytD-lO-FDJ"/>
+                        <outlet property="passwordTextField" destination="PTc-p1-ebA" id="Twa-B2-1gO"/>
                         <outlet property="signInButton" destination="yq1-8x-e7i" id="jgi-Fl-oQK"/>
                         <outlet property="signInSelector" destination="mDO-DK-GUM" id="27P-VO-wUX"/>
                         <segue destination="S41-ER-dga" kind="presentation" identifier="SignInSegue" id="RbE-nx-2c0"/>
@@ -661,7 +667,7 @@
             <objects>
                 <viewController title="Map" id="2Mr-Hd-JRi" customClass="MapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3QN-p5-01p" customClass="MGLMapView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cfz-Yf-D8m">
