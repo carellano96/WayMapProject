@@ -32,8 +32,10 @@
         userPlaceRating = [NSNumber numberWithInt:1];
     }
     else{
-        [OneStarFull setHidden:YES];
-        [OneStarEmpty setHidden:NO];
+        for(int i = 0; i < 5; i++){
+            [[fullStarsArray objectAtIndex:i] setHidden:YES];
+            [[emptyStarsArray objectAtIndex:i] setHidden:NO];
+        }
         userPlaceRating = [NSNumber numberWithInt:0];
     }
 }
@@ -51,8 +53,10 @@
         userPlaceRating = [NSNumber numberWithInt:2];
     }
     else{
-        [FourStarsFull setHidden:YES];
-        [FourStarsEmpty setHidden:NO];
+        for(int i = 1; i < 5; i++){
+            [[fullStarsArray objectAtIndex:i] setHidden:YES];
+            [[emptyStarsArray objectAtIndex:i] setHidden:NO];
+        }
         userPlaceRating = [NSNumber numberWithInt:1];
     }
 }
@@ -70,8 +74,10 @@
         userPlaceRating = [NSNumber numberWithInt:3];
     }
     else{
-        [ThreeStarsFull setHidden:YES];
-        [ThreeStarsEmpty setHidden:NO];
+        for(int i = 2; i < 5; i++){
+            [[fullStarsArray objectAtIndex:i] setHidden:YES];
+            [[emptyStarsArray objectAtIndex:i] setHidden:NO];
+        }
         userPlaceRating = [NSNumber numberWithInt:2];
     }
 }
@@ -89,8 +95,10 @@
         userPlaceRating = [NSNumber numberWithInt:4];
     }
     else{
-        [FourStarsFull setHidden:YES];
-        [FourStarsEmpty setHidden:NO];
+        for(int i = 3; i < 5; i++){
+            [[fullStarsArray objectAtIndex:i] setHidden:YES];
+            [[emptyStarsArray objectAtIndex:i] setHidden:NO];
+        }
         userPlaceRating = [NSNumber numberWithInt:3];
     }
 }
