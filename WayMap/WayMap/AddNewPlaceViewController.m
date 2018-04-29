@@ -33,7 +33,18 @@ NSString* name;
     // Do any additional setup after loading the view.
     
     addedPlaces = [[NSMutableArray alloc]init];
+    
+    textField.delegate = self;
+    nameTextField.delegate = self;
+    
 }
+
+- (BOOL) textFieldShouldReturn:(UITextField *)theTextField{
+    [textField resignFirstResponder];
+    [nameTextField resignFirstResponder];
+    return true;
+}
+
 - (void)textFieldClick:(id)sender{
     GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
     acController.delegate = self;

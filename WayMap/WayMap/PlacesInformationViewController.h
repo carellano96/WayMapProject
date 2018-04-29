@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *favoritedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *placeNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rateLabel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *OneStarEmpty;
 @property (weak, nonatomic) IBOutlet UIImageView *OneStarFull;
@@ -39,8 +40,15 @@
 @property (weak, nonatomic) IBOutlet UIImageView *FiveStarsEmpty;
 @property (weak, nonatomic) IBOutlet UIImageView *FiveStarsFull;
 
+@property (weak, nonatomic) IBOutlet UIButton *oneStarBtn;
+@property (weak, nonatomic) IBOutlet UIButton *TwoStarsBtn;
+@property (weak, nonatomic) IBOutlet UIButton *ThreeStarsBtn;
+@property (weak, nonatomic) IBOutlet UIButton *FourStarsBtn;
+@property (weak, nonatomic) IBOutlet UIButton *FiveStarsBtn;
+
 @property (nonatomic) NSNumber *userPlaceRating;
 
+@property (strong, nonatomic) NSArray *buttonsArray;
 @property (strong, nonatomic) NSArray *fullStarsArray;
 @property (strong, nonatomic) NSArray *emptyStarsArray;
 

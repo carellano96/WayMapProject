@@ -20,7 +20,7 @@
 @end
 
 @implementation PlacesInformationViewController
-@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations, favoriteBtn, favoritedLabel, placeNameLabel, placeAddressLabel, OneStarFull, OneStarEmpty, TwoStarsFull, TwoStarsEmpty, ThreeStarsFull, ThreeStarsEmpty, FourStarsFull, FourStarsEmpty, FiveStarsFull, FiveStarsEmpty, userPlaceRating, fullStarsArray, emptyStarsArray, backBarButtonItem;
+@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations, favoriteBtn, favoritedLabel, placeNameLabel, placeAddressLabel, OneStarFull, OneStarEmpty, TwoStarsFull, TwoStarsEmpty, ThreeStarsFull, ThreeStarsEmpty, FourStarsFull, FourStarsEmpty, FiveStarsFull, FiveStarsEmpty, userPlaceRating, fullStarsArray, emptyStarsArray, backBarButtonItem, buttonsArray, oneStarBtn, TwoStarsBtn, ThreeStarsBtn, FourStarsBtn, FiveStarsBtn;
 
 - (IBAction)oneStarBtnPressed:(UIButton *)sender {
     
@@ -147,6 +147,8 @@
     
     emptyStarsArray = [[NSArray alloc]initWithObjects: OneStarEmpty, TwoStarsEmpty, ThreeStarsEmpty, FourStarsEmpty, FiveStarsEmpty, nil];
     
+    buttonsArray = [[NSArray alloc] initWithObjects:oneStarBtn, TwoStarsBtn, ThreeStarsBtn, FourStarsBtn, FiveStarsBtn, nil];
+    
     self.ref = [[FIRDatabase database] reference];
     
 }
@@ -176,69 +178,73 @@
     if (SelectedPlace.UserAdded){
         
     if (!SelectedPlace.Rated){
-    [OneStarFull setHidden:YES];
-    [TwoStarsFull setHidden:YES];
-    [ThreeStarsFull setHidden:YES];
-    [FourStarsFull setHidden:YES];
-    [FiveStarsFull setHidden:YES];
+        
+        for(UIImageView *fullStar in fullStarsArray){
+            [fullStar setHidden:YES];
+        }
     }
+
     else if (SelectedPlace.Rating==1){
+        
         [OneStarFull setHidden:NO];
-        [TwoStarsFull setHidden:YES];
-        [ThreeStarsFull setHidden:YES];
-        [FourStarsFull setHidden:YES];
-        [FiveStarsFull setHidden:YES];
+        
+        for(int i = 1; i < 5; i++){
+            [[fullStarsArray objectAtIndex:i] setHidden:YES];
+        }
     }
+        
     else if (SelectedPlace.Rating==2){
+        
         [OneStarFull setHidden:NO];
         [TwoStarsFull setHidden:NO];
-        [ThreeStarsFull setHidden:YES];
+        
+        for(int i = 2; i < 5; i++){
+            [[fullStarsArray objectAtIndex:i] setHidden:YES];
+        }
+
+    }
+    
+    else if (SelectedPlace.Rating==3){
+        
+        for(int i = 0; i < 3; i++){
+            [[fullStarsArray objectAtIndex:i] setHidden:NO];
+        }
         [FourStarsFull setHidden:YES];
         [FiveStarsFull setHidden:YES];
-    }    else if (SelectedPlace.Rating==3){
-        [OneStarFull setHidden:NO];
-        [TwoStarsFull setHidden:NO];
-        [ThreeStarsFull setHidden:NO];
-        [FourStarsFull setHidden:YES];
+        
+    }
+    
+    else if (SelectedPlace.Rating==4){
+        
+        for(int i = 0; i < 4; i++){
+            [[fullStarsArray objectAtIndex:i] setHidden:NO];
+        }
+
         [FiveStarsFull setHidden:YES];
-    }    else if (SelectedPlace.Rating==4){
-        [OneStarFull setHidden:NO];
-        [TwoStarsFull setHidden:NO];
-        [ThreeStarsFull setHidden:NO];
-        [FourStarsFull setHidden:NO];
-        [FiveStarsFull setHidden:YES];
-    }    else if (SelectedPlace.Rating==5){
-        NSLog(@"rated five stars");
-        [OneStarFull setHidden:NO];
-        [TwoStarsFull setHidden:NO];
-        [ThreeStarsFull setHidden:NO];
-        [FourStarsFull setHidden:NO];
-        [FiveStarsFull setHidden:NO];
+    }
+    
+    else if (SelectedPlace.Rating==5){
+
+        for(UIImageView *fullStar in fullStarsArray){
+            [fullStar setHidden:NO];
+        }
+
     }
     }
+    
     else{
-        [OneStarFull setHidden:YES];
-        [TwoStarsFull setHidden:YES];
-        [ThreeStarsFull setHidden:YES];
-        [FourStarsFull setHidden:YES];
-        [FiveStarsFull setHidden:YES];
-        [FiveStarsEmpty setHidden:YES];
-        [FourStarsEmpty setHidden:YES];
-        [ThreeStarsEmpty setHidden:YES];
-        [TwoStarsEmpty setHidden:YES];
-        [OneStarEmpty setHidden:YES];
-        [OneStarFull setUserInteractionEnabled:NO];
-        [TwoStarsFull setUserInteractionEnabled:NO];
-        [ThreeStarsFull setUserInteractionEnabled:NO];
-        [FourStarsFull setUserInteractionEnabled:NO];
-        [FiveStarsFull setUserInteractionEnabled:NO];
-        [OneStarEmpty setUserInteractionEnabled:NO];
-        [TwoStarsEmpty setUserInteractionEnabled:NO];
-        [ThreeStarsEmpty setUserInteractionEnabled:NO];
-        [FourStarsEmpty setUserInteractionEnabled:NO];
-        [FiveStarsEmpty setUserInteractionEnabled:NO];
+        
+        for(UIImageView *fullStar in fullStarsArray){
+            [fullStar setHidden:YES];
+        }
 
+        for(UITableView *emptyStar in emptyStarsArray){
+            [emptyStar setHidden:YES];
+        }
 
+        for(UIButton *button in buttonsArray){
+            [button setUserInteractionEnabled:NO];
+        }
 
     }
     NSLog(@"Is checked in %d",SelectedPlace.CheckedIn);
@@ -281,17 +287,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
