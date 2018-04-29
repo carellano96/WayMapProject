@@ -13,16 +13,14 @@
 
 @end
 
-@implementation UserDataTableViewController
+@implementation UserDataTableViewController{
+    NSArray *animals;
+}
 
-@synthesize userAddedPlaces, favoritePlaces, sectionTitle, favoritesHit, userAddedHit, selectedPlace, placeName, backBarButtonItem;
+@synthesize addedPlacesDict, favoritePlacesDict, sectionTitle, favoritesHit, userAddedHit, selectedPlace, placeName, backBarButtonItem, userAddedPlaces, favoritePlaces;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
- 
     self.navigationItem.leftBarButtonItem = backBarButtonItem;
 }
 
@@ -42,7 +40,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    
     if(favoritesHit == true){
         if([favoritePlaces count] > 0){
             return [favoritePlaces count];
@@ -54,7 +51,6 @@
         }
     }
     return 0;
-     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -65,7 +61,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-
+    
     if(userAddedHit == true){
         cell.textLabel.text = userAddedPlaces[indexPath.row];
     }

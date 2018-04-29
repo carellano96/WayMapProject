@@ -20,7 +20,7 @@
 @end
 
 @implementation PlacesInformationViewController
-@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations, favoriteBtn, favoritedLabel, placeNameLabel, placeAddressLabel, OneStarFull, OneStarEmpty, TwoStarsFull, TwoStarsEmpty, ThreeStarsFull, ThreeStarsEmpty, FourStarsFull, FourStarsEmpty, FiveStarsFull, FiveStarsEmpty, userPlaceRating, fullStarsArray, emptyStarsArray;
+@synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations, favoriteBtn, favoritedLabel, placeNameLabel, placeAddressLabel, OneStarFull, OneStarEmpty, TwoStarsFull, TwoStarsEmpty, ThreeStarsFull, ThreeStarsEmpty, FourStarsFull, FourStarsEmpty, FiveStarsFull, FiveStarsEmpty, userPlaceRating, fullStarsArray, emptyStarsArray, backBarButtonItem;
 
 - (IBAction)oneStarBtnPressed:(UIButton *)sender {
     
@@ -135,12 +135,18 @@
 }
 -(void)viewDidLoad{
     
+    self.navigationItem.leftBarButtonItem = backBarButtonItem;
+    
     fullStarsArray = [[NSArray alloc]initWithObjects: OneStarFull, TwoStarsFull, ThreeStarsFull, FourStarsFull, FiveStarsFull, nil];
     
     emptyStarsArray = [[NSArray alloc]initWithObjects: OneStarEmpty, TwoStarsEmpty, ThreeStarsEmpty, FourStarsEmpty, FiveStarsEmpty, nil];
     
     self.ref = [[FIRDatabase database] reference];
     
+}
+
+- (void) backButtonPressed: (UIBarButtonItem *)sender{
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (IBAction)favoriteBtnTapped:(UIButton *)sender {
