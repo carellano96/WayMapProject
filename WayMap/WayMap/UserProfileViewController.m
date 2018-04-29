@@ -19,7 +19,7 @@
 
 @implementation UserProfileViewController
 
-@synthesize /*addedPlacesDict, favoritePlacesDict, */testLabel, userAddedPlaces, favoritePlaces;
+@synthesize testLabel, userAddedPlaces, favoritePlaces;
 
 -(void)configure:(NSString *)field {
     
@@ -59,7 +59,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    userAddedPlaces = [[NSMutableArray alloc]init];
+    favoritePlaces = [[NSMutableArray alloc]init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,8 +72,8 @@
     if([segue.identifier isEqualToString:@"favoritesSegue"]){
         UserDataTableViewController *UDVC;
         UDVC = [segue destinationViewController];
-        UDVC.userAddedPlaces = self.userAddedPlaces;
-        UDVC.favoritePlaces = self.favoritePlaces;
+        UDVC.userAddedPlaces = userAddedPlaces;
+        UDVC.favoritePlaces = favoritePlaces;
         UDVC.favoritesHit = true;
         UDVC.userAddedHit = false;
         
@@ -81,8 +82,8 @@
     else if([segue.identifier isEqualToString:@"userAddedSegue"]){
         UserDataTableViewController *UDVC;
         UDVC = [segue destinationViewController];
-        UDVC.userAddedPlaces = self.userAddedPlaces;
-        UDVC.favoritePlaces = self.favoritePlaces;
+        UDVC.userAddedPlaces = userAddedPlaces;
+        UDVC.favoritePlaces = favoritePlaces;
         UDVC.favoritesHit = false;
         UDVC.userAddedHit = true;
     }

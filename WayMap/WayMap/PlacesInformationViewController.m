@@ -162,7 +162,6 @@
     [[_updateRef child:@"Name"] setValue:placeNameLabel.text];
     [[_updateRef child:@"Address"] setValue:placeAddressLabel.text];
     [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
-    
     [favoriteBtn setHidden:YES];
     [favoritedLabel setHidden:NO];
 
