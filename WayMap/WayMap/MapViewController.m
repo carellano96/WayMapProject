@@ -37,7 +37,7 @@
 @implementation MapViewController
 AppDelegate*myDelegate;
 Boolean correct;
-@synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider,UserAddedLocations,CheckedInPlaces,RadiusRemoveAnnotations,FavoritedPlaces;
+@synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider,UserAddedLocations,CheckedInPlaces,RadiusRemoveAnnotations,FavoritedPlaces,RatedPlaces;
 //view loads
 - (void)viewDidLoad {
     correct = false;
@@ -51,6 +51,7 @@ Boolean correct;
     Annotations= [[NSMutableArray alloc ]init];
     RadiusRemoveAnnotations= [[NSMutableArray alloc ]init];
     UserAddedLocations = [[NSMutableArray alloc ]init];
+    RatedPlaces=[[NSMutableArray alloc] init];
     self.RadiusSlider.minimumValue=20;
     self.RadiusSlider.maximumValue=1000;
     self.tabBarController.delegate=self;
@@ -282,6 +283,19 @@ Boolean correct;
         }
         //updates rating in user added locations
         //insert code here//
+        if ([RatedPlaces count]!=0){
+            for (int i=0;i<[LocationsNearby count];i++){
+                GooglePlace* Existing= [LocationsNearby objectAtIndex:i];
+                for (GooglePlace* Rated in RatedPlaces){
+                    if ([Rated.placeID isEqualToString:Existing.placeID]){
+                        [Existing setRated:YES];
+                        [Existing setRating:Rated.Rating];
+                        NSLog(@"found rated place %d",Existing.Rating);
+
+                    }
+                }
+            }
+        }
         myDelegate.LocationsNearby=self.LocationsNearby;
 
 
@@ -459,6 +473,7 @@ Boolean correct;
     FIRUser *user = [FIRAuth auth].currentUser;
     [self.CheckedInPlaces removeAllObjects];
     [self.FavoritedPlaces removeAllObjects];
+    [self.RatedPlaces removeAllObjects];
     self.ref = [[FIRDatabase database] reference];
     
     [[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
@@ -487,10 +502,43 @@ Boolean correct;
             [FavoritedPlaces addObject:googletemp];
         }
     }];
+    [[[[_ref child:@"users"] child:user.uid] child:@"Rated Places"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
+        for (FIRDataSnapshot *ratedPlace in snapshot.children){
+            NSString *key = ratedPlace.key;
+            NSDictionary *ratedPlacesDict = ratedPlace.value;
+            [ratedPlacesDict objectForKey:key];
+            GooglePlace *tempplace = [[GooglePlace alloc]init];
+            tempplace.placeID=[ratedPlacesDict objectForKey:@"placeID"];
+            NSInteger RatingInteger =[[ratedPlacesDict objectForKey:@"User's Place Rating"] integerValue];
+            tempplace.Rating=(int)RatingInteger;
+            NSLog(@"temp place rating is %d",(int)RatingInteger);
+            [RatedPlaces addObject:tempplace];
+        }
+    }];
+    [[[[_ref child:@"users"] child:user.uid] child:@"Places Added"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
+        for (FIRDataSnapshot *AddedPlace in snapshot.children){
+            NSString *key = AddedPlace.key;
+            NSDictionary *AddedPlacesDict = AddedPlace.value;
+            [AddedPlacesDict objectForKey:key];
+            GooglePlace *tempplace = [[GooglePlace alloc]init];
+            tempplace.placeID=[AddedPlacesDict objectForKey:@"placeID"];
+            tempplace.name=[AddedPlacesDict objectForKey:@"Name"];
+            tempplace.formattedAddress=[AddedPlacesDict objectForKey:@"Address"];
+            NSString*Type =[AddedPlacesDict objectForKey:@"Type"];
+            NSMutableArray* Types = [[NSMutableArray alloc] initWithObjects:Type, nil];
+            tempplace.types=Types;
+            NSString* StringLatitude =[AddedPlacesDict objectForKey:@"Latitude"];
+            NSString*StringLongitude =[AddedPlacesDict objectForKey:@"Longitude"];
+            tempplace.coordinate=    CLLocationCoordinate2DMake([StringLatitude doubleValue], [StringLongitude doubleValue]);
+            tempplace.UserAdded=true;
+            [UserAddedLocations addObject:tempplace];
+        }
+    }];
 
     myDelegate.CheckInLocations=CheckedInPlaces;
     myDelegate.FavoritedPlaces=FavoritedPlaces;
     myDelegate.LocationsNearby=LocationsNearby;
+    myDelegate.UserAddedLocations=UserAddedLocations;
     self.tabBarController.delegate=self;
     [self.LocationsNearby removeAllObjects];
 

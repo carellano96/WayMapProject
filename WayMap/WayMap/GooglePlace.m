@@ -9,7 +9,7 @@
 #import "GooglePlace.h"
 
 @implementation GooglePlace
-@synthesize name,placeID,priceLevel,phoneNumber,coordinate,openNow,formattedAddress,rating,website,AnnotationPointer,UserAdded,CheckedIn,Favorited;
+@synthesize name,placeID,priceLevel,phoneNumber,coordinate,openNow,formattedAddress,website,AnnotationPointer,UserAdded,CheckedIn,Favorited,Rating,Rated;
 -(void)Initiate:(NSString*)name:(NSString*)placeID:(CLLocationCoordinate2D)coordinate:(NSArray<NSString*>*) types:(GMSPlacesOpenNowStatus)openNow:(NSString*)phoneNumber:(NSString*)formattedAddress:(float)rating: (GMSPlacesPriceLevel)priceLevel:(NSURL*)website{
     UserAdded=false;
     CheckedIn=false;
@@ -26,16 +26,16 @@
     self.openNow=openNow;
     self.phoneNumber=phoneNumber;
     self.formattedAddress=formattedAddress;
-    self.rating=rating;
     self.priceLevel=priceLevel;
     self.website=website;
+    self.Rated=false;
     Favorited=false;
     
 }
 
 - (void) initiateRating:(float)rating{
     if (UserAdded){
-        self.rating=0;
+        self.Rating=0;
     }
 }
 @end
