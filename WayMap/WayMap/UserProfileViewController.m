@@ -19,7 +19,7 @@
 
 @implementation UserProfileViewController
 
-@synthesize addedPlacesDict, favoritePlacesDict, testLabel;
+@synthesize /*addedPlacesDict, favoritePlacesDict, */testLabel, userAddedPlaces, favoritePlaces;
 
 -(void)configure:(NSString *)field {
     
@@ -35,10 +35,11 @@
         
         for (FIRDataSnapshot *addedPlace in snapshot.children){
             NSString *key = addedPlace.key;
-            addedPlacesDict = addedPlace.value;
+            NSDictionary *addedPlacesDict = addedPlace.value;
             [addedPlacesDict objectForKey:key];
             [self configure:[addedPlacesDict objectForKey:@"Name"]];
-            //[userAddedPlaces addObject:[addedPlacesDict objectForKey:@"Name"]];
+            [userAddedPlaces addObject:[addedPlacesDict objectForKey:@"Name"]];
+            
         }
         
     }];
@@ -47,10 +48,10 @@
         
         for (FIRDataSnapshot *favoritePlace in snapshot.children){
             NSString *key = favoritePlace.key;
-            favoritePlacesDict = favoritePlace.value;
+            NSDictionary *favoritePlacesDict = favoritePlace.value;
             [favoritePlacesDict objectForKey:key];
             [self configure:[favoritePlacesDict objectForKey:@"Name"]];
-            //[favoritePlaces addObject:[favoritePlacesDict objectForKey:@"Name"]];
+            [favoritePlaces addObject:[favoritePlacesDict objectForKey:@"Name"]];
         }
     }];
     
@@ -58,7 +59,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,21 +68,21 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
     if([segue.identifier isEqualToString:@"favoritesSegue"]){
         UserDataTableViewController *UDVC;
         UDVC = [segue destinationViewController];
-       // UDVC.userAddedPlaces = self.userAddedPlaces;
-        //UDVC.favoritePlaces = self.favoritePlaces;
+        UDVC.userAddedPlaces = self.userAddedPlaces;
+        UDVC.favoritePlaces = self.favoritePlaces;
         UDVC.favoritesHit = true;
         UDVC.userAddedHit = false;
+        
     }
     
     else if([segue.identifier isEqualToString:@"userAddedSegue"]){
         UserDataTableViewController *UDVC;
         UDVC = [segue destinationViewController];
-        //UDVC.userAddedPlaces = self.userAddedPlaces;
-        //UDVC.favoritePlaces = self.favoritePlaces;
+        UDVC.userAddedPlaces = self.userAddedPlaces;
+        UDVC.favoritePlaces = self.favoritePlaces;
         UDVC.favoritesHit = false;
         UDVC.userAddedHit = true;
     }

@@ -474,6 +474,7 @@ Boolean correct;
     [self.CheckedInPlaces removeAllObjects];
     [self.FavoritedPlaces removeAllObjects];
     [self.RatedPlaces removeAllObjects];
+    [self.UserAddedLocations removeAllObjects];
     self.ref = [[FIRDatabase database] reference];
     
     [[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
