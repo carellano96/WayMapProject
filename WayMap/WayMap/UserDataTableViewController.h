@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserDataTableViewController : UITableViewController 
+@interface UserDataTableViewController : UITableViewController <UITableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *userAddedPlaces;
 @property (strong, nonatomic) NSMutableArray *favoritePlaces;

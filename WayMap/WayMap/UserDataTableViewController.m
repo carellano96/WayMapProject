@@ -90,15 +90,15 @@
     return sectionName;
 }
 
-/*
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+-(NSIndexPath*)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     selectedPlace = [tableView cellForRowAtIndexPath:indexPath];
     placeName = selectedPlace.textLabel.text;
     //[self performSegueWithIdentifier:@"placesInfoSegue" sender:self];
-    
+    return indexPath;
 }
- */
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"placesInfoSegue"]){
