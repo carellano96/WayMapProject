@@ -10,6 +10,9 @@
 
 @interface LogInViewController : UIViewController <UITextFieldDelegate>
 
+/*
+ Set properties and IBOutlets for later use
+ */
 @property (strong, nonatomic) UIWindow *window;
 @property (weak, nonatomic) IBOutlet UILabel *ErrorLabel;
 @property (nonatomic) Boolean isSignIn;
