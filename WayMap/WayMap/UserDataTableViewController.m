@@ -14,18 +14,21 @@
 
 @end
 
-@implementation UserDataTableViewController{
-    NSArray *animals;
-}
+@implementation UserDataTableViewController
 
 @synthesize sectionTitle, favoritesHit, userAddedHit, selectedPlace, placeName, backBarButtonItem, userAddedPlaces, favoritePlaces, sectionName;
 
+/*
+ Set a navigation bar button item that will pop the current VC and go back to the User Profile VC if pressed
+ */
 - (void)viewDidLoad {
     [super viewDidLoad];
  
     self.navigationItem.leftBarButtonItem = backBarButtonItem;
 }
-
+/*
+ Method for above mentioned button
+ */
 - (void) backButtonPressed: (UIBarButtonItem *)sender{
     [[self navigationController] popViewControllerAnimated:YES];
 }
@@ -33,6 +36,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+/*
+ Check user's rated places against their checked in places and favorited places in order to preserve their ratings
+ */
+
 - (void)viewWillAppear:(BOOL)animated{
     AppDelegate* myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     for (GooglePlace* useraddedLocation in myDelegate.MyUserAddedLocations){
@@ -69,8 +77,10 @@
         }
     }
 }
-#pragma mark - Table view data source
 
+/*
+ Set number of rows and cells to 1 and the number of places the user has added or the places they have favorited, depending on which segue was performed from the last VC.
+ */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -89,7 +99,9 @@
     }
     return 0;
 }
-
+/*
+ Display above-mentioned arrays, one array-item per cell. Also set cells' accessory to Disclosure Indicator in order to let the user know that the cells can be clicked on
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
@@ -111,6 +123,9 @@
     return cell;
 }
 
+/*
+ Change title of the table depending on the segue that was last performed
+ */
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if(userAddedHit == true){
         sectionName = @"ADDED BY USER";
@@ -130,7 +145,9 @@
     return indexPath;
 }
 
-
+/*
+ Pass data of the selected cell (the place's name, address, type) into the Places Info VC.
+ */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"placesInfoSegue"]){
         
