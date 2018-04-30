@@ -40,6 +40,7 @@ Boolean correct;
 @synthesize MapView,userLocation,LocationsNearby,Annotations,SelectedPlace,MasterLocations,MasterAnnotations,RadiusLabel,RemoveAnnotations,RadiusSlider,UserAddedLocations,CheckedInPlaces,RadiusRemoveAnnotations,FavoritedPlaces,RatedPlaces;
 //view loads
 - (void)viewDidLoad {
+    //allocates memory to relevant arrays
     correct = false;
     CheckedInPlaces =[[NSMutableArray alloc]init];
     FavoritedPlaces = [[NSMutableArray alloc] init];
@@ -52,6 +53,7 @@ Boolean correct;
     RadiusRemoveAnnotations= [[NSMutableArray alloc ]init];
     UserAddedLocations = [[NSMutableArray alloc ]init];
     RatedPlaces=[[NSMutableArray alloc] init];
+    //sets radius sliders
     self.RadiusSlider.minimumValue=20;
     self.RadiusSlider.maximumValue=1000;
     self.tabBarController.delegate=self;
@@ -74,7 +76,7 @@ Boolean correct;
     self.MapView.delegate=self;
     self.MapView.showsUserLocation=YES;
     userLocation = [[CLLocation alloc] initWithLatitude:MapView.userLocation.location.coordinate.latitude longitude:MapView.userLocation.location.coordinate.longitude];
-
+    
     [MapView.self setUserTrackingMode:MGLUserTrackingModeFollow];
     [self mapView:MapView didSelectUserLocation:MapView.userLocation];
     [self.locationManager requestAlwaysAuthorization];
@@ -128,7 +130,9 @@ Boolean correct;
     //create a timer to continuosly update the polyline
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(tick) userInfo:nil repeats:YES];
 }
-
+- (void)viewWillDisappear:(BOOL)animated{
+    [self.locationManager stopUpdatingLocation];
+}
 - (void)tick {
 
     
@@ -140,7 +144,6 @@ Boolean correct;
 -(void) updatePolylineWithLocations:(NSArray<CLLocation*>*)locations{
     //create array of coordinates
     CLLocationCoordinate2D coordinates[locations.count];
-    NSLog(@"Update Poly Line with Locations %lu",(unsigned long) locations.count);
 //update coordinates
     for (NSUInteger i = 0; i < locations.count; i++) {
         coordinates[i] = locations[i].coordinate;
@@ -153,7 +156,6 @@ Boolean correct;
         self.polyline = [MGLPolylineFeature polylineWithCoordinates:coordinates count:locations.count-1];}
     //makes the shape of the layer the line
     self.polylineSource.shape=self.polyline;
-    NSLog(@"2Update Poly Line with Locations %lu",(unsigned long)[locations count]);;
 
 }
 
@@ -165,7 +167,6 @@ Boolean correct;
     //[self.LocationsNearby removeAllObjects];
     [self.RemoveAnnotations removeAllObjects];
 
-    NSLog(@"Updating %lu",(unsigned long)[locations count]);
     //locations array contains current user location, so we save that location in our own array
     NSLog(@"Main Location Updating %lu",(unsigned long)[self.locations count]);
     [self.locations addObject:locations.lastObject];
@@ -331,7 +332,6 @@ Boolean correct;
 }
 //If you tap on a purple dot, the label appears for the name of the place and sends the user to the view controller with the name of the place
 - (void) UpdateAnnotationsMethod:(CLLocation* )User{
-    
     NSMutableArray* LocationRemove = [[NSMutableArray alloc]init];
     for (GooglePlace* place in LocationsNearby){
         NSLog(@"Things in locations nearby location: %@",place.name);
@@ -353,6 +353,7 @@ Boolean correct;
         }
     }
 }
+//slider value changes which causes the annotations to change
 - (IBAction)sliderValueChanged:(id)sender {
     [self.locationManager stopUpdatingLocation];
     float Feet = (RadiusSlider.value)*3.28084;
@@ -387,6 +388,7 @@ Boolean correct;
     [self.MapView removeAnnotations:RadiusRemoveAnnotations];
     [self.locationManager startUpdatingLocation];
 }
+//updates all locations nearby based on the slider
 - (void) UpdateLocationsNearby:(CLLocation* )User{
     for (GooglePlace* place in LocationsNearby){
         CLLocation*current = [[CLLocation alloc]initWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude];
@@ -398,10 +400,11 @@ Boolean correct;
     }
     
 }
-
+//unwind segues
 - (IBAction)backToStart:(UIStoryboardSegue*) segue{
     NSLog(@"Returned!");
 }
+//unwind segue from the Add new Place
 - (IBAction)backToStartFromAdding:(UIStoryboardSegue*) segue{
     NSLog(@"Returned from adding!");
     AddNewPlaceViewController* placeView = [segue sourceViewController];
@@ -416,7 +419,7 @@ Boolean correct;
     }
     
 }
-
+//when the user taps on an annotation, then taps on callout, it takes user to Places Info View Controller
 -(void)mapView:(MGLMapView *)mapView tapOnCalloutForAnnotation:(id<MGLAnnotation>)annotation{
     NSLog(@"Looking");
     for (GooglePlace* location in LocationsNearby){
@@ -432,7 +435,7 @@ Boolean correct;
     }
     [self performSegueWithIdentifier:@"tapToLocation" sender:self];
 }
-
+//segue for the location information view controller
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"tapToLocation"]){
         PlacesInformationViewController* Info = [segue destinationViewController];
@@ -465,7 +468,7 @@ Boolean correct;
     MGLMapCamera *camera = [MGLMapCamera cameraLookingAtCenterCoordinate:MapView.userLocation.coordinate fromDistance:1000 pitch:0 heading:0];
     [MapView setCamera:camera animated:true];
 }
-
+//everytime the view appears, we update the locations, their ratings, user added locations, checked in places, retrieving data from firebase
 -(void) viewWillAppear:(BOOL)animated{
     self.hidesBottomBarWhenPushed = NO;
     myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -474,6 +477,7 @@ Boolean correct;
     [self.FavoritedPlaces removeAllObjects];
     [self.RatedPlaces removeAllObjects];
     [self.UserAddedLocations removeAllObjects];
+    [self.locationManager startUpdatingLocation];
     self.ref = [[FIRDatabase database] reference];
     
     [[[[_ref child:@"users"] child:user.uid] child:@"Places Visited"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
@@ -534,7 +538,7 @@ Boolean correct;
             [UserAddedLocations addObject:tempplace];
         }
     }];
-
+//puts data in the delegate view controller for later use
     myDelegate.CheckInLocations=CheckedInPlaces;
     myDelegate.FavoritedPlaces=FavoritedPlaces;
     myDelegate.LocationsNearby=LocationsNearby;
@@ -545,7 +549,7 @@ Boolean correct;
 
 
 }
-
+//sets image as either purple dot or blue dot, depending if its a user added location
 - (MGLAnnotationImage *)mapView:(MGLMapView *)mapView imageForAnnotation:(id <MGLAnnotation>)annotation {
     // Try to reuse the existing ‘pisa’ annotation image, if it exists.
     CustomAnnotation *currentanno = (CustomAnnotation*)annotation;
@@ -599,7 +603,7 @@ Boolean correct;
 }
 
 
-
+//if the user selects another tab view controller, it sends relevant information
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     NSLog(@"TYPE OF CONTROLLER:%@",NSStringFromClass([viewController class]));
     if ([viewController isKindOfClass:[UINavigationController class]]){

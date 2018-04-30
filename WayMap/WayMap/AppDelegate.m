@@ -31,7 +31,7 @@
     FIRUser *user = [FIRAuth auth].currentUser;
     self.RatedPlaces =[[NSMutableArray alloc]init];
     self.ref = [[FIRDatabase database] reference];
-    
+    //contains information that will be passed in various view controllers while the app is loaded
     [[[[_ref child:@"users"] child:user.uid] child:@"Places Added"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
         
         for (FIRDataSnapshot *AddedPlace in snapshot.children){
