@@ -31,11 +31,16 @@ MapBox Framework - Includes the Map and all relevant annotations on the map.
 Firebase - Stores User data, including favorited, checked in place and user added locations, onto firebase and loads data when user signs in.
 
 ******Main View Controllers******
-Login  &Register View Controllers - Logins or registers users using Firebase data./n
+Login  &Register View Controllers - Logins or registers users using Firebase data.
+
 MapView Controller - Updates location every 2 seconds, passing data into a local array which is sent to the App Delegate Controller for use by other View Controllers. Additionally, loads data from Firebase and places it in relevant parts of the app (updates all favorited, checked in, User Added Locations).
+
 TipsFirstTableViewController - Retrieves array of categories from the Map View Controller and sorts out data into categories. Segues into another view controller which shows relevant information, and shows the Place in the Places Info View Controller. Also contains Surprise Me feature which randomly chooses data.
+
 User Info - Retrieves Favorited and User Added Places locations from Firebase and adds data to a table view controller for the User to see.
+
 Add New Place View Controller - Allows user to add a new place, and stores data in Firebase.
+
 GooglePlace View Object - Custom object that takes Google Places API locations and stores them as local objects to pass around in the app.
 
 ********Source Code********
