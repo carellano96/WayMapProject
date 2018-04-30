@@ -182,6 +182,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    //sets buttons in info view controller based on if the button is pressed or not, location is user added or not, etc.
     if (SelectedPlace.UserAdded){
         
     if (!SelectedPlace.Rated){
@@ -281,6 +282,7 @@
     self.placeNameLabel.text=SelectedPlace.name;
     self.placeAddressLabel.text=SelectedPlace.formattedAddress;
     NSLog(@"Current view controller");
+    //hides labels based on relevant segue used
     if (![segueUsed isEqualToString:@"tapToLocation"]){
         self.ReturnMaps.hidden=true;
     }

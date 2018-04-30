@@ -30,7 +30,8 @@
     self.website=website;
     self.Rated=false;
     Favorited=false;
-    
+    //this contains all relevant and useful information for the Google Place, provided by Google Places API
+    // Information was passed from google into our own object type
 }
 
 - (void) initiateRating:(float)rating{
