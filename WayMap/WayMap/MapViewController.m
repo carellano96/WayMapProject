@@ -81,7 +81,7 @@ Boolean correct;
     
     // For use in foreground
     [self.locationManager requestWhenInUseAuthorization];
-    
+
 
     [self.locationManager startUpdatingLocation];
 
@@ -469,7 +469,6 @@ Boolean correct;
 -(void) viewWillAppear:(BOOL)animated{
     self.hidesBottomBarWhenPushed = NO;
     myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    LocationsNearby= myDelegate.LocationsNearby;
     FIRUser *user = [FIRAuth auth].currentUser;
     [self.CheckedInPlaces removeAllObjects];
     [self.FavoritedPlaces removeAllObjects];
@@ -540,6 +539,7 @@ Boolean correct;
     myDelegate.FavoritedPlaces=FavoritedPlaces;
     myDelegate.LocationsNearby=LocationsNearby;
     myDelegate.UserAddedLocations=UserAddedLocations;
+    myDelegate.RatedPlaces=RatedPlaces;
     self.tabBarController.delegate=self;
     [self.LocationsNearby removeAllObjects];
 

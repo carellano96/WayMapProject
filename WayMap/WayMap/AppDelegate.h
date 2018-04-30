@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@import Firebase;
+@import FirebaseDatabase;
+@import FirebaseAuth;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -16,6 +18,9 @@
 @property (strong) NSMutableArray*UserAddedLocations;
 @property (strong) NSMutableArray*FavoritedPlaces;
 @property (strong) NSMutableArray*MyUserAddedLocations;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+@property (strong) NSMutableArray*RatedPlaces;
+
 
 @end
 

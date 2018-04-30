@@ -33,7 +33,42 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    AppDelegate* myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    for (GooglePlace* useraddedLocation in myDelegate.MyUserAddedLocations){
+        for (GooglePlace* favs in myDelegate.FavoritedPlaces){
+            if ([useraddedLocation.placeID isEqualToString:favs.placeID]){
+                useraddedLocation.Favorited = true;
+            }
+        }
+        for (GooglePlace* checkedIn in myDelegate.CheckInLocations)
+        {
+            if ([useraddedLocation.placeID isEqualToString:checkedIn.placeID]){
+                useraddedLocation.CheckedIn = true;
+        }    }
+        for (GooglePlace* ratedPlaces in myDelegate.RatedPlaces){
+            if ([useraddedLocation.placeID isEqualToString:ratedPlaces.placeID]){
+                useraddedLocation.Rated=true;
+                useraddedLocation.Rating=ratedPlaces.Rating;
+            }
+        }
+        useraddedLocation.UserAdded=true;
+}
+    for (GooglePlace*FavPlaces in myDelegate.FavoritedPlaces){
+        FavPlaces.Favorited=true;
+        for (GooglePlace* checkedIn in myDelegate.CheckInLocations)
+        {
+            if ([FavPlaces.placeID isEqualToString:checkedIn.placeID]){
+                FavPlaces.CheckedIn = true;
+            }    }
+        for (GooglePlace* ratedPlaces in myDelegate.RatedPlaces){
+            if ([FavPlaces.placeID isEqualToString:ratedPlaces.placeID]){
+                FavPlaces.Rated=true;
+                FavPlaces.Rating=ratedPlaces.Rating;
+            }
+        }
+    }
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
