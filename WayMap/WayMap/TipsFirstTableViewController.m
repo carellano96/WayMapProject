@@ -113,7 +113,10 @@ NSString* SelectedIndexPath;
             }
         }
         index=0;
+        [self.tableView reloadData];
+
     }
+
     else{
         [self.tableView reloadData];
     }
