@@ -10,6 +10,9 @@
 
 @interface UserDataTableViewController : UITableViewController <UITableViewDelegate>
 
+/*
+ Properties and outlets for use in the implementation file
+ */
 @property (strong, nonatomic) NSMutableArray *userAddedPlaces;
 @property (strong, nonatomic) NSMutableArray *favoritePlaces;
 
