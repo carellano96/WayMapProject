@@ -23,14 +23,11 @@
     
     return self;
 }
+//allocates relevant memory
 - (void)viewDidLoad {
     [super viewDidLoad];
     userLocation=[[CLLocation alloc ]init];
-    // Uncomment the following line to presrve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -53,11 +50,11 @@
 }
 
 #pragma mark - Table view data source
-
+//shoes data to table
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
-
+//based on location name, retrieves relevant array that was passed
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([_LocationName isEqualToString:@"Food"]){
         return [Food count];
@@ -88,7 +85,7 @@ else if ([_LocationName isEqualToString:@"Other"]){
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SpecificLocation" forIndexPath:indexPath];
-    
+    //shows relevant cell that was passd
     if (cell==nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SpecificLocation"];
     }
@@ -136,7 +133,7 @@ else if ([_LocationName isEqualToString:@"Financial"]){
     
     return cell;
 }
-
+//if user clicks on cell, then the selected place will be segued into place info view controller
 - (NSIndexPath*)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"Checking food places:");
     for (GooglePlace* location in Food){
@@ -179,7 +176,7 @@ else if ([_LocationName isEqualToString:@"Financial"]){
 }
 
 #pragma mark - Navigation
-
+//segues to information view controller
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showPlace"]){
         PlacesInformationViewController *Place = [segue destinationViewController];
@@ -189,6 +186,7 @@ else if ([_LocationName isEqualToString:@"Financial"]){
         
         
     }
+    //segues random location to info view controller
     else if ([segue.identifier isEqualToString:@"SurpriseMe2"]){
         PlacesInformationViewController *Random=[segue destinationViewController];
         NSMutableArray*ChosenArray;
