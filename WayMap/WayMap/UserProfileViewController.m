@@ -29,6 +29,7 @@
 -(void) viewWillAppear:(BOOL)animated{
     [userAddedPlaces removeAllObjects];
     [favoritePlaces removeAllObjects];
+    self.tabBarController.delegate=self;
     FIRUser *user = [FIRAuth auth].currentUser;
     
     self.ref = [[FIRDatabase database] reference];
@@ -138,7 +139,24 @@
 
     
 }
-
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    if ([viewController isKindOfClass:[UINavigationController class]]){
+        UINavigationController*Tips1 = (UINavigationController*)viewController;
+        if ([Tips1.visibleViewController isKindOfClass:[TipsFirstTableViewController class]]){TipsFirstTableViewController*Tips=(TipsFirstTableViewController*)Tips1.visibleViewController;
+            //Tips.NearbyLocations=self.LocationsNearby;
+            //Tips.userLocation=self.userLocation;
+            Tips.index=1;
+            NSLog(@"Switching view controllers to TipsFirst");
+        }
+        else{
+            NSLog(@"Type of current view %@",NSStringFromClass([Tips1.visibleViewController class]));
+        }
+    }
+    else{
+        NSLog(@"very confused");
+    }
+    return YES;
+}
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
