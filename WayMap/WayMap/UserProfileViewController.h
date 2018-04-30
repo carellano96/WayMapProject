@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "GooglePlace.h"
-@interface UserProfileViewController : UIViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIAlertViewDelegate>
+#import "TipsFirstTableViewController.h"
+#import "TipsSecondTableViewController.h"
+@interface UserProfileViewController : UIViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UIAlertViewDelegate,UITabBarControllerDelegate,UITabBarDelegate>
 
 @property (strong, nonatomic) NSMutableArray *userAddedPlaces;
 @property (strong, nonatomic) NSMutableArray *favoritePlaces;
