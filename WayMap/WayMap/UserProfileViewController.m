@@ -27,7 +27,8 @@
     testLabel.text = field;
 }
 -(void) viewWillAppear:(BOOL)animated{
-    
+    [userAddedPlaces removeAllObjects];
+    [favoritePlaces removeAllObjects];
     FIRUser *user = [FIRAuth auth].currentUser;
     
     self.ref = [[FIRDatabase database] reference];
@@ -63,8 +64,6 @@
     userAddedPlaces = [[NSMutableArray alloc]init];
     favoritePlaces = [[NSMutableArray alloc]init];
     [super viewDidLoad];
-    userAddedPlaces = [[NSMutableArray alloc]init];
-    favoritePlaces = [[NSMutableArray alloc]init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -117,12 +116,12 @@
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         // camera button tapped.
-        UIImagePickerController*imagePicker =[[UIImagePickerController alloc ]init];
-        imagePicker.delegate = self;
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        }
-        [self presentViewController:imagePicker animated:YES completion:NULL];
+        UIImagePickerController*camera =[[UIImagePickerController alloc ]init];
+        camera.delegate = self;
+        camera.allowsEditing=YES;
+        camera.sourceType = UIImagePickerControllerSourceTypeCamera;
+        
+        [self presentViewController:camera animated:YES completion:NULL];
         
         
 
@@ -132,20 +131,16 @@
     
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    if (picker.sourceType==UIImagePickerControllerSourceTypePhotoLibrary){
-    _ProfilePicture.image=[info objectForKey:UIImagePickerControllerOriginalImage];
-    [self dismissViewControllerAnimated:YES completion:NULL];
-    }
-    else{
-        _ProfilePicture.image=[info objectForKey:UIImagePickerControllerOriginalImage];
+
+        self.ProfilePicture.image=[info objectForKey:UIImagePickerControllerEditedImage];
         [self dismissViewControllerAnimated:YES completion:NULL];
 
 
-    }
+    
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 
 

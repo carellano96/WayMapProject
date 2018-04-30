@@ -28,8 +28,37 @@
     LocationsNearby=[[NSMutableArray alloc]init];
     UserAddedLocations=[[NSMutableArray alloc]init];
     MyUserAddedLocations=[[NSMutableArray alloc]init];
-
+    FIRUser *user = [FIRAuth auth].currentUser;
+    self.RatedPlaces =[[NSMutableArray alloc]init];
+    self.ref = [[FIRDatabase database] reference];
+    
+    [[[[_ref child:@"users"] child:user.uid] child:@"Places Added"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
+        
+        for (FIRDataSnapshot *AddedPlace in snapshot.children){
+            NSString *key = AddedPlace.key;
+            NSDictionary *AddedPlacesDict = AddedPlace.value;
+            [AddedPlacesDict objectForKey:key];
+            GooglePlace *googletemp = [[GooglePlace alloc]init];
+            googletemp.name =[AddedPlacesDict objectForKey:@"Name"];
+            googletemp.formattedAddress=[AddedPlacesDict objectForKey:@"Address"];
+            googletemp.placeID=[AddedPlacesDict objectForKey:@"placeID"];
+            [MyUserAddedLocations addObject:googletemp];
+        }
+    }];
     FavoritedPlaces=[[NSMutableArray alloc] init];
+    [[[[_ref child:@"users"] child:user.uid] child:@"Favorite Places"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
+        
+        for (FIRDataSnapshot *FavePlace in snapshot.children){
+            NSString *key = FavePlace.key;
+            NSDictionary *FavePlacesDict = FavePlace.value;
+            [FavePlacesDict objectForKey:key];
+            GooglePlace *googletemp = [[GooglePlace alloc]init];
+            googletemp.name =[FavePlacesDict objectForKey:@"Name"];
+            googletemp.formattedAddress=[FavePlacesDict objectForKey:@"Address"];
+            googletemp.placeID=[FavePlacesDict objectForKey:@"placeID"];
+            [FavoritedPlaces addObject:googletemp];
+        }
+    }];
     return YES;
 }
 
