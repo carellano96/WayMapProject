@@ -2,7 +2,7 @@
 //  PlacesInformationViewController.h
 //  WayMap
 //
-//  Created by carlos arellano and jean jeon on 4/18/18.
+//  Created by Carlos Arellano and Jean Jeon on 4/18/18.
 //  Copyright © 2018 nyu.edu. All rights reserved.
 //
 

@@ -22,6 +22,10 @@
 @implementation PlacesInformationViewController
 @synthesize SelectedPlace,segueUsed,sourceArrayName,UserAddedTitle,CheckedInLocations, favoriteBtn, favoritedLabel, placeNameLabel, placeAddressLabel, OneStarFull, OneStarEmpty, TwoStarsFull, TwoStarsEmpty, ThreeStarsFull, ThreeStarsEmpty, FourStarsFull, FourStarsEmpty, FiveStarsFull, FiveStarsEmpty, userPlaceRating, fullStarsArray, emptyStarsArray, backBarButtonItem, buttonsArray, oneStarBtn, TwoStarsBtn, ThreeStarsBtn, FourStarsBtn, FiveStarsBtn, rateLabel;
 
+/*
+ Below methods allow for user-friendly interaction of the ratings buttons - if they press, for example, the third star, then all of the first three stars are filled in order to reflect their choice. If they press the third star again, then the star goes empty, but the first two stars before it remain filled in order to indicated that they wished to undo the third star. Likewise, all stars above the star they pressed become or remain empty. The user's rating of a place is then set to the number of whatever star they pressed.
+ */
+
 - (IBAction)oneStarBtnPressed:(UIButton *)sender {
     
     static int numberOfTimesPressed = 1;
@@ -127,9 +131,12 @@
     
     NSLog(@"pushing back to da maps");
 }
-- (IBAction)CheckIntoPlace:(id)sender {
-    //check in
 
+/*
+ If a user checks into a place, then the place's information is sent to the user's data as one of the user's visited places in Firebase.
+ */
+- (IBAction)CheckIntoPlace:(id)sender {
+    
     SelectedPlace.CheckedIn=true;
     _CheckInButton.hidden=true;
     _IsCheckedIn.hidden=false;
@@ -140,13 +147,20 @@
     [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
     
 }
+
+/*
+ Creates a separate node for the user that stores their rated places and the ratings of those places in Firebase.
+ */
 -(void)viewWillDisappear:(BOOL)animated{
     FIRUser *user = [FIRAuth auth].currentUser;
     _updateRef = [[[[self.ref child:@"users"] child:user.uid] child:@"Rated Places"] childByAutoId];
     [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
     [[_updateRef child:@"User's Place Rating"] setValue:userPlaceRating];
-    NSLog(@"Final rating is %@",userPlaceRating);
 }
+
+/*
+ Alloc and init arrays of the star-buttons for easier use
+ */
 -(void)viewDidLoad{
     
     self.navigationItem.leftBarButtonItem = backBarButtonItem;
