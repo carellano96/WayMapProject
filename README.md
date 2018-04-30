@@ -1,9 +1,11 @@
 ****************WAYMAP README****************
+
 Contributors:
 Carlos Arellano
 Jean Jeon
 
 **********Features**********
+
 WayMap is an app that uses GPS features to track a user’s most frequented areas, such as their route home to and from work. Using this data, WayMap will provide the user with suggestions of things to do, such as nearby events to attend, things to see, or places to go. The user will also be able to specify their interests so that WayMap will be able to provide them with further customized suggestions. Ultimately, WayMap’s goal is to help everyone explore a little more every day.
 
 - Tracks User Location
@@ -12,6 +14,7 @@ WayMap is an app that uses GPS features to track a user’s most frequented area
 - Allows Users to Favorite, Check In and Rate (Rating only available for User Added Locations).
 
 **********************Installation**********************
+
 1. Before running, ensure to install pod file using command line in the relevant podfile folder:
     $ pod install
     
@@ -31,6 +34,7 @@ MapBox Framework - Includes the Map and all relevant annotations on the map.
 Firebase - Stores User data, including favorited, checked in place and user added locations, onto firebase and loads data when user signs in.
 
 ******Main View Controllers******
+
 Login  &Register View Controllers - Logins or registers users using Firebase data.
 
 MapView Controller - Updates location every 2 seconds, passing data into a local array which is sent to the App Delegate Controller for use by other View Controllers. Additionally, loads data from Firebase and places it in relevant parts of the app (updates all favorited, checked in, User Added Locations).
