@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WayMap/TipsFirstTableViewController.h"
-            timestampString = "546227855.882833"
+            timestampString = "546748886.94223"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "41"
@@ -40,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WayMap/TipsFirstTableViewController.m"
-            timestampString = "546734828.123682"
+            timestampString = "546749936.5927269"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301">
+            startingLineNumber = "297"
+            endingLineNumber = "297">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -54,11 +54,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WayMap/TipsFirstTableViewController.m"
-            timestampString = "546734828.12379"
+            timestampString = "546749936.592803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300">
+            startingLineNumber = "297"
+            endingLineNumber = "297">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WayMap/TipsFirstTableViewController.m"
-            timestampString = "546734828.12387"
+            timestampString = "546749936.592878"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299">
+            startingLineNumber = "297"
+            endingLineNumber = "297">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -82,7 +82,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WayMap/MapViewController.m"
-            timestampString = "546747030.544283"
+            timestampString = "546749297.083156"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "130"
@@ -98,7 +98,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WayMap/MapViewController.m"
-            timestampString = "546747030.545794"
+            timestampString = "546749297.08321"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "144"
@@ -114,7 +114,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WayMap/MapViewController.m"
-            timestampString = "546747030.546844"
+            timestampString = "546749297.083256"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "137"
@@ -130,7 +130,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WayMap/MapViewController.m"
-            timestampString = "546747030.5476691"
+            timestampString = "546749297.0833009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
@@ -146,7 +146,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WayMap/MapViewController.m"
-            timestampString = "546747030.5487469"
+            timestampString = "546749297.0833451"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "154"
