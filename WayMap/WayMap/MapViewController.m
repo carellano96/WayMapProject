@@ -169,7 +169,19 @@ Boolean correct;
 
     //locations array contains current user location, so we save that location in our own array
     NSLog(@"Main Location Updating %lu",(unsigned long)[self.locations count]);
+    if (self.locations.count<=1){
+        [self.locations addObject:locations.lastObject];
+        myDelegate.UserLocation=locations.lastObject;
+    }
+    else if (self.locations.count>1){
+        CLLocation* PreviousLocation=self.locations[self.locations.count-2];
+        CLLocation* CurrentLocation= locations.lastObject;
+        CLLocationDistance distances =[CurrentLocation distanceFromLocation:PreviousLocation];
+        if (distances>(double)30){
     [self.locations addObject:locations.lastObject];
+        myDelegate.UserLocation=locations.lastObject;
+        }
+    }
 //then we animate the line
     [self animatePolyline];
     [self.placesClient currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {

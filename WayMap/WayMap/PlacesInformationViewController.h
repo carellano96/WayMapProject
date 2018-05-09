@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AppDelegate.h"
 #import "GooglePlace.h"
 @import Mapbox;
 @import MapKit;
@@ -22,11 +22,13 @@
 @property (strong)  NSString*segueUsed;
 @property (weak, nonatomic) IBOutlet UILabel *UserAddedTitle;
 @property (strong)  NSString*sourceArrayName;
+@property (weak, nonatomic) IBOutlet UILabel *DistanceFromUser;
 @property (strong) NSMutableArray*CheckedInLocations;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteBtn;
 @property (weak, nonatomic) IBOutlet UILabel *favoritedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *placeNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
+@property (weak, nonatomic) IBOutlet UIButton *placeAddressLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *rateLabel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *OneStarEmpty;
@@ -51,6 +53,7 @@
 @property (strong, nonatomic) NSArray *buttonsArray;
 @property (strong, nonatomic) NSArray *fullStarsArray;
 @property (strong, nonatomic) NSArray *emptyStarsArray;
+- (IBAction)PressAddressButton:(id)sender;
 
 @property(nonatomic, strong) UIBarButtonItem *backBarButtonItem;
 

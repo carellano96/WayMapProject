@@ -143,7 +143,7 @@
     FIRUser *user = [FIRAuth auth].currentUser;
     _updateRef = [[[[self.ref child:@"users"] child:user.uid] child:@"Places Visited"] childByAutoId];
     [[_updateRef child:@"Name"] setValue:placeNameLabel.text];
-    [[_updateRef child:@"Address"] setValue:placeAddressLabel.text];
+    [[_updateRef child:@"Address"] setValue:SelectedPlace.formattedAddress];
     [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
     
 }
@@ -184,7 +184,7 @@
     FIRUser *user = [FIRAuth auth].currentUser;
     _updateRef = [[[[self.ref child:@"users"] child:user.uid] child:@"Favorite Places"] childByAutoId];
     [[_updateRef child:@"Name"] setValue:placeNameLabel.text];
-    [[_updateRef child:@"Address"] setValue:placeAddressLabel.text];
+    [[_updateRef child:@"Address"] setValue:SelectedPlace.formattedAddress];
     [[_updateRef child:@"placeID"] setValue:SelectedPlace.placeID];
     [favoriteBtn setHidden:YES];
     [favoritedLabel setHidden:NO];
@@ -197,6 +197,12 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     //sets buttons in info view controller based on if the button is pressed or not, location is user added or not, etc.
+     AppDelegate* myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    CLLocation*UserLocation = myDelegate.UserLocation;
+    CLLocation*TemporarySelectedPlace = [[CLLocation alloc] initWithLatitude:SelectedPlace.coordinate.latitude longitude:SelectedPlace.coordinate.longitude];
+    CLLocationDistance distance = [UserLocation distanceFromLocation:TemporarySelectedPlace];
+    double DistanceInFeet = distance*3.28084;
+    _DistanceFromUser.text=[[NSString alloc]initWithFormat:@"%.1f ft. away",DistanceInFeet];
     if (SelectedPlace.UserAdded){
         
     if (!SelectedPlace.Rated){
@@ -292,9 +298,8 @@
     self.ReturnMaps.userInteractionEnabled=true;
     self.title=SelectedPlace.name;
     self.placeNameLabel.adjustsFontSizeToFitWidth=YES;
-    self.placeAddressLabel.adjustsFontSizeToFitWidth=YES;
     self.placeNameLabel.text=SelectedPlace.name;
-    self.placeAddressLabel.text=SelectedPlace.formattedAddress;
+    [self.placeAddressLabel setTitle:SelectedPlace.formattedAddress forState:UIControlStateNormal];
     NSLog(@"Current view controller");
     //hides labels based on relevant segue used
     if (![segueUsed isEqualToString:@"tapToLocation"]){
@@ -315,4 +320,12 @@
 }
 
 
+- (IBAction)PressAddressButton:(id)sender {
+    NSString* directionsURL = [NSString stringWithFormat:@"http://maps.apple.com/?q=%f,%f",self.SelectedPlace.coordinate.latitude, self.SelectedPlace.coordinate.longitude];
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: directionsURL] options:@{} completionHandler:^(BOOL success) {}];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: directionsURL]];
+    }
+}
 @end
