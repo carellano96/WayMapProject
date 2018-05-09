@@ -10,6 +10,7 @@
 @import Firebase;
 @import FirebaseDatabase;
 @import FirebaseAuth;
+@import MapKit;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -20,6 +21,7 @@
 @property (strong) NSMutableArray*MyUserAddedLocations;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (strong) NSMutableArray*RatedPlaces;
+@property (strong) CLLocation*UserLocation;
 
 
 @end
