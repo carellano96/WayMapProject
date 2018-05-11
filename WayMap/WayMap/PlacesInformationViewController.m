@@ -319,7 +319,7 @@
     [super didReceiveMemoryWarning];
 }
 
-
+//Takes the user to Apple Maps if they click on the address of the displayed place.
 - (IBAction)PressAddressButton:(id)sender {
     NSString* directionsURL = [NSString stringWithFormat:@"http://maps.apple.com/?q=%f,%f",self.SelectedPlace.coordinate.latitude, self.SelectedPlace.coordinate.longitude];
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]) {
