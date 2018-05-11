@@ -4,9 +4,11 @@ Contributors:
 Carlos Arellano
 Jean Jeon
 
-**********Features**********
+**********Summary**********
 
-WayMap is an app that uses GPS features to track a user’s most frequented areas, such as their route home to and from work. Using this data, WayMap will provide the user with suggestions of things to do, such as nearby events to attend, things to see, or places to go. The user will also be able to specify their interests so that WayMap will be able to provide them with further customized suggestions. Ultimately, WayMap’s goal is to help everyone explore a little more every day.
+WayMap is an app that uses GPS features to track a user’s most current area, and provide the user with highly localized suggestions of things to do based on this data. This includes nearby events to attend, landmarks to see, or places to go. The user will also be able to specify their interests so that WayMap will be able to provide them with further customized suggestions. Further, WayMap allows users to upload their own events and places to the app, facilitating the process of publicizing non-permanent events and establishments. This feature undergoes layers of vetting in order to ensure that whatever is displayed by WayMap is as quality as possible. Ultimately, WayMap’s goal is to help everyone explore a little more every day.
+
+**********Features**********
 
 - Tracks User Location
 - Shows Places nearby User based on User-selected radius
@@ -35,13 +37,15 @@ Firebase - Stores User data, including favorited, checked in place and user adde
 
 ******Main View Controllers******
 
-Login  &Register View Controllers - Logins or registers users using Firebase data.
+Login  & Register View Controllers - Logins or registers users by checking against user data stored in Firebase. Checks for errors thrown, such as the password not being long enough in case of registration, and password or email being incorrect in case of logging in.
 
 MapView Controller - Updates location every 2 seconds, passing data into a local array which is sent to the App Delegate Controller for use by other View Controllers. Additionally, loads data from Firebase and places it in relevant parts of the app (updates all favorited, checked in, User Added Locations).
 
 TipsFirstTableViewController - Retrieves array of categories from the Map View Controller and sorts out data into categories. Segues into another view controller which shows relevant information, and shows the Place in the Places Info View Controller. Also contains Surprise Me feature which randomly chooses data.
 
-User Info - Retrieves Favorited and User Added Places locations from Firebase and adds data to a table view controller for the User to see.
+PlacesInformationViewController - Displays the name and address of a given place, as well as how far away the user is from the location. Upon pressing on the place's address, the user is taken to Apple Maps, where they are given directions to the address. If the place being displayed is a user-added places, then the current user has the option to rate the user-added place based on their experience. The user also has the option to check into the place or favorite it. All data is retrieved from Firebase, and the rating data is pushed to Firebase.
+
+User Info - Retrieves Favorited and User Added Places locations from Firebase and adds data to a table view controller for the User to see. Also has an option for user to update their "profile" photo, in which case they can select an existing photo from their camera roll, or take one by using their phone's camera.
 
 Add New Place View Controller - Allows user to add a new place, and stores data in Firebase.
 

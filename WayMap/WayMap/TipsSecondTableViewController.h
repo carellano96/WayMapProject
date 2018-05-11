@@ -2,7 +2,7 @@
 //  TipsSecondTableViewController.h
 //  WayMap
 //
-//  Created by carlos arellano on 4/14/18.
+//  Created by Carlos Arellano and Jean Jeon on 4/14/18.
 //  Copyright © 2018 nyu.edu. All rights reserved.
 //
 
