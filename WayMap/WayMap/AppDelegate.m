@@ -20,10 +20,11 @@
 @end
 
 @implementation AppDelegate
-@synthesize CheckInLocations,LocationsNearby,UserAddedLocations,FavoritedPlaces,MyUserAddedLocations;
+@synthesize CheckInLocations,LocationsNearby,UserAddedLocations,FavoritedPlaces,MyUserAddedLocations,UserLocation;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [GMSPlacesClient provideAPIKey:@"AIzaSyD1r1DuPCcwMFH50vV6hOLK14PWiFqq8DE"];
     [FIRApp configure];
+    UserLocation=[[CLLocation alloc]init];
     CheckInLocations=[[NSMutableArray alloc]init];
     LocationsNearby=[[NSMutableArray alloc]init];
     UserAddedLocations=[[NSMutableArray alloc]init];
