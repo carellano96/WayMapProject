@@ -22,6 +22,8 @@ WayMap is an app that uses GPS features to track a user’s most current area, a
     
     (If you do not have Cocoapods install, please visit https://cocoapods.org/ for instructions on how to install the application).
     
+    **Ensure that the file being opened is WayMap.xcworkspace**
+    
 2.  App requires registration, so ensure that you register your app with an email and password.
 
 3. If running on Simulator, ensure that Debug>Location>None is changed to a valid location (e.g. Apple).
@@ -39,7 +41,7 @@ Firebase - Stores User data, including favorited, checked in place and user adde
 
 Login  & Register View Controllers - Logins or registers users by checking against user data stored in Firebase. Checks for errors thrown, such as the password not being long enough in case of registration, and password or email being incorrect in case of logging in.
 
-MapView Controller - Updates location every 2 seconds, passing data into a local array which is sent to the App Delegate Controller for use by other View Controllers. Additionally, loads data from Firebase and places it in relevant parts of the app (updates all favorited, checked in, User Added Locations).
+MapView Controller - Updates location every 2 seconds, passing data into a local array which is sent to the App Delegate Controller for use by other View Controllers. Additionally, loads data from Firebase and places it in relevant parts of the app (updates all favorited, checked in, User Added Locations). Note that user-added places show up as blue diamonds, whereas permanent establishments show up as pink dots.
 
 TipsFirstTableViewController - Retrieves array of categories from the Map View Controller and sorts out data into categories. Segues into another view controller which shows relevant information, and shows the Place in the Places Info View Controller. Also contains Surprise Me feature which randomly chooses data.
 
