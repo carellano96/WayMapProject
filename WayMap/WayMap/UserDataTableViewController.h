@@ -2,7 +2,7 @@
 //  UserDataTableViewController.h
 //  WayMap
 //
-//  Created by Jean Jeon on 4/25/18.
+//  Created by Jean Jeon and Carlos Arellano on 4/25/18.
 //  Copyright © 2018 nyu.edu. All rights reserved.
 //
 
