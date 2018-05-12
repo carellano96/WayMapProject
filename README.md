@@ -36,6 +36,7 @@ Google Places API - Uses Google's API to retrieve places nearby. Because we use 
 MapBox Framework - Includes the Map and all relevant annotations on the map.
 
 Firebase - Stores User data, including favorited, checked in place and user added locations, onto firebase and loads data when user signs in.
+
 ******Obstacles******
 
 - Learning Firebase, Google Places API and Mapbox in a short period of time was challenging.
